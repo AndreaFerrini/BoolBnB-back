@@ -4,6 +4,7 @@ namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules;
+use App\Models\User;
 
 class RegisteredUserRequest extends FormRequest
 {
@@ -36,15 +37,12 @@ class RegisteredUserRequest extends FormRequest
     public function attributes(): array
    {
        return [
-        'name' => 'il nome del progetto',
-        'description' => 'la descrizione del progetto',
-        'short_description' => 'la descrizione BREVE del progetto',
-        'image' => 'la foto del progetto',
-        'relase_date' => 'la data di creazione del progetto',
-        'type_id' => 'i programmi usati per il progetto',
-        'visbility' => 'la visibiltà del progetto',
-        'tags' => 'i tags',
-        'project_link' => 'il link del progetto'
+        
+        'email'=>'email',
+        'password' => 'password',
+        'name' => 'nome',
+        'surname' => 'cognome',
+        'birth' => 'data di nascita',
 
        ];
    }
