@@ -19,17 +19,17 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->float('longitude');
             $table->float('latitude');
-            $table->string('title');
-            $table->string('slug');
-            $table->string('address');
-            $table->string('city');
+            $table->string('title',100);
+            $table->string('slug',100);
+            $table->string('address',100);
+            $table->string('city',50);
             $table->text('cover_img');
             $table->text('description');
             $table->unsignedTinyInteger('number_of_rooms');
             $table->unsignedTinyInteger('number_of_bathrooms');
             $table->unsignedTinyInteger('square_meters')->nullable();
             $table->unsignedDecimal('price', 7,2 );
-            $table->boolean('visibility');
+            $table->boolean('visibility')->default(true);
             $table->timestamps();
         });
     }
