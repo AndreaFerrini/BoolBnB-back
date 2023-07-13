@@ -25,7 +25,7 @@
                             <label for="birth" class="col-md-4 col-form-label text-md-right">{{ __('Birth') }}</label>
 
                             <div class="col-md-6">
-                                <input id="birth" type="date" class="form-control @error('birth') is-invalid @enderror" name="birth" value="{{ old('birth') }}"autocomplete="birth" autofocus>
+                                <input id="birth" type="date" class="form-control @error('birth') is-invalid @enderror" name="birth" value="{{ old('birth') }}"autocomplete="birth" autofocus style="min-width: 150px">
 
                                 @error('name', 'surname', 'birth')
                                 <span class="invalid-feedback" role="alert">
