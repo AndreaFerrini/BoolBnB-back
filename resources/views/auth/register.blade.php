@@ -27,11 +27,11 @@
                             <div class="col-md-6">
                                 <input id="birth" type="date" class="form-control @error('birth') is-invalid @enderror" name="birth" value="{{ old('birth') }}"autocomplete="birth" autofocus style="min-width: 150px">
 
-                                @error('name', 'surname', 'birth')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                {{-- @error('birth')
+                                    <span class="alert alert-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror --}}
                             </div>
                         </div>
 
