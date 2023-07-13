@@ -9,6 +9,7 @@
 <body>
     
     <h1>CREATE</h1>
+
     <form action="{{route('admin.apartments.store')}}" method="POST" enctype="multipart/form-data">
         @method('POST')
         @csrf
@@ -23,13 +24,14 @@
             @enderror
         </div>
         
-        {{-- <div class="mb-3 form-group">
-            <label for="project-image" class="form-label">Scegli una immagine</label>
-            <input type="file" class="form-control" name="image" id="project-image" placeholder="project-image" aria-describedby="fileHelpId">
-            @error('image')
+        {{-- IMMAGINE --}}
+        <div class="mb-3 form-group">
+            <label for="apartments-cover_img" class="form-label">Scegli una immagine</label>
+            <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="image" aria-describedby="fileHelpId">
+            @error('cover_img')
                 <span style="color: red; text-transform: uppercase">{{$message}}</span>
             @enderror
-        </div> --}}
+        </div>
 
         {{-- DESCRIZIONE --}}
         <div class="form-group">

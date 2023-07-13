@@ -7,6 +7,8 @@ use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ApartmentController extends Controller
 {
@@ -45,7 +47,16 @@ class ApartmentController extends Controller
     public function store(Request $request)
     {
         $indirizzo = $request->address . ' ' . $request->address_number . ' ' . $request->postal_code . ' ' . $request->city;
-        dd($indirizzo);
+        $path = Storage::disk('public')->put('cover_img', $request->cover_img);
+        $slug = Str::slug($request->title);
+        $user_id = Auth::user()->id;
+        
+        $request['cover_img'] = $path;
+        $request['user_id'] = $user_id;
+        $request['slug'] = $slug;
+        $request['address'] = $indirizzo;
+
+        dd($request);
     }
 
     /**
