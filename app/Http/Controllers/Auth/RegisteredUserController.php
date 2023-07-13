@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth; 
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -13,8 +12,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Http\Requests\Auth\RegisteredUserRequest;
+use App\Models\User;
 
-require_once __DIR__ . '../../../../../config/Data_For_Seeding/bnb_api_client_functions.php';
+
 
 class RegisteredUserController extends Controller
 {
@@ -33,7 +33,6 @@ class RegisteredUserController extends Controller
      */
     public function store(RegisteredUserRequest $request): RedirectResponse
     {
-        dd(get_coordinates("Hotel Ottagono", "Andria"));
         $request->validated();
         // dd($request);
         $user = User::create([
