@@ -44,7 +44,8 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $indirizzo = $request->address . ' ' . $request->address_number . ' ' . $request->postal_code . ' ' . $request->city;
+        dd($indirizzo);
     }
 
     /**
