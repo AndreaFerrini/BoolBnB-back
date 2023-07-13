@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
 {
@@ -14,7 +16,11 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::user()->id;
+        // dd(User::findOrFail($user_id));
+        // dd($user->apartments();
+        $apartments = Apartment::where('user_id', $user_id)->get();
+        return view('dashboard', compact('apartments'));
     }
 
     /**

@@ -22,5 +22,12 @@
             </div>
         </div>
     </div>
+    <div>
+        <a href="{{route('admin.apartments.index')}}">ciao</a>
+        @foreach ($apartments as $apartment)
+            <span>{{$apartment->id}}</span>
+            <span>{{$apartment->title}}</span>
+        @endforeach
+    </div>
 </div>
 @endsection
