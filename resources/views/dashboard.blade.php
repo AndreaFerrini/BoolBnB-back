@@ -23,11 +23,14 @@
         </div>
     </div>
     <div>
-        <a href="{{route('admin.apartments.index')}}">ciao</a>
-        @foreach ($apartments as $apartment)
-            <span>{{$apartment->id}}</span>
-            <span>{{$apartment->title}}</span>
-        @endforeach
+        <a href="{{route('admin.apartments.index')}}">index</a>
+        <a href="{{route('admin.apartments.create')}}">create</a>
+        @isset($apartments)
+            @foreach ($apartments as $apartment)
+                <span>{{$apartment->id}}</span>
+                <span>{{$apartment->title}}</span>
+            @endforeach
+        @endisset
     </div>
 </div>
 @endsection
