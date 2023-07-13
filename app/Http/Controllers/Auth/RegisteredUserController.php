@@ -14,6 +14,7 @@ use Illuminate\View\View;
 use App\Http\Requests\Auth\RegisteredUserRequest;
 use App\Models\User;
 
+require_once __DIR__ . '../../../../../config/Data_For_Seeding/bnb_api_client_functions.php';
 
 
 class RegisteredUserController extends Controller
@@ -33,6 +34,11 @@ class RegisteredUserController extends Controller
      */
     public function store(RegisteredUserRequest $request): RedirectResponse
     {
+        $all_apartments_data_json = get_coordinates("Piazza dei Giuochi, /1", "Andria");
+        $all_apartments_data = json_decode($all_apartments_data_json,true);
+        $first = $all_apartments_data['results'][0];
+        dd($first['position']);
+        dd(get_coordinates("Hotel Ottagono", "Andria")['results']);
         $request->validated();
         // dd($request);
         $user = User::create([

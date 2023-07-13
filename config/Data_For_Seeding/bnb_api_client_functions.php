@@ -12,7 +12,7 @@
         if (isset($address) && $address !== "" && isset($city) && $city !== "")
         {
             $client_call = new GuzzleHttp\Client(['verify' => false]);
-            $end_point = $address . "" . $city . ".json?key=" . $api_key;
+            $end_point = $address . " " . $city . ".json?key=" . $api_key;
             $whole_url = base_url . $end_point;
             $response = $client_call->get($whole_url);
             return $response->getBody()->getContents();
