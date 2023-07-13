@@ -14,6 +14,8 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Http\Requests\Auth\RegisteredUserRequest;
 
+require_once __DIR__ . '../../../../../config/Data_For_Seeding/bnb_api_client_functions.php';
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -31,7 +33,7 @@ class RegisteredUserController extends Controller
      */
     public function store(RegisteredUserRequest $request): RedirectResponse
     {
-
+        dd(get_coordinates("Hotel Ottagono", "Andria"));
         $request->validated();
         // dd($request);
         $user = User::create([
