@@ -107,7 +107,7 @@
         <div class="form-group">
             <label for="apartments-square_meters" class="form-label text-white-50">Metri quadrati</label>
             <input type="number" required max="1000" min="1"  id="apartments-square_meters" class="form-control"
-            placeholder="35010" name="square_meters" value="{{ old('square_meters')}}" pattern="[0-9]+">
+            placeholder="50" name="square_meters" value="{{ old('square_meters')}}" pattern="[0-9]+">
             @error('square_meters')
                 <span style="color: red; text-transform: uppercase">{{$message}}</span>
             @enderror
@@ -116,8 +116,8 @@
         {{-- PREZZO --}}
         <div class="form-group">
             <label for="apartments-price" class="form-label text-white-50">Prezzo</label>
-            <input type="number" required max="1000" min="1"  id="apartments-price" class="form-control"
-            placeholder="35010" name="price" value="{{ old('price')}}" step="0.01" pattern="\d+(\.\d{1,2})?">
+            <input type="number" required max="99999" min="1"  id="apartments-price" class="form-control"
+            placeholder="499,99" name="price" value="{{ old('price')}}" step="0.01" pattern="\d+(\.\d{1,2})?">
             @error('price')
                 <span style="color: red; text-transform: uppercase">{{$message}}</span>
             @enderror
