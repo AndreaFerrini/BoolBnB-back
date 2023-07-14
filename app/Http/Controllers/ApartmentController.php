@@ -113,9 +113,11 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Apartment $apartment)
+        public function edit(Apartment $apartment)
     {
-        //
+        $services = Service::all();
+        $cities = config('data_storage.cities.cities');
+        return view('pages.ura.edit', compact('services', 'cities', 'apartment'));
     }
 
     /**
