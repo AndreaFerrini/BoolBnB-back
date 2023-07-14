@@ -49,7 +49,7 @@ class ApartmentsTableSeeder extends Seeder
             $new_apartment->number_of_rooms = mt_rand(1,4);
             $new_apartment->number_of_bathrooms = mt_rand(1,4);
             $new_apartment->square_meters = mt_rand(15,40);
-            $new_apartment->price = mt_rand(1000, 990000) / 100;
+            $new_apartment->price = mt_rand(1000, 99000) / 100;
             $new_apartment->save();
         }
     }
