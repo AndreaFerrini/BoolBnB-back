@@ -13,8 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('apartment_sponsor', function (Blueprint $table) {
-            $table->id();
+        Schema::create('apartment_sponsor', function (Blueprint $table) 
+        {
+            $table->unsignedBigInteger('apartment_id');
+            $table->foreign('apartment_id')->references('id')->on('apartments')->cascadeOnDelete();
+            $table->unsignedBigInteger('sponsor_id');
+            $table->foreign('sponsor_id')->references('id')->on('sponsors')->cascadeOnDelete();
+            // La caratteristica "nullable" per "expire_at" torna utile quando si vuole assegnare al record l'attributo "expired (scaduto)"
+            $table->timestamp('expire_at')->nullable();
+            $table->primary(['apartment_id', 'sponsor_id']);
             $table->timestamps();
         });
     }
