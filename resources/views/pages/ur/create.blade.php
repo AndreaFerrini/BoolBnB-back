@@ -66,7 +66,7 @@
         {{-- CITTA' --}}
         <div class="form-group">
             <select name="city" id="apartments-city" required>
-                <option selected>Scegli una città</option>
+                <option disabled selected>Scegli una città</option>
                 @foreach ($cities as $city)
                     <option>{{$city}}</option>
                 @endforeach
@@ -76,7 +76,7 @@
         {{-- CODICE POSTALE --}}
         <div class="form-group">
             <label for="apartments-postal_code" class="form-label text-white-50">Codice postale</label>
-            <input type="number" required max="99999" min="00001"  id="apartments-postal_code" class="form-control"
+            <input type="text" required max="5" min="5"  id="apartments-postal_code" class="form-control"
             placeholder="35010" name="postal_code" value="{{ old('postal_code')}}" pattern="[0-9]+">
             @error('postal_code')
                 <span style="color: red; text-transform: uppercase">{{$message}}</span>
@@ -120,6 +120,21 @@
             placeholder="499,99" name="price" value="{{ old('price')}}" step="0.01" pattern="\d+(\.\d{1,2})?">
             @error('price')
                 <span style="color: red; text-transform: uppercase">{{$message}}</span>
+            @enderror
+        </div>
+
+
+        {{-- PREZZO --}}
+        <div class="form-group">
+            @foreach ($services as $service)
+            <div class="form-check">
+                <label for="servicies-checkbox-{{$service->id}}" class="form-label text-white-50">{{$service->name}}</label>
+                <input class="form-check-input" type="checkbox" name="services[]" value="{{$service->id}}" id="project-checkbox-{{$service->id}}"
+                @if(old('services') && in_array($service->id, old('services'))) checked @endif>
+            </div>           
+            @endforeach
+            @error('services')
+            <span style="color: red; text-transform: uppercase">{{$message}}</span>
             @enderror
         </div>
 
