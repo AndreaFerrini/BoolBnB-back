@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreign('sponsor_id')->references('id')->on('sponsors')->cascadeOnDelete();
             // La caratteristica "nullable" per "expire_at" torna utile quando si vuole assegnare al record l'attributo "expired (scaduto)"
             $table->timestamp('expire_at')->nullable();
-            $table->primary(['apartment_id', 'sponsor_id']);
             $table->timestamps();
         });
     }

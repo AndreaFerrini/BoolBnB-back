@@ -34,7 +34,7 @@ class ApartmentsTableSeeder extends Seeder
             if (!isset($decoded_response['results'][0]))
                 continue;
             else
-                $first_result = $decoded_response['results'][0];
+            $first_result = $decoded_response['results'][0];
             $id_index = mt_rand(0, count($users_ids_array) - 1);
             $new_apartment = new Apartment();
             $new_apartment->user_id = $users_ids_array[$id_index];
