@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use App\Http\Requests\ApartmentsCreateRequest;
+
 class ApartmentController extends Controller
 {
     /**
@@ -44,19 +46,26 @@ class ApartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ApartmentsCreateRequest $request)
     {
-        $indirizzo = $request->address . ' ' . $request->address_number . ' ' . $request->postal_code . ' ' . $request->city;
-        $path = Storage::disk('public')->put('cover_img', $request->cover_img);
-        $slug = Str::slug($request->title);
+        dd($request);
+        $form_data = $request->validated();
+
+
+        $indirizzo = $form_data['address'] . ' ' . $form_data['address_number'] . ' ' . $form_data['postal_code'];
+        $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
+        $slug = Str::slug($form_data['title']);
         $user_id = Auth::user()->id;
         
-        $request['cover_img'] = $path;
-        $request['user_id'] = $user_id;
-        $request['slug'] = $slug;
-        $request['address'] = $indirizzo;
+        $form_data['cover_img'] = $path;
+        $form_data['user_id'] = $user_id;
+        $form_data['slug'] = $slug;
+        $form_data['address'] = $indirizzo;
 
-        dd($request);
+        // $request->services()->attach($request->services);
+
+        // $cap = (explode(' ',$form_data['address']));
+        // dd(end($cap), $cap[count($cap) - 2]);
     }
 
     /**
