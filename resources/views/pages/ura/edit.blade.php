@@ -41,8 +41,8 @@
                     {{-- INDIRIZZO --}}
                     <div class="form-group">
                         @php
-                            $addressArray = explode(',', $apartment->address);
-                            $indirizzo = implode(',', array_slice($addressArray, 0, -1));
+                            $addressArray1 = explode(' ', $apartment->address);
+                            $indirizzo = implode(' ', array_slice($addressArray1, 0, -2));
                         @endphp
                         <label for="apartments-address" class="form-label text-white-50">Indirizzo</label>
                         <input type="text" required max="255"  id="apartments-address" class="form-control"
@@ -56,8 +56,8 @@
                     <div class="form-group">
                         <label for="apartments-address_number" class="form-label text-white-50">Numero civico</label>
                         @php
-                            $addressArray = explode(' ', $apartment->address);
-                            $numerocivico = $addressArray[count($addressArray) - 2];
+                            $addressArray2 = explode(' ', $apartment->address);
+                            $numerocivico = $addressArray2[count($addressArray2) - 2];
                         @endphp
                         <input type="text" required max="9999" min="0001"  id="apartments-address_number" class="form-control"
                         placeholder="5/B" name="address_number" value="{{ old('address_number') ?? $numerocivico }}" pattern="[0-9a-zA-Z]+">
@@ -79,8 +79,8 @@
                     {{-- CODICE POSTALE --}}
                     <div class="form-group">
                     @php
-                        $addressArray = explode(' ', $apartment->address);
-                        $oldcap = end($addressArray);
+                        $addressArray3 = explode(' ', $apartment->address);
+                        $oldcap = end($addressArray3);
                     @endphp
                         <label for="apartments-postal_code" class="form-label text-white-50">Codice postale</label>
                         <input type="text" required max="5" min="5"  id="apartments-postal_code" class="form-control"
