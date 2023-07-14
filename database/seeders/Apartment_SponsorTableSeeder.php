@@ -9,7 +9,7 @@ use App\Models\Sponsor as Sponsor;
 
 class Apartment_SponsorTableSeeder extends Seeder
 {
-    protected   $max_sponsors_seeding_side  = 3; 
+    protected   $max_sponsors_seeding_side  = 10; 
     /**
      * Run the database seeds.
      *
@@ -38,16 +38,19 @@ class Apartment_SponsorTableSeeder extends Seeder
                 else
                 {
                     $counter++;
-                    $expire_date = null;
+                    $sponsor = Sponsor::find($all_sponsors_ids[$with_sponsor - 1]);
                     $is_expired = (bool) mt_rand(0,1);
                     if (!$is_expired)
                     {
-                        $sponsor = Sponsor::find($all_sponsors_ids[$with_sponsor - 1]);
-                        $now = \Carbon\Carbon::now();
-                        $expire_date = $now->addHours($sponsor->period);
+                        $expire_date = \Carbon\Carbon::now()->addHours($sponsor->period)->toDateTimeString();
+                        $data = ['expire_at' => $expire_date];
+                        $apartment->sponsors()->syncWithoutDetaching([$sponsor->id => $data]);
                         $exit_loop = true;
                     }
-                    $apartment->sponsors()->syncWithoutDetaching([$sponsor->id], ['expire_at' => $expire_date]);
+                    else
+                    {
+                        $apartment->sponsors()->syncWithoutDetaching([$sponsor->id => ['expire_at' => null]]);
+                    }
                 }
             }
             while (!$exit_loop && ($counter < $this->max_sponsors_seeding_side));
