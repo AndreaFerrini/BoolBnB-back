@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Apartment as Apartment;
 use App\Models\Service as Service;
 
-class Apartment_ServiceTableseeder extends Seeder
+class Apartment_ServiceTableSeeder extends Seeder
 {
     // Numero minimo di servizi da attribuire a ciascun appartamento
     protected   $min_services_amount = 5;
