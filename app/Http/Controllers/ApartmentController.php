@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Config\Data_for_seeding\Bnb_api_client_functions;
 
 use App\Http\Requests\ApartmentsCreateRequest;
 
-include_once __DIR__ . '..\..\config\Data_For_Seeding\bnb_api_client_functions.php';
+// require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_api_client_functions.php';
 
 class ApartmentController extends Controller
 {
@@ -50,27 +51,46 @@ class ApartmentController extends Controller
      */
     public function store(ApartmentsCreateRequest $request)
     {
-        // dd($request);
+        // validazione
         $form_data = $request->validated();
-
-
+      
+        // inizializzazione: indirizzo composto, path img, slug, user id, latitudine, longitudine
         $indirizzo = $form_data['address'] . ' ' . $form_data['address_number'] . ' ' . $form_data['postal_code'];
         $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
         $slug = Str::slug($form_data['title']);
         $user_id = Auth::user()->id;
-        $tomtomResponse = get_coordinates($indirizzo, $form_data['city']);
+        $tomtomResponseJson = get_coordinates($indirizzo, $form_data['city']);
+        $tomtomResponseDecoded = json_decode($tomtomResponseJson, true);
+        $lat = $tomtomResponseDecoded['results'][0]['position']['lat'];
+        $long = $tomtomResponseDecoded['results'][0]['position']['lon'];
         
+        // riempimento form data
         $form_data['cover_img'] = $path;
         $form_data['user_id'] = $user_id;
         $form_data['slug'] = $slug;
         $form_data['address'] = $indirizzo;
+        $form_data['longitude'] = $long;
+        $form_data['latitude'] = $lat;
+
+
+
+        // inizializzazione nuovo appartamento
+        $new_apartment = new Apartment();
+
+        // compilazione entry e salvataggio
+        $new_apartment->fill($form_data);
+        $new_apartment->save();
+
+        // dd($new_apartment);
+        
+        $new_apartment->services()->attach( $form_data['services'] );
 
         // $request->services()->attach($request->services);
 
         // $cap = (explode(' ',$form_data['address']));
         // dd(end($cap), $cap[count($cap) - 2]);
-        dd($form_data);
 
+        return view('dashboard');
     }
 
     /**
