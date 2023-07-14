@@ -9,6 +9,7 @@ use App\Models\Sponsor as Sponsor;
 
 class Apartment_SponsorTableSeeder extends Seeder
 {
+    protected   $max_sponsors_seeding_side  = 10; 
     /**
      * Run the database seeds.
      *
