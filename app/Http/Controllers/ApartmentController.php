@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 
 use App\Http\Requests\ApartmentsCreateRequest;
 
+include_once __DIR__ . '..\..\config\Data_For_Seeding\bnb_api_client_functions.php';
+
 class ApartmentController extends Controller
 {
     /**
@@ -48,7 +50,7 @@ class ApartmentController extends Controller
      */
     public function store(ApartmentsCreateRequest $request)
     {
-        dd($request);
+        // dd($request);
         $form_data = $request->validated();
 
 
@@ -56,6 +58,7 @@ class ApartmentController extends Controller
         $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
         $slug = Str::slug($form_data['title']);
         $user_id = Auth::user()->id;
+        $tomtomResponse = get_coordinates($indirizzo, $form_data['city']);
         
         $form_data['cover_img'] = $path;
         $form_data['user_id'] = $user_id;
@@ -66,6 +69,8 @@ class ApartmentController extends Controller
 
         // $cap = (explode(' ',$form_data['address']));
         // dd(end($cap), $cap[count($cap) - 2]);
+        dd($form_data);
+
     }
 
     /**
