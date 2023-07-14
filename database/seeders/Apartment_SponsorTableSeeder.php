@@ -24,6 +24,10 @@ class Apartment_SponsorTableSeeder extends Seeder
         // Un appartamento, laddove abbia più sponsorizzazioni, può averne solo una (l'ultima) che sia valida; tutte le altre devono necessariamente essere scadute.
         // Quando una sponsorizzazione scade, il suo campo "expire_at" diventa "null"
         $all_apartments = Apartment::All();
-        $all_sponsors
+        
+        foreach ($all_apartments as $apartment)
+        {
+
+        }
     }
 }
