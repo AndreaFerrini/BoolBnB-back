@@ -23,7 +23,6 @@ Route::get('/', function () {
 
 Route::middleware('auth')->prefix("admin")->name('admin.')->group(function () {
 
-    Route::get('/', [AdminController::class, "index"])->name('dashboard');
     Route::resource('/apartments',ApartmentController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

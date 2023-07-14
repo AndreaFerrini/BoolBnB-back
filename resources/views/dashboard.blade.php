@@ -59,6 +59,7 @@
 
         @endif
     </div>
+    <a href="{{route('admin.apartments.index')}}">prova</a>
 </div>
 
 <script>

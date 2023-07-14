@@ -90,7 +90,10 @@ class ApartmentController extends Controller
         // $cap = (explode(' ',$form_data['address']));
         // dd(end($cap), $cap[count($cap) - 2]);
 
-        return view('dashboard');
+        $user_id = Auth::user()->id;
+        $apartments = Apartment::where('user_id', $user_id)->get();
+        
+        return view('dashboard', compact('apartments'));
     }
 
     /**
