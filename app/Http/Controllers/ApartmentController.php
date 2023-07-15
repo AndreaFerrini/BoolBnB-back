@@ -130,10 +130,17 @@ class ApartmentController extends Controller
     public function update(Request $request, Apartment $apartment)
     {
        
+        
 
         $form_data = $request->toArray();
 
-        
+        if( $request->hasFile('cover_img') ){        
+            if( $apartment->image ){
+                Storage::delete($apartment->image);
+            }
+            $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
+            $form_data['cover_img'] = $path;
+        }  
 
         $indirizzo = $form_data['address'] . ' ' . str_replace(' ', '', $form_data['address_number']) . ' ' . $form_data['postal_code'];
    
@@ -151,7 +158,7 @@ class ApartmentController extends Controller
         $form_data['longitude'] = $long;
         $form_data['latitude'] = $lat;
 
-
+        dd($form_data);
         $apartment->update($form_data);
 
 
