@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User as User;
 use App\Models\Apartment as Apartment;
 use Illuminate\Support\Str;
+use Faker\Generator as Faker;
 
 require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_api_client_functions.php';
 require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_database_for_seeding.php';
@@ -20,7 +21,7 @@ class ApartmentsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         $all_users = User::all();
         $users_ids_array = [];
@@ -47,7 +48,7 @@ class ApartmentsTableSeeder extends Seeder
             $new_apartment->address = $apartment_data['address'] . " " . $apartment_data['zipcode'];
             $new_apartment->city = $apartment_data['city'];
             $new_apartment->cover_img = 'https://www.shutterstock.com/image-vector/no-image-available-vector-illustration-260nw-744886198.jpg';
-            $new_apartment->description = "e industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book";
+            $new_apartment->description = $faker->paragraph($nbSentences = 4, $variableNbSentences = true);
             $new_apartment->number_of_rooms = mt_rand(1,4);
             $new_apartment->number_of_bathrooms = mt_rand(1,4);
             $new_apartment->square_meters = mt_rand(15,40);
