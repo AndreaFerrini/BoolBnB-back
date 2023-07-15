@@ -23,3 +23,12 @@
             $error_message = "Dati insufficienti";
         }
     }
+
+    function add_hours_to_date(int $hours, bool $plus)
+    {
+        date_default_timezone_set('Europe/Rome');
+        $str = "+";
+        if (!$plus)
+            $str = "-";
+        return date('Y-m-d H:i:s', strtotime($str . strval($hours) . " hours"));
+    }
