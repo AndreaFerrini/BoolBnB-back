@@ -51,8 +51,7 @@
              if (Str::startsWith($lowercase_filename, "id{$str_id}_"))
                 $result_array[] = $storage_folder . "/" . $filename;
         }
-        if (count($result_array) == 0)
-            return false;
-        else 
-            return $result_array;
+        if (count($result_array) > 1)
+            sort($result_array);
+        return $result_array;
     }

@@ -13,6 +13,8 @@ require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_database_for_seedin
 
 class ApartmentsTableSeeder extends Seeder
 {
+
+    private $storage_folder = "images_for_seeder";
     /**
      * Run the database seeds.
      *
@@ -44,13 +46,16 @@ class ApartmentsTableSeeder extends Seeder
             $new_apartment->slug = Str::slug($new_apartment->title);
             $new_apartment->address = $apartment_data['address'] . " " . $apartment_data['zipcode'];
             $new_apartment->city = $apartment_data['city'];
-            $new_apartment->cover_img = 'https://picsum.photos/id/237/200/300';
+            $new_apartment->cover_img = 'https://www.shutterstock.com/image-vector/no-image-available-vector-illustration-260nw-744886198.jpg';
             $new_apartment->description = "e industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book";
             $new_apartment->number_of_rooms = mt_rand(1,4);
             $new_apartment->number_of_bathrooms = mt_rand(1,4);
             $new_apartment->square_meters = mt_rand(15,40);
             $new_apartment->price = mt_rand(1000, 99000) / 100;
             $new_apartment->save();
+            $images = pictures_from_storage($this->storage_folder, $new_apartment->id);
+            if (count($images) !== 0)
+                $new_apartment->update(['cover_img' => $images[0]]);
         }
     }
 }
