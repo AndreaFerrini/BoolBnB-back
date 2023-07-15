@@ -36,3 +36,8 @@
             $date_argument = time();
         return date('Y-m-d H:i:s', $date_argument);
     }
+
+    function pictures_from_storage($apartment_id)
+    {
+        
+    }
