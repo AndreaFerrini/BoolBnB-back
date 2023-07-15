@@ -49,7 +49,7 @@
                                 @endforeach
                             </div>
 
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary">Modifica</a>
                           </div>
                     </div>
                 </div>
