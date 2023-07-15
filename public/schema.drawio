@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-07-14T03:02:36.891Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" version="21.6.2" etag="9h0_AB_xpnNQ7MPW2DKY" type="device">
+<mxfile host="app.diagrams.net" modified="2023-07-15T05:06:56.817Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="HrqQ8fW2M4zkeL2JcJKw" version="21.6.2" type="device">
   <diagram name="Pagina-1" id="q5YquP0Xvr3gidAfF8Oq">
     <mxGraphModel dx="1050" dy="541" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -139,8 +139,8 @@
         <mxCell id="6-6DaaboKv-emwVmOZge-11" value="" style="rhombus;whiteSpace=wrap;html=1;labelBackgroundColor=none;" parent="1" vertex="1">
           <mxGeometry x="461" y="288" width="40" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="6-6DaaboKv-emwVmOZge-14" value="Id&lt;br&gt;Nome&lt;br&gt;Cognome&lt;br&gt;Mail mitt.&lt;br&gt;Testo" style="rounded=0;whiteSpace=wrap;html=1;align=left;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="613" y="281.5" width="59" height="78.5" as="geometry" />
+        <mxCell id="6-6DaaboKv-emwVmOZge-14" value="Id&lt;br&gt;Apartment_id&lt;br&gt;Nome&lt;br&gt;Cognome&lt;br&gt;Mail mitt.&lt;br&gt;Testo" style="rounded=0;whiteSpace=wrap;html=1;align=left;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="613" y="281.5" width="87" height="98.5" as="geometry" />
         </mxCell>
         <mxCell id="6-6DaaboKv-emwVmOZge-15" value="Messages" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="601" y="258" width="80" height="30" as="geometry" />
@@ -301,14 +301,14 @@
         <mxCell id="6-6DaaboKv-emwVmOZge-63" value="Pivot: Apartments_Sponsors" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="433" y="1049" width="170" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="FJfdEPay2d8R0Mbw34t8-1" value="Id&lt;br&gt;Nome&lt;br&gt;Cognome&lt;br&gt;Mail mitt.&lt;br&gt;Testo" style="rounded=0;whiteSpace=wrap;html=1;align=left;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="439.5" y="960.5" width="320.5" height="78.5" as="geometry" />
+        <mxCell id="FJfdEPay2d8R0Mbw34t8-1" value="Id&lt;br&gt;Apartment_id&lt;br&gt;Nome&lt;br&gt;Cognome&lt;br&gt;Mail mitt.&lt;br&gt;Testo" style="rounded=0;whiteSpace=wrap;html=1;align=left;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="439.5" y="960.5" width="320.5" height="89.5" as="geometry" />
         </mxCell>
         <mxCell id="FJfdEPay2d8R0Mbw34t8-2" value="Messaggi" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="425" y="935" width="70" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="FJfdEPay2d8R0Mbw34t8-3" value="Primary_key - Unique - Autoincrementante&lt;br&gt;String&lt;br&gt;String&lt;br&gt;String&lt;br&gt;Text" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="520" y="960.5" width="240" height="79.5" as="geometry" />
+        <mxCell id="FJfdEPay2d8R0Mbw34t8-3" value="Primary_key - Unique - Autoincrementante&lt;br&gt;FK ref. apartments - UnsignedBigInteger&lt;br&gt;String&lt;br&gt;String&lt;br&gt;String&lt;br&gt;Text" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="960.5" width="240" height="89.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
