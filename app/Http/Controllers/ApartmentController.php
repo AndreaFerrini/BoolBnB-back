@@ -187,6 +187,7 @@ class ApartmentController extends Controller
 
     public function visibility(Apartment $apartment) {
         $apartment->update(['visibility' => !$apartment->visibility]);
-        return redirect()->route('admin.apartments.index')->with('success', "hai modificato la vidibilità dell'elemento".$apartment['title']);
+        $id_apartment = $apartment->id;
+        return redirect()->route('admin.apartments.index', compact('id_apartment'))->with('success', "hai modificato la vidibilità dell'elemento".$apartment['title']);
     }
 }

@@ -21,6 +21,11 @@
     </div>
     <div>
         <a href="{{route('admin.apartments.create')}}">create</a>
+        @if (session('success') )
+        <div class="alert alert-success" id="visibilita">
+            {{ session('success') }}
+        </div>
+        @endif
         @if(isset($apartments))
         <div class="card p-3">
             <div class="row">
@@ -79,6 +84,10 @@
 <script>
     setTimeout(function () {
         document.getElementById('welcome_banner').classList.add('d-none');
+    }, 2000);
+
+    setTimeout(function () {
+        document.getElementById('visibilita').classList.add('d-none');
     }, 2000);
 </script>
 @endsection
