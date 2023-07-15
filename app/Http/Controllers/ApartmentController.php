@@ -174,6 +174,14 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        //
+        $user_id = Auth::user()->id;
+
+        if($apartment->user_id === $user_id){
+            Storage::delete($apartment->cover_img);
+            $apartment->delete();
+        }
+
+        $apartments = Apartment::where('user_id', $user_id)->get();
+        return view('dashboard', compact('apartments'));
     }
 }

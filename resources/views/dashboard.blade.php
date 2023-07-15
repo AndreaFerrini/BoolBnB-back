@@ -39,6 +39,13 @@
                                 <span><b>Stanze:</b>{{$apartment->number_of_rooms}}</span>
                                 <span><b>Bagni:</b>{{$apartment->number_of_bathrooms}}</span>
                                 <span><b>Superficie:</b>{{$apartment->square_meters}}Mq</span>
+                                <span><b>Visibiltà:</b>
+                                @if ($apartment->visibility === 1)
+                                    pubblico
+                                @else
+                                    privato
+                                @endif
+                                </span>
                             </div>
                             <div>
                                 @foreach ($apartment->services as $service)
@@ -48,8 +55,13 @@
                                 </span>
                                 @endforeach
                             </div>
-
                             <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary">Modifica</a>
+                            <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
+
                           </div>
                     </div>
                 </div>
