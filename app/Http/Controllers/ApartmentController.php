@@ -55,7 +55,7 @@ class ApartmentController extends Controller
         $form_data = $request->validated();
       
         // inizializzazione: indirizzo composto, path img, slug, user id, latitudine, longitudine
-        $indirizzo = $form_data['address'] . ' ' . $form_data['address_number'] . ' ' . $form_data['postal_code'];
+        $indirizzo = $form_data['address'] . ' ' . str_replace(' ', '', $form_data['address_number']) . ' ' . $form_data['postal_code'];
         $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
         $slug = Str::slug($form_data['title']);
         $user_id = Auth::user()->id;
