@@ -40,13 +40,9 @@
             
                     {{-- INDIRIZZO --}}
                     <div class="form-group">
-                        @php
-                            $addressArray1 = explode(' ', $apartment->address);
-                            $indirizzo = implode(' ', array_slice($addressArray1, 0, -2));
-                        @endphp
                         <label for="apartments-address" class="form-label text-white-50">Indirizzo</label>
                         <input type="text" required max="255"  id="apartments-address" class="form-control"
-                        placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') ?? $indirizzo }}">
+                        placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') ?? $apartment->getIndirizzo() }}">
                         @error('address')
                             <span style="color: red; text-transform: uppercase">{{$message}}</span>
                         @enderror
@@ -55,12 +51,8 @@
                     {{-- NUMERO CIVICO --}}
                     <div class="form-group">
                         <label for="apartments-address_number" class="form-label text-white-50">Numero civico</label>
-                        @php
-                            $addressArray2 = explode(' ', $apartment->address);
-                            $numerocivico = $addressArray2[count($addressArray2) - 2];
-                        @endphp
                         <input type="text" required max="9999" min="0001"  id="apartments-address_number" class="form-control"
-                        placeholder="5/B" name="address_number" value="{{ old('address_number') ?? $numerocivico }}" pattern="[0-9a-zA-Z]+">
+                        placeholder="5/B" name="address_number" value="{{ old('address_number') ?? $apartment->getCivico() }}" pattern="[0-9a-zA-Z]+">
                         @error('address_number')
                             <span style="color: red; text-transform: uppercase">{{$message}}</span>
                         @enderror
@@ -78,13 +70,9 @@
             
                     {{-- CODICE POSTALE --}}
                     <div class="form-group">
-                    @php
-                        $addressArray3 = explode(' ', $apartment->address);
-                        $oldcap = end($addressArray3);
-                    @endphp
                         <label for="apartments-postal_code" class="form-label text-white-50">Codice postale</label>
                         <input type="text" required max="5" min="5"  id="apartments-postal_code" class="form-control"
-                        placeholder="35010" name="postal_code" value="{{ old('address') ?? $oldcap }}" pattern="[0-9]+">
+                        placeholder="35010" name="postal_code" value="{{ old('address') ?? $apartment->getCap() }}" pattern="[0-9]+">
                         @error('postal_code')
                             <span style="color: red; text-transform: uppercase">{{$message}}</span>
                         @enderror

@@ -47,4 +47,23 @@ class Apartment extends Model
     {
         return $this->hasMany(Message::class);
     }
+
+    public function getCap()
+    {
+        $addressArray = explode(' ', $this->address);
+        return end($addressArray);
+    }
+
+    public function getCivico()
+    {
+        $addressArray = explode(' ', $this->address);
+        return $addressArray[count($addressArray) - 2];
+    }
+
+    public function getIndirizzo()
+    {
+        $addressArray = explode(' ', $this->address);
+        return implode(' ', array_slice($addressArray, 0, -2));
+    }
+    
 }
