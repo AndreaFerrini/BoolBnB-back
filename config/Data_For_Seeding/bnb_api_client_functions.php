@@ -1,6 +1,8 @@
 <?php
 
     use GuzzleHttp\Client as Client;
+    use Illuminate\Support\Facades\Storage as Storage;
+    use Illuminate\Support\Str;
 
     const base_url  =   "https://api.tomtom.com/search/2/geocode/";
     $error_index    =   0;
@@ -35,4 +37,21 @@
         else
             $date_argument = time();
         return date('Y-m-d H:i:s', $date_argument);
+    }
+
+    function pictures_from_storage($storage_folder, $apartment_id)
+    {
+        $result_array = [];
+        $all_files = Storage::files($storage_folder);
+        foreach ($all_files as $single_file)
+        {
+            $filename = pathinfo($single_file, PATHINFO_FILENAME);
+            $lowercase_filename = strtolower($filename);
+            $str_id = strval($apartment_id);
+             if (Str::startsWith($lowercase_filename, "id{$str_id}_"))
+                $result_array[] = $storage_folder . "/" . $filename;
+        }
+        if (count($result_array) > 1)
+            sort($result_array);
+        return $result_array;
     }
