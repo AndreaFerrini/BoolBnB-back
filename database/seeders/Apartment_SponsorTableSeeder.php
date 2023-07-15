@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use App\Models\Apartment as Apartment;
 use App\Models\Sponsor as Sponsor;
 
+require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_api_client_functions.php';
+
 class Apartment_SponsorTableSeeder extends Seeder
 {
     protected   $max_sponsors_seeding_side  = 7; 
@@ -63,10 +65,12 @@ class Apartment_SponsorTableSeeder extends Seeder
                     if (!$is_expired)
                     {
                         // Se la sponsorizzazione deve essere di tipo "non scaduta" dovrà necessariamente essere l'ultima per il corrente appartamento, quindi la variabile "exit_loop" dovrà diventare true, inoltre si determina la data di scadenza della sponsorizzazione aggiungendo alla data/ora corrente, un numero di ore corrispondente alla durata del tipo di sponsorizzazione e si setta anche il campo "created_at"
-                        $expire_date = \Carbon\Carbon::now()->addHours($sponsor->period)->toDateTimeString();
+                        // $expire_date = \Carbon\Carbon::now()->addHours($sponsor->period)->toDateTimeString();
+                        $expire_date = add_hours_to_date($sponsor->period);
                         $dates =    [
                                         'expire_at'     => $expire_date,
-                                        'created_at'    => \Carbon\Carbon::now()
+                                        'created_at'    => add_hours_to_date(0)
+                                        // 'created_at'    => \Carbon\Carbon::now()
                                     ];
                         // Infine si salva la sponsorizzazione nella tabella pivot, senza rimuovere le eventuali precedenti sponsorizzazioni (ovviamente scadute)
                         $apartment->sponsors()->attach($sponsor->id, $dates);

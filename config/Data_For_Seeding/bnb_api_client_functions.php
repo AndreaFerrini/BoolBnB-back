@@ -24,11 +24,15 @@
         }
     }
 
-    function add_hours_to_date(int $hours, bool $plus)
+    function add_hours_to_date(int $hours, $plus = true)
     {
         date_default_timezone_set('Europe/Rome');
         $str = "+";
         if (!$plus)
             $str = "-";
-        return date('Y-m-d H:i:s', strtotime($str . strval($hours) . " hours"));
+        if ($hours != 0)
+            $date_argument = strtotime($str . strval($hours) . " hours");
+        else
+            $date_argument = time();
+        return date('Y-m-d H:i:s', $date_argument);
     }
