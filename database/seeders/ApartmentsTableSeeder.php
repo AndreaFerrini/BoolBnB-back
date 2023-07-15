@@ -29,7 +29,7 @@ class ApartmentsTableSeeder extends Seeder
         $all_apartments_data = config('Data_For_Seeding.bnb_database_for_seeding');
         foreach ($all_apartments_data as $apartment_data)
         {
-            $json_response = get_coordinates($apartment_data['address'], $apartment_data['city']);
+            $json_response = get_coordinates($apartment_data['address'] . " " . $apartment_data['zipcode'], $apartment_data['city']);
             $decoded_response = json_decode($json_response,true);
             if (!isset($decoded_response['results'][0]))
                 continue;
