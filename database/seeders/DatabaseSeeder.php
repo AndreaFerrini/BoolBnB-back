@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call([Apartment_ServiceTableSeeder::class]);
         $this->call([SponsorsTableSeeder::class]);
         $this->call([Apartment_SponsorTableSeeder::class]);
+        $this->call([MessagesTableSeeder::class]);
     }
 }
