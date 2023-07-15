@@ -5,7 +5,7 @@
     <div class="container-lg">
         <div class="row">
             <div class="col-12">
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="{{route('admin.apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
             

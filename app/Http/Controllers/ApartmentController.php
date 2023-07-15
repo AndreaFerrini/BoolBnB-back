@@ -129,7 +129,37 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        //
+       
+
+        $form_data = $request->toArray();
+
+        
+
+        $indirizzo = $form_data['address'] . ' ' . str_replace(' ', '', $form_data['address_number']) . ' ' . $form_data['postal_code'];
+   
+        $slug = Str::slug($form_data['title']);
+        $user_id = Auth::user()->id;
+        $tomtomResponseJson = get_coordinates($indirizzo, $form_data['city']);
+        $tomtomResponseDecoded = json_decode($tomtomResponseJson, true);
+        $lat = $tomtomResponseDecoded['results'][0]['position']['lat'];
+        $long = $tomtomResponseDecoded['results'][0]['position']['lon'];
+        
+        // riempimento form data
+        $form_data['user_id'] = $user_id;
+        $form_data['slug'] = $slug;
+        $form_data['address'] = $indirizzo;
+        $form_data['longitude'] = $long;
+        $form_data['latitude'] = $lat;
+
+
+        $apartment->update($form_data);
+
+
+        $apartment->services()->sync($form_data['services']);
+
+        $apartments = Apartment::where('user_id', $user_id)->get();
+        
+        return view('dashboard', compact('apartments'));
     }
 
     /**
