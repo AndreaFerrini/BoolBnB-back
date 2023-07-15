@@ -42,7 +42,7 @@ class ApartmentsTableSeeder extends Seeder
             $new_apartment->latitude = floatval($first_result['position']['lat']);
             $new_apartment->title = $apartment_data['name'];
             $new_apartment->slug = Str::slug($new_apartment->title);
-            $new_apartment->address = $apartment_data['address'];
+            $new_apartment->address = $apartment_data['address'] . " " . $apartment_data['zipcode'];
             $new_apartment->city = $apartment_data['city'];
             $new_apartment->cover_img = 'https://picsum.photos/id/237/200/300';
             $new_apartment->description = "e industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book";
