@@ -28,16 +28,19 @@ class MessagesTableSeeder extends Seeder
                     break;
                 else
                 {
-                    $new_msg = new Message();
-                    $new_msg->apartment_id = $apartment->id;
-                    $new_msg->name = $faker->randomElement(["Andrea", "Michele", "Riccardo", "Edoardo", "Leonardo", "Luca", "Maria", "Anna", "Antonio"]);
-                    $new_msg->surname = $faker->randomElement(["Rossi", "Bianchi", "Rinaldi", "Penco", "Verdi", "Napolitano"]);
-                    $new_msg->email = $new_msg->name . "." . $new_msg->surname . "@" . $faker->randomElement(['google.com', 'yahoo.com', 'libero.it']);
-                    $random_length = mt_rand(1, 5);
-                    $new_msg->email_body = "";
+                    $name = $faker->randomElement(["Andrea", "Michele", "Riccardo", "Edoardo", "Leonardo", "Luca", "Maria", "Antonio", "Angela"]);
+                    $surname = $faker->randomElement(["Rossi", "Bianchi", "Rinaldi", "Penco", "Verdi", "Napolitano"]);
+                    $random_length = mt_rand(1, 3);
+                    $email_body = "";
                     for ($i = 0; $i < $random_length; $i++)
-                        $new_msg->email_body .= $faker->paragraph($nbSentences = 3, $variableNbSentences = true);
-                    $new_msg->save();
+                        $email_body .= $faker->paragraph($nbSentences = 3, $variableNbSentences = true);
+                    $apartment->messages()->create( 
+                        [
+                            'name'          => $name,
+                            'surname'       => $surname,
+                            'email'         => $name . "." . $surname . "@" . $faker->randomElement(['google.com', 'yahoo.com', 'libero.it']),
+                            'email_body'    => $email_body
+                        ]);
                 }
             }          
         }
