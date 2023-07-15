@@ -21,6 +21,11 @@
     </div>
     <div>
         <a href="{{route('admin.apartments.create')}}">create</a>
+        @if (session('success') )
+        <div class="alert alert-success" id="visibilita">
+            {{ session('success') }}
+        </div>
+        @endif
         @if(isset($apartments))
         <div class="card p-3">
             <div class="row">
@@ -39,6 +44,13 @@
                                 <span><b>Stanze:</b>{{$apartment->number_of_rooms}}</span>
                                 <span><b>Bagni:</b>{{$apartment->number_of_bathrooms}}</span>
                                 <span><b>Superficie:</b>{{$apartment->square_meters}}Mq</span>
+                                <span><b>Visibiltà:</b>
+                                @if ($apartment->visibility === 1)
+                                    pubblico
+                                @else
+                                    privato
+                                @endif
+                                </span>
                             </div>
                             <div>
                                 @foreach ($apartment->services as $service)
@@ -48,8 +60,15 @@
                                 </span>
                                 @endforeach
                             </div>
-
                             <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary">Modifica</a>
+                            <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
+                            <a href="{{route('admin.apartments.visibility', $apartment)}}" class="text-black">
+                                <i class="fa-solid fa-eye{{$apartment->visibility ? '' : '-slash'}}"></i>
+                            </a>
                           </div>
                     </div>
                 </div>
@@ -65,6 +84,10 @@
 <script>
     setTimeout(function () {
         document.getElementById('welcome_banner').classList.add('d-none');
+    }, 2000);
+
+    setTimeout(function () {
+        document.getElementById('visibilita').classList.add('d-none');
     }, 2000);
 </script>
 @endsection

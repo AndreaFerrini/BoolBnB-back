@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ApartmentsCreateRequest extends FormRequest
+class ApartmentsEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class ApartmentsCreateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:100'],
-            'cover_img' => ['required', 'image','mimes:jpeg,png'],
+            'cover_img' => ['image','mimes:jpeg,png'],
             'description' => ['required', 'string'],
             'address' => ['required','string','max:100'],
             'address_number' => ['required', 'string', 'min:1','max:99999','regex:/^[0-9a-zA-Z]+$/'],
