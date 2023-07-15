@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use App\Config\Data_for_seeding\Bnb_api_client_functions;
 
 use App\Http\Requests\ApartmentsCreateRequest;
+use App\Http\Requests\ApartmentsEditRequest;
 
 // require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_api_client_functions.php';
 
@@ -127,12 +128,9 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Apartment $apartment)
-    {
-       
-        
-
-        $form_data = $request->toArray();
+    public function update(ApartmentsEditRequest $request, Apartment $apartment)
+    {             
+        $form_data = $request->validated();
 
         if( $request->hasFile('cover_img') ){        
             if( $apartment->image ){
@@ -158,7 +156,6 @@ class ApartmentController extends Controller
         $form_data['longitude'] = $long;
         $form_data['latitude'] = $lat;
 
-        dd($form_data);
         $apartment->update($form_data);
 
 
