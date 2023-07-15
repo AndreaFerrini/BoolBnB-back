@@ -61,7 +61,9 @@
                                 @method('DELETE')
                                 <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
                             </form>
-
+                            <a href="{{route('admin.apartments.visibility', $apartment)}}" class="text-black">
+                                <i class="fa-solid fa-eye{{$apartment->visibility ? '' : '-slash'}}"></i>
+                            </a>
                           </div>
                     </div>
                 </div>

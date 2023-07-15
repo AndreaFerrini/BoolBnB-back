@@ -184,4 +184,9 @@ class ApartmentController extends Controller
         $apartments = Apartment::where('user_id', $user_id)->get();
         return view('dashboard', compact('apartments'));
     }
+
+    public function visibility(Apartment $apartment) {
+        $apartment->update(['visibility' => !$apartment->visibility]);
+        return redirect()->route('admin.apartments.index')->with('success', "hai modificato la vidibilità dell'elemento".$apartment['title']);
+    }
 }
