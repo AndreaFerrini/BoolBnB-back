@@ -8,6 +8,7 @@ use App\Models\User as User;
 use App\Models\Apartment as Apartment;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
+use App\Models\Picture as Picture;
 
 require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_api_client_functions.php';
 require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_database_for_seeding.php';
@@ -56,7 +57,22 @@ class ApartmentsTableSeeder extends Seeder
             $new_apartment->save();
             $images = pictures_from_storage($this->storage_folder, $new_apartment->id);
             if (count($images) !== 0)
-                $new_apartment->update(['cover_img' => $images[0]]);
+            {
+                $first_loop = true;
+                foreach ($images as $image)
+                {
+                    if ($first_loop)
+                    {
+                        $first_loop = false;
+                        $new_apartment->update(['cover_img' => $image]);
+                    }
+                    else
+                        $new_picture = Picture::create( [
+                                                            'apartment_id'  => $new_apartment->id,
+                                                            'picture_url'   => $image
+                                                        ]);
+                }
+            }
         }
     }
 }
