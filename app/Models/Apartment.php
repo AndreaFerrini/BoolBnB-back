@@ -48,6 +48,11 @@ class Apartment extends Model
         return $this->hasMany(Message::class);
     }
 
+    public  function pictures()
+    {
+        return $this->hasMany(Picture::class);
+    } 
+
     public function getCap()
     {
         $addressArray = explode(' ', $this->address);
@@ -65,5 +70,5 @@ class Apartment extends Model
         $addressArray = explode(' ', $this->address);
         return implode(' ', array_slice($addressArray, 0, -2));
     }
-    
+
 }
