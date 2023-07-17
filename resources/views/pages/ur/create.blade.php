@@ -54,8 +54,7 @@
                 <label for="apartments-address" class="form-label">Indirizzo:</label>
                 <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') }}" list="apartments-address_address">
                 <datalist id="apartments-address_address">
-                  <option value="Boston">
-                  <option value="Cambridge">
+                  
                 </datalist>
                 @error('address')
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
@@ -188,11 +187,47 @@
     reader.readAsDataURL(e.target.files[0]);
   });
 
+function cityName(){
+  let city = document.getElementById('apartments-city');
+  let parola = document.getElementById('apartments-address').value;
+
+  const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
+  const countrySet = 'IT';
+  const typeahead = true;
+  const limit = 50;
+
+  const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&limit=${limit}`;
+
+  fetch(tomTomUrl)
+  .then(response => response.json())
+  .then(data => {
+    // Process the response data
+    const results = data.results;
+
+    const uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
+    console.log(uniqueCitiesName);
+    uniqueCitiesName.sort((a, b) => a.localeCompare(b));
+
+    city.innerHTML = `<option disabled selected>Scegli una città</option>`;
+
+    uniqueCitiesName.forEach(element => {
+      if(element !== undefined){
+        city.innerHTML += `<option>${element}</option>`;  
+      }
+    });
+  })
+  .catch(error => {
+    // Handle any errors
+    console.error('An error occurred:', error);
+  });
+
+};
+
 document.getElementById('apartments-address').addEventListener("input", function(e) {
+  cityName();
   let lunghezza = e.target.value.length;
   let parola = e.target.value;
   let lista = document.getElementById('apartments-address_address');
-  console.log(lunghezza);
 
   if (lunghezza > 5) {
     const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
@@ -211,12 +246,11 @@ document.getElementById('apartments-address').addEventListener("input", function
     const uniqueStreetNames = [...new Set(results.map(element => element.address.streetName))];
   
     uniqueStreetNames.sort((a, b) => a.localeCompare(b));
-    console.log(uniqueStreetNames)
 
     lista.innerHTML = "";
 
     uniqueStreetNames.forEach(element => {
-      lista.innerHTML += `<option value="${element}">${element}</option>`;
+      lista.innerHTML += `<option onclick="cityName()" value="${element}">${element}</option>`;
     });
   })
   .catch(error => {
