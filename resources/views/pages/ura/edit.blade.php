@@ -18,7 +18,7 @@
           <div class="row">
             <div class="col-8">
               <label for="apartments-cover_img" class="form-label mt-4">Scegli un'immagine</label>
-              <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="image" aria-describedby="fileHelpId">
+              <input type="file" class="form-control" name="cover_img" id="img-preview" placeholder="image" aria-describedby="fileHelpId">
               <div class="preview mt-2 text-center d-inline-block"></div>
               @error('cover_img')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
@@ -33,7 +33,9 @@
             </div>
             <div class="col-4">
               <label for="apartments-city" class="form-label d-block mt-4 mb-2">Preview:</label>
-              <div class="preview  text-center d-inline-block p-3" style="max-height: 300px; width: 100%; min-height: 300px; overflow: hidden"></div>
+              <div class="preview text-center d-inline-block p-3" style="max-height: 300px; width: 100%; min-height: 300px; overflow: hidden" id="box-preview">
+              <img class="img-fluid" src="{{asset('storage/' . $apartment->cover_img)}}" alt="">
+            </div>
             </div>
           </div>
         </div>
@@ -52,7 +54,7 @@
 
         <div class="form-group">
           <label for="apartments-address_number" class="form-label mt-4">Numero civico</label>
-          <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5/B" name="address_number" value="{{ old('address_number') ?? $apartment->getCivico() }}" pattern="[0-9a-zA-Z]+">
+          <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') ?? $apartment->getCivico() }}" pattern="[0-9a-zA-Z]+">
           @error('address_number')
           <span style="color: red; text-transform: uppercase">{{ $message }}</span>
           @enderror
@@ -157,15 +159,13 @@
 </div>
 
 <script>
-  document.getElementById("apartments-cover_img").addEventListener("change", function(e) {
+  document.getElementById("img-preview").addEventListener("change", function(e) {
     let reader = new FileReader();
-    let imagePreview = document.querySelector(".preview");
-    imagePreview.innerHTML =`
-     <img :src="{{ asset('storage/' . $apartment->cover_img) }}" alt="Preview" class="img-fluid rounded" style="max-width: 300px;">`;
     reader.onload = function(event) {
+      let imagePreview = document.querySelector("#box-preview");
       imagePreview.innerHTML = `
-      <span class="d-block mt-4 mb-3">preview:</span>
-      <img src="${event.target.result}" alt="Preview" class="img-fluid rounded" style="max-width: 300px;">`;
+      
+      <img src="${event.target.result}" alt="Preview" class="img-fluid" style=" max-height: 300px">`;
     }
     reader.readAsDataURL(e.target.files[0]);
   });
