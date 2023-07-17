@@ -92,17 +92,17 @@
 <script>
     document.getElementById("form").addEventListener('submit', function(event){
 
-        let password = document.getElementById('password')
-        let verifica_password = document.getElementById('password-confirm')
+        let password = document.getElementById('password').value
+        let verifica_password = document.getElementById('password-confirm').value
         let error = document.getElementById('error')
         
-        if(!(password == verifica_password)){
+        if(password != verifica_password){
             event.preventDefault()
             password.classList.add("is-invalid")
             verifica_password.classList.add("is-invalid")
             error.innerHTML = "Le password inserite dall'utente non corrispondono"
         } else{
-            
+
         }
     })
 </script>
