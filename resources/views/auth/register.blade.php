@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" id="form" action="{{ route('register') }}">
                         @csrf
 
                         <div class="mb-4 row">
@@ -55,6 +55,10 @@
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
+                                <span class="invalid-feedback" role="alert">
+                                    <strong id="error"></strong>
+                                </span>
+
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -84,4 +88,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("form").addEventListener('submit', function(event){
+
+        let password = document.getElementById('password')
+        let verifica_password = document.getElementById('password-confirm')
+        let error = document.getElementById('error')
+        
+        if(!(password == verifica_password)){
+            event.preventDefault()
+            password.classList.add("is-invalid")
+            verifica_password.classList.add("is-invalid")
+            error.innerHTML = "Le password inserite dall'utente non corrispondono"
+        } else{
+            
+        }
+    })
+</script>
 @endsection
+
