@@ -68,7 +68,9 @@ class Apartment extends Model
     public function getIndirizzo()
     {
         $addressArray = explode(' ', $this->address);
+        $addressArray = array_map(function ($item) {
+            return str_replace(',', '', $item);
+        }, $addressArray);
         return implode(' ', array_slice($addressArray, 0, -2));
     }
-
 }

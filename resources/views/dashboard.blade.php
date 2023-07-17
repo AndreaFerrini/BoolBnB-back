@@ -33,7 +33,7 @@
                 <div class="p-2 col-4">
                     <div class="card">
                         <h5 class="card-title text-center my-2">{{$apartment->title}}</h5>
-                        <img class="card-img-top" src="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="{{asset('storage/' . $apartment->cover_img)}}" alt="Card image cap">
                         <div class="card-body">
 
                             <p class="card-text">{{$apartment->description}}</p>

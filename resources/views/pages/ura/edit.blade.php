@@ -15,24 +15,32 @@
           @error('title')
           <span style="color: red; text-transform: uppercase">{{ $message }}</span>
           @enderror
+          <div class="row">
+            <div class="col-8">
+              <label for="apartments-cover_img" class="form-label mt-4">Scegli un'immagine</label>
+              <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="image" aria-describedby="fileHelpId">
+              <div class="preview mt-2 text-center d-inline-block"></div>
+              @error('cover_img')
+              <span style="color: red; text-transform: uppercase">{{ $message }}</span>
+              @enderror
+              <div class="form-group">
+                <label for="apartments-description" class="form-label mt-4">Descrizione</label>
+                <textarea id="apartments-description" class="form-control" placeholder="Inserisci la descrizione dell'appartamento" rows="8" name="description">{{ old('description') ?? $apartment->description }}</textarea>
+                @error('description')
+                <span style="color: red; text-transform: uppercase">{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="apartments-city" class="form-label d-block mt-4 mb-2">Preview:</label>
+              <div class="preview  text-center d-inline-block p-3" style="max-height: 300px; width: 100%; min-height: 300px; overflow: hidden"></div>
+            </div>
+          </div>
         </div>
 
         <div class="mb-3 form-group">
-          <label for="apartments-cover_img" class="form-label mt-4">Scegli un'immagine</label>
-          <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="image" aria-describedby="fileHelpId">
-          <div class="preview mt-2 text-center d-inline-block"></div>
-          @error('cover_img')
-          <span style="color: red; text-transform: uppercase">{{ $message }}</span>
-          @enderror
         </div>
 
-        <div class="form-group">
-          <label for="apartments-description" class="form-label mt-4">Descrizione</label>
-          <textarea id="apartments-description" class="form-control" placeholder="Inserisci la descrizione dell'appartamento" name="description">{{ old('description') ?? $apartment->description }}</textarea>
-          @error('description')
-          <span style="color: red; text-transform: uppercase">{{ $message }}</span>
-          @enderror
-        </div>
 
         <div class="form-group">
           <label for="apartments-address" class="form-label mt-4">Indirizzo</label>

@@ -64,12 +64,12 @@ class ApartmentsTableSeeder extends Seeder
                     if ($first_loop)
                     {
                         $first_loop = false;
-                        $new_apartment->update(['cover_img' => $image]);
+                        $new_apartment->update(['cover_img' => $image . '.jpg']);
                     }
                     else
                         $new_picture = Picture::create( [
                                                             'apartment_id'  => $new_apartment->id,
-                                                            'picture_url'   => $image
+                                                            'picture_url'   => $image . '.jpg'
                                                         ]);
                 }
             }
