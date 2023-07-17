@@ -190,22 +190,34 @@
 
 document.getElementById('apartments-address').addEventListener("input", function(e) {
   let lunghezza = e.target.value.length;
+  let parola = e.target.value;
   console.log(lunghezza);
 
   if (lunghezza > 5) {
-    let address = e.target.value;
-    let api_key = "mDuLGwpUfBez8sET5BVhGMRbc4FRXzB4";
-    let endpoint = `https://api.tomtom.com/search/2/search/${address}.json?key=${api_key}&countrySet=IT&typeahead=true&limit=50`;
+    const apiKey = 'mDuLGwpUfBez8sET5BVhGMRbc4FRXzB4';
+  const countrySet = 'IT';
+  const typeahead = true;
+  const limit = 50;
 
-    axios.get(endpoint)
-      .then(response => {
-        // Handle the response data
-        console.log(response.data);
-      })
-      .catch(error => {
-        // Handle the error
-        console.error(error);
-      });
+  const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
+
+  fetch(tomTomUrl)
+  .then(response => response.json())
+  .then(data => {
+    // Process the response data
+    const results = data.results;
+
+    const uniqueStreetNames = [...new Set(results.map(element => element.address.streetName))];
+  
+    uniqueStreetNames.sort((a, b) => a.localeCompare(b));
+  
+    return uniqueStreetNames;
+  })
+  .catch(error => {
+    // Handle any errors
+    console.error('An error occurred:', error);
+  });
+
   }
 });
 </script>
