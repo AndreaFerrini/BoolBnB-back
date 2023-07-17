@@ -36,7 +36,6 @@
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
                 </a>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -50,6 +49,15 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+                    @auth
+                    <span>
+                        @if(Auth::user()->name)
+                            {{ Auth::user()->name }}
+                        @else
+                            {{ Auth::user()->email }}
+                        @endif
+                    </span>
+                    @endauth
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
