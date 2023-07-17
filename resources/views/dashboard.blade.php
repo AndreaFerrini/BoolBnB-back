@@ -5,21 +5,11 @@
     <h2 class="fs-4 text-secondary my-4">
         I tuoi Annunci
     </h2>
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="card"  id="welcome_banner">
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
-                    Sei loggato!
-                </div>
-            </div>
-        </div>
-
-    </div>
+    @if (session('status'))
+        <div class="alert alert-success" id="visibilita">
+            {{ session('status') }}
+        </div>            
+    @endif
     <div>
         <a href="{{route('admin.apartments.create')}}">create</a>
         @if (session('success') )
@@ -27,6 +17,12 @@
             {{ session('success') }}
         </div>
         @endif
+        @if(session('negate'))
+        <div class="alert alert-danger" id="visibilita">
+            {{ session('negate') }}
+        </div>
+        @endif
+
         @if(isset($apartments))
         <div class="card p-3">
             <div class="row">

@@ -117,9 +117,14 @@ class ApartmentController extends Controller
      */
         public function edit(Apartment $apartment)
     {
-        $services = Service::all();
-        $cities = config('data_storage.cities.cities');
-        return view('pages.ura.edit', compact('services', 'cities', 'apartment'));
+        if(Auth::user()->id === $apartment->user_id){
+            $services = Service::all();
+            $cities = config('data_storage.cities.cities');
+            return view('pages.ura.edit', compact('services', 'cities', 'apartment'));
+        } else{
+            return redirect()->route('admin.apartments.index')->with('negate', 'Non sei autorizzato ad entrare in questa pagina');
+        };
+        
     }
 
     /**
