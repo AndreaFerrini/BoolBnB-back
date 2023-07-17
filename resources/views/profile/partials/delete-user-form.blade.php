@@ -32,32 +32,32 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-
                     <form method="post" action="{{ route('admin.profile.destroy') }}" class="p-6">
                         @csrf
                         @method('delete')
-
-
+                        
+                        
                         <div class="input-group">
-
-                            <input id="password" name="password" type="password" class="form-control" placeholder="{{ __('Password') }}" />
-
+                            
+                            <input id="password" name="password" type="password" class="form-control" placeholder="{{ __(' Insert Your Password') }}" />
+                            
                             @error('password')
                             <span class="invalid-feedback mt-2" role="alert">
                                 <strong>{{ $errors->userDeletion->get('password')}}</strong>
                             </span>
                             @enderror
-
-
-
-                            <button type="submit" class="btn btn-danger">
-                                {{ __('Delete Account') }}
-                            </button>
-                            <!--  -->
+                            
+                            
                         </div>
                     </form>
-
+                    
+                    
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    
+                    <button type="submit" class="btn btn-danger">
+                        {{ __('Delete Account') }}
+                    </button>
+                    <!--  -->
                 </div>
             </div>
         </div>
