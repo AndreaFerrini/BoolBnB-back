@@ -52,7 +52,10 @@
             {{-- INDIRIZZO --}}
             <div class="form-group mt-4">
                 <label for="apartments-address" class="form-label">Indirizzo:</label>
-                <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') }}">
+                <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') }}" list="apartments-address_address">
+                <datalist id="apartments-address_address">
+                  
+                </datalist>
                 @error('address')
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
                 @enderror
@@ -75,7 +78,7 @@
             {{-- NUMERO CIVICO --}}
             <div class="form-group mt-4">
               <label for="apartments-address_number" class="form-label">Numero civico:</label>
-              <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5/B" name="address_number" value="{{ old('address_number') }}" pattern="[0-9a-zA-Z]+">
+              <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') }}" pattern="[0-9a-zA-Z]+">
               @error('address_number')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
@@ -85,7 +88,7 @@
             {{-- CODICE POSTALE --}}
             <div class="form-group mt-4">
               <label for="apartments-postal_code" class="form-label">Codice postale:</label>
-              <input type="text" required max="5" min="5" id="apartments-postal_code" class="form-control" placeholder="35010" name="postal_code" value="{{ old('postal_code') }}" pattern="[0-9]+">
+              <input type="text" required max="5" min="5" id="apartments-postal_code" class="form-control" placeholder="35010" name="postal_code" value="{{ old('postal_code') }}" pattern="[0-9]+" id="myNumberInput">
               @error('postal_code')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
@@ -183,6 +186,80 @@
     }
     reader.readAsDataURL(e.target.files[0]);
   });
+
+function cityName(){
+  let city = document.getElementById('apartments-city');
+  let parola = document.getElementById('apartments-address').value;
+
+  const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
+  const countrySet = 'IT';
+  const typeahead = true;
+  const limit = 50;
+
+  const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&limit=${limit}`;
+
+  fetch(tomTomUrl)
+  .then(response => response.json())
+  .then(data => {
+    // Process the response data
+    const results = data.results;
+
+    const uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
+    console.log(uniqueCitiesName);
+    uniqueCitiesName.sort((a, b) => a.localeCompare(b));
+
+    city.innerHTML = `<option disabled selected>Scegli una città</option>`;
+
+    uniqueCitiesName.forEach(element => {
+      if(element !== undefined){
+        city.innerHTML += `<option>${element}</option>`;  
+      }
+    });
+  })
+  .catch(error => {
+    // Handle any errors
+    console.error('An error occurred:', error);
+  });
+
+};
+
+document.getElementById('apartments-address').addEventListener("input", function(e) {
+  cityName();
+  let lunghezza = e.target.value.length;
+  let parola = e.target.value;
+  let lista = document.getElementById('apartments-address_address');
+
+  if (lunghezza > 5) {
+    const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
+  const countrySet = 'IT';
+  const typeahead = true;
+  const limit = 50;
+
+  const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
+
+  fetch(tomTomUrl)
+  .then(response => response.json())
+  .then(data => {
+    // Process the response data
+    const results = data.results;
+
+    const uniqueStreetNames = [...new Set(results.map(element => element.address.streetName))];
+  
+    uniqueStreetNames.sort((a, b) => a.localeCompare(b));
+
+    lista.innerHTML = "";
+
+    uniqueStreetNames.forEach(element => {
+      lista.innerHTML += `<option onclick="cityName()" value="${element}">${element}</option>`;
+    });
+  })
+  .catch(error => {
+    // Handle any errors
+    console.error('An error occurred:', error);
+  });
+
+  }
+});
 </script>
 
 @endsection
