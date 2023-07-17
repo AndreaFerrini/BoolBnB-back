@@ -52,7 +52,11 @@
             {{-- INDIRIZZO --}}
             <div class="form-group mt-4">
                 <label for="apartments-address" class="form-label">Indirizzo:</label>
-                <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') }}">
+                <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') }}" list="apartments-address_address">
+                <datalist id="apartments-address_address">
+                  <option value="Boston">
+                  <option value="Cambridge">
+                </datalist>
                 @error('address')
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
                 @enderror
@@ -183,6 +187,27 @@
     }
     reader.readAsDataURL(e.target.files[0]);
   });
+
+document.getElementById('apartments-address').addEventListener("input", function(e) {
+  let lunghezza = e.target.value.length;
+  console.log(lunghezza);
+
+  if (lunghezza > 5) {
+    let address = e.target.value;
+    let api_key = "mDuLGwpUfBez8sET5BVhGMRbc4FRXzB4";
+    let endpoint = `https://api.tomtom.com/search/2/search/${address}.json?key=${api_key}&countrySet=IT&typeahead=true&limit=50`;
+
+    axios.get(endpoint)
+      .then(response => {
+        // Handle the response data
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Handle the error
+        console.error(error);
+      });
+  }
+});
 </script>
 
 @endsection
