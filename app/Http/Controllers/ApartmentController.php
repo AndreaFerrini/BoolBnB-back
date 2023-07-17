@@ -94,7 +94,8 @@ class ApartmentController extends Controller
         $user_id = Auth::user()->id;
         $apartments = Apartment::where('user_id', $user_id)->get();
         
-        return view('dashboard', compact('apartments'));
+        return redirect()->route('admin.apartments.index', compact('apartments'))->with('success', 'Card creata con successo!');
+        // return view('dashboard', compact('apartments'));
     }
 
     /**
@@ -163,7 +164,8 @@ class ApartmentController extends Controller
 
         $apartments = Apartment::where('user_id', $user_id)->get();
         
-        return view('dashboard', compact('apartments'));
+        // return view('dashboard', compact('apartments'));
+        return redirect()->route('admin.apartments.index', compact('apartments'))->with('success', 'Hai modificato ' . $apartment['title']);
     }
 
     /**
