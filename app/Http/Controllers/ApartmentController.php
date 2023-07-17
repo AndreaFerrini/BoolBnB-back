@@ -41,7 +41,8 @@ class ApartmentController extends Controller
     {
         $services = Service::all();
         $cities = config('data_storage.cities.cities');
-        return view('pages.ur.create', compact('services', 'cities'));
+        $tomtomApiKey = env('TOMTOM_API_KEY');
+        return view('pages.ur.create', compact('services', 'cities', 'tomtomApiKey'));
     }
 
     /**
@@ -115,12 +116,14 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-        public function edit(Apartment $apartment)
+    public function edit(Apartment $apartment)
     {
         if(Auth::user()->id === $apartment->user_id){
             $services = Service::all();
             $cities = config('data_storage.cities.cities');
-            return view('pages.ura.edit', compact('services', 'cities', 'apartment'));
+            $tomtomApiKey = env('TOMTOM_API_KEY');
+
+            return view('pages.ura.edit', compact('services', 'cities', 'apartment', 'tomtomApiKey'));
         } else{
             return redirect()->route('admin.apartments.index')->with('negate', 'Non sei autorizzato ad entrare in questa pagina');
         };
