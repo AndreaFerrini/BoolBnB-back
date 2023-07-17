@@ -79,7 +79,7 @@
             {{-- NUMERO CIVICO --}}
             <div class="form-group mt-4">
               <label for="apartments-address_number" class="form-label">Numero civico:</label>
-              <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5/B" name="address_number" value="{{ old('address_number') }}" pattern="[0-9a-zA-Z]+">
+              <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') }}" pattern="[0-9a-zA-Z]+">
               @error('address_number')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
@@ -89,7 +89,7 @@
             {{-- CODICE POSTALE --}}
             <div class="form-group mt-4">
               <label for="apartments-postal_code" class="form-label">Codice postale:</label>
-              <input type="text" required max="5" min="5" id="apartments-postal_code" class="form-control" placeholder="35010" name="postal_code" value="{{ old('postal_code') }}" pattern="[0-9]+">
+              <input type="text" required max="5" min="5" id="apartments-postal_code" class="form-control" placeholder="35010" name="postal_code" value="{{ old('postal_code') }}" pattern="[0-9]+" id="myNumberInput">
               @error('postal_code')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
@@ -191,10 +191,11 @@
 document.getElementById('apartments-address').addEventListener("input", function(e) {
   let lunghezza = e.target.value.length;
   let parola = e.target.value;
+  let lista = document.getElementById('apartments-address_address');
   console.log(lunghezza);
 
   if (lunghezza > 5) {
-    const apiKey = 'mDuLGwpUfBez8sET5BVhGMRbc4FRXzB4';
+    const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
   const countrySet = 'IT';
   const typeahead = true;
   const limit = 50;
@@ -210,8 +211,13 @@ document.getElementById('apartments-address').addEventListener("input", function
     const uniqueStreetNames = [...new Set(results.map(element => element.address.streetName))];
   
     uniqueStreetNames.sort((a, b) => a.localeCompare(b));
-  
-    return uniqueStreetNames;
+    console.log(uniqueStreetNames)
+
+    lista.innerHTML = "";
+
+    uniqueStreetNames.forEach(element => {
+      lista.innerHTML += `<option value="${element}">${element}</option>`;
+    });
   })
   .catch(error => {
     // Handle any errors
