@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="mb-4 row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }} *</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="mb-4 row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }} *</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="mb-4 row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }} *</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -82,6 +82,7 @@
                                 </button>
                             </div>
                         </div>
+                        <span>I campi da compilare con * sono obbligatori</span>
                     </form>
                 </div>
             </div>
@@ -90,6 +91,7 @@
 </div>
 
 <script>
+<<<<<<< HEAD
 document.getElementById("form").addEventListener('submit', function(event) {
   let password = document.getElementById('password');
   let verifica_password = document.getElementById('password-confirm');
@@ -104,6 +106,23 @@ document.getElementById("form").addEventListener('submit', function(event) {
     // Passwords match, continue with form submission
   }
 });
+=======
+    document.getElementById("form").addEventListener('submit', function(event){
+
+        let password = document.getElementById('password')
+        let verifica_password = document.getElementById('password-confirm')
+        let error = document.getElementById('error')
+        
+        if(password.value !== verifica_password.value){
+            event.preventDefault()
+            password.classList.add("is-invalid")
+            verifica_password.classList.add("is-invalid")
+            error.innerHTML = "Le password inserite dall'utente non corrispondono"
+        } else{
+
+        }
+    })
+>>>>>>> 3a4565ab99fc4f4672f8bbde2ca72441df8a530e
 </script>
 @endsection
 
