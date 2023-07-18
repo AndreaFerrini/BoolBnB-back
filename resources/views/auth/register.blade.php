@@ -133,9 +133,18 @@
         
         if(password.value !== verifica_password.value || !(email.value.includes("@"))){
             event.preventDefault()
-            password.classList.add("is-invalid")
-            verifica_password.classList.add("is-invalid")
-            error.innerHTML = "Le password inserite dall'utente non corrispondono"
+            if(password.value !== verifica_password.value) {
+                password.classList.add("is-invalid")
+                verifica_password.classList.add("is-invalid")
+                error.innerHTML = "Le password inserite dall'utente non corrispondono"
+            } else if (!(email.value.includes("@"))){
+                email.classList.add("is-invalid")
+            } else if (password.value !== verifica_password.value && !(email.value.includes("@"))) {
+                password.classList.add("is-invalid")
+                verifica_password.classList.add("is-invalid")
+                error.innerHTML = "Le password inserite dall'utente non corrispondono"
+                email.classList.add("is-invalid")
+            }
         }
         
     })
