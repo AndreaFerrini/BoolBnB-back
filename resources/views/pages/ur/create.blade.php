@@ -92,9 +92,6 @@
               <label for="apartments-postal_code" class="form-label">Codice postale:</label>
               <select required id="apartments-postal_code" class="form-control"  name="postal_code">
                 <option disabled selected>Scegli il CAP</option>
-                @if (old('postal_code'))
-                <option value="{{old('postal_code')}}">{{old('postal_code')}}</option>
-                @endif
               </select>
               @error('postal_code')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
@@ -102,7 +99,6 @@
             </div>
           </div>
         </div>
-        
         <div class="row">
 
           {{-- NUMERO DI STANZE --}}
