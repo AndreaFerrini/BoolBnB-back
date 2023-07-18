@@ -77,6 +77,7 @@ class ApartmentController extends Controller
         $form_data['longitude'] = $long;
         $form_data['latitude'] = $lat;
 
+        
 
 
         // inizializzazione nuovo appartamento
@@ -141,14 +142,17 @@ class ApartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(ApartmentsEditRequest $request, Apartment $apartment)
-    {             
+    {     
+              
+        
         $form_data = $request->validated();
-
-        if( $request->hasFile('cover_img') ){        
+        
+        if( $request->hasFile('cover_img') ){       
             if( $apartment->image ){
                 Storage::delete($apartment->image);
             }
             $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
+
             $form_data['cover_img'] = $path;
         } 
 

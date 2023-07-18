@@ -44,7 +44,9 @@
             {{-- PREVIEW IMG --}}
             <div class="col-4">
               <label for="apartments-city" class="form-label d-block mb-2">Preview:</label>
-              <div class="preview text-center d-inline-block p-3" style="max-height: 300px; width: 100%; min-height: 300px; overflow: hidden"></div>
+              <div class="preview text-center d-inline-block p-3" style="max-height: 300px; width: 100%; min-height: 300px; overflow: hidden">
+                <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
+              </div>
             </div>
           </div>
         </div> 
