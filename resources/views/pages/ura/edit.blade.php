@@ -23,7 +23,7 @@
 
               {{-- IMMAGINE --}}
               <label for="apartments-cover_img" class="form-label mt-4">Scegli un'immagine</label>
-              <input type="file" class="form-control" name="apartments-cover_img" id="img-preview" placeholder="image" aria-describedby="fileHelpId">
+              <input type="file" class="form-control" name="cover_img" id="img-preview" placeholder="image" aria-describedby="fileHelpId">
               <div class="preview mt-2 text-center d-inline-block"></div>
               @error('cover_img')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
