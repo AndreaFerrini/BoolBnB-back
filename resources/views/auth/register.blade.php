@@ -109,6 +109,7 @@
     let verifica_password = document.getElementById('password-confirm')
     let error = document.getElementById('error')
     let errorDue = document.getElementById('errordue')
+    let email = document.getElementById('email')
     
     document.getElementById('password-confirm').addEventListener("input", function(e) {
 
@@ -130,7 +131,7 @@
 
     document.getElementById("form").addEventListener('submit', function(event){
         
-        if(password.value !== verifica_password.value){
+        if(password.value !== verifica_password.value || !(email.value.includes("@"))){
             event.preventDefault()
             password.classList.add("is-invalid")
             verifica_password.classList.add("is-invalid")
@@ -138,6 +139,17 @@
         }
         
     })
+
+    document.getElementById('email').addEventListener("input", function(e){
+        if(email.value.includes("@")){
+            email.classList.add("is-valid");
+            email.classList.remove("is-invalid");
+        } else{
+            email.classList.remove("is-valid");
+            email.classList.add("is-invalid");
+        }
+    })
+
 </script>
 @endsection
 
