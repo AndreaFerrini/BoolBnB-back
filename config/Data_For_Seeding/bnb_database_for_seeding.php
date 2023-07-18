@@ -310,7 +310,7 @@
         [
             'city'      => 'Perugia',
             'address'   => 'Via degli Orti',
-            'name'      => 'B&B Uva e Fragola',
+            'name'      => 'BB Uva e Fragola',
             'zipcode'   => "06123"
         ],
     ];

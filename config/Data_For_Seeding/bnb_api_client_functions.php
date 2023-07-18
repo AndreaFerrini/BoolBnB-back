@@ -4,25 +4,43 @@
     use Illuminate\Support\Facades\Storage as Storage;
     use Illuminate\Support\Str;
 
+    if (session_status() !== PHP_SESSION_ACTIVE) 
+    {
+        session_start();
+    }
+
     const base_url  =   "https://api.tomtom.com/search/2/geocode/";
     $error_index    =   0;
     $error_message  =   "";
 
     function get_coordinates($address, $city)
     {
+        $_SESSION['tomtom_api_error_code'] = 0;
+        $_SESSION['tomtom_api_error_message'] = "";
         $api_key = env('TOMTOM_API_KEY');
         if (isset($address) && $address !== "" && isset($city) && $city !== "")
         {
             $client_call = new GuzzleHttp\Client(['verify' => false]);
-            $end_point = $address . " " . $city . ".json?key=" . $api_key;
+            $end_point = $address . " " . $city . "&countrySet=IT.json?key=" . $api_key;
             $whole_url = base_url . $end_point;
             $response = $client_call->get($whole_url);
-            return $response->getBody()->getContents();
+            $result = $response->getBody()->getContents();
+            $decoded_result = json_decode($result, true);
+            if (!isset($decoded_result['results'][0]))
+                {
+                    $_SESSION['tomtom_api_error_code'] = 1;
+                    $_SESSION['tomtom_api_error_message'] = "Nessun riscontro di geolocalizzazione";
+                    return "";
+                }
+            else
+            {
+                return $result;
+            }
         }
         else
         {
-            $error_index = 1;
-            $error_message = "Dati insufficienti";
+            $_SESSION['tomtom_api_error_code'] = -1;
+            $_SESSION['tomtom_api_error_message'] = "I dati passati alla funzione non sono corretti";
         }
     }
 

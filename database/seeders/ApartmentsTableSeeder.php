@@ -36,9 +36,15 @@ class ApartmentsTableSeeder extends Seeder
             $json_response = get_coordinates($apartment_data['address'] . " " . $apartment_data['zipcode'], $apartment_data['city']);
             $decoded_response = json_decode($json_response,true);
             if (!isset($decoded_response['results'][0]))
+            {
+                var_dump($_SESSION['tomtom_api_error_code']);
+                var_dump($_SESSION['tomtom_api_error_message']);
                 continue;
+            }
             else
+            {
                 $first_result = $decoded_response['results'][0];
+            }
             $id_index = mt_rand(0, count($users_ids_array) - 1);
             $new_apartment = new Apartment();
             $new_apartment->user_id = $users_ids_array[$id_index];
