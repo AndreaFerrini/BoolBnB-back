@@ -13,7 +13,7 @@
 
                         {{-- NOME --}}
                         <div class="mb-4 row mt-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
                                                                         
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
@@ -23,7 +23,7 @@
 
                         {{-- COGNOME --}}
                         <div class="mb-4 row mt-3">
-                            <label for="surname" class="col-md-4 col-form-label text-md-right">{{ __('Surname') }}</label>
+                            <label for="surname" class="col-md-4 col-form-label text-md-right">{{ __('Cognome') }}</label>
                                                 
                             <div class="col-md-6">
                                 <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}"autocomplete="surname" autofocus>
@@ -33,7 +33,7 @@
 
                         {{-- DATA DI NASCITA --}}
                         <div class="mb-4 row mt-3">
-                            <label for="birth" class="col-md-4 col-form-label text-md-right">{{ __('Birth') }}</label>
+                            <label for="birth" class="col-md-4 col-form-label text-md-right">{{ __('Data di nascita') }}</label>
                         
                             <div class="col-md-6">
                                 <input id="birth" type="date" class="form-control @error('birth') is-invalid @enderror" name="birth" value="{{ old('birth') }}"autocomplete="birth" autofocus style="min-width: 150px">
@@ -43,7 +43,7 @@
 
                         {{-- E-MAIL --}}
                         <div class="mb-4 row mt-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }} *</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }} *</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -77,11 +77,16 @@
 
                         {{-- VERIFICA PASSWORD --}}
                         <div class="mb-4 row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }} *</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password') }} *</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
+
+                            <span class="invalid-feedback" role="alert">
+                                <strong id="errordue"></strong>
+                            </span>
+
                         </div>
 
                         <div class="mb-4 row mb-0">
@@ -91,7 +96,7 @@
                                 </button>
                             </div>
                         </div>
-                        <span>I campi da compilare con * sono obbligatori</span>
+                        <span>* campi obbligatori</span>
                     </form>
                 </div>
             </div>
@@ -100,20 +105,38 @@
 </div>
 
 <script>
-    document.getElementById("form").addEventListener('submit', function(event){
+    let password = document.getElementById('password')
+    let verifica_password = document.getElementById('password-confirm')
+    let error = document.getElementById('error')
+    let errorDue = document.getElementById('errordue')
+    
+    document.getElementById('password-confirm').addEventListener("input", function(e) {
 
-        let password = document.getElementById('password')
-        let verifica_password = document.getElementById('password-confirm')
-        let error = document.getElementById('error')
+        if (password.value !== verifica_password.value) {
+            event.preventDefault();
+            password.classList.remove("is-valid"); // Rimuovi la classe "is-valid" da password
+            verifica_password.classList.remove("is-valid"); // Rimuovi la classe "is-valid" da verifica_password
+            verifica_password.classList.add("is-invalid"); // Aggiungi la classe "is-invalid" a verifica_password
+            errorDue.innerHTML = "Le password inserite dall'utente non corrispondono";
+        } else {
+            password.classList.remove("is-invalid"); // Rimuovi la classe "is-invalid" da password
+            verifica_password.classList.remove("is-invalid"); // Rimuovi la classe "is-invalid" da verifica_password
+            password.classList.add("is-valid"); // Aggiungi la classe "is-valid" a password
+            verifica_password.classList.add("is-valid"); // Aggiungi la classe "is-valid" a verifica_password
+            errorDue.innerHTML = ""; // Rimuovi eventuali messaggi di errore precedenti
+        }
+
+    })
+
+    document.getElementById("form").addEventListener('submit', function(event){
         
         if(password.value !== verifica_password.value){
             event.preventDefault()
             password.classList.add("is-invalid")
             verifica_password.classList.add("is-invalid")
             error.innerHTML = "Le password inserite dall'utente non corrispondono"
-        } else{
-
         }
+        
     })
 </script>
 @endsection
