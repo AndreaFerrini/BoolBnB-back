@@ -16,7 +16,7 @@
         [
             'city'      => 'Firenze',
             'address'   => 'Via Palazzo dei Diavoli, 18',
-            'name'      => 'Florence Comfort B&B',
+            'name'      => 'Florence Comfort B B',
             'zipcode'   => "50142"
         ],
         [
@@ -159,14 +159,14 @@
         ],
         [
             'city'      => 'Napoli',
-            'address'   => 'Via Cesare Rosaroll',
+            'address'   => 'Via Cesare Rosaroll 15',
             'name'      => 'Le Porte di Napoli Rooms',
             'zipcode'   => "80139"
         ],
         [
             'city'      => 'Napoli',
             'address'   => 'Via Genova, 63',
-            'name'      => 'Atlantic Ostello B&B',
+            'name'      => 'Atlantic Ostello BandB',
             'zipcode'   => "80143"
         ],
         [
@@ -178,12 +178,12 @@
         [
             'city'      => 'Palermo',
             'address'   => 'Via Divisi, 74',
-            'name'      => 'Divisi Suites & Spa',
+            'name'      => 'Divisi Suites and Spa',
             'zipcode'   => "90133"
         ],
         [
             'city'      => 'Palermo',
-            'address'   => 'Cortile Giorgio II Greco',
+            'address'   => 'Cortile Giorgio II Greco 1',
             'name'      => 'Cortile Del Greco Apartments',
             'zipcode'   => "90134"
         ],
@@ -232,7 +232,7 @@
         [
             'city'      => 'Ravenna',
             'address'   => 'Via Cerchio, 74',
-            'name'      => 'Atmosfera B&B',
+            'name'      => 'Atmosfera B B',
             'zipcode'   => "48121"
         ],
         [
@@ -243,25 +243,25 @@
         ],
         [
             'city'      => 'San Teodoro',
-            'address'   => 'Località Badualga',
+            'address'   => 'Località Badualga 1',
             'name'      => 'Hotel San Teodoro',
             'zipcode'   => "07052"
         ],
         [
             'city'      => 'San Teodoro',
-            'address'   => 'Via Li Menduli',
+            'address'   => 'Via Li Menduli 1',
             'name'      => 'Residence Li Menduli',
             'zipcode'   => "08020"
         ],
         [
             'city'      => 'San Teodoro',
-            'address'   => 'Via dei Gerani',
+            'address'   => 'Via dei Gerani 1',
             'name'      => 'Gerani Bilocale',
             'zipcode'   => "07052"
         ],
         [
             'city'      => 'San Teodoro',
-            'address'   => 'Via di Li Muntigghieddi, snc',
+            'address'   => 'Via di Li Muntigghieddi, snc 1',
             'name'      => 'Li Muntigeddi',
             'zipcode'   => "07052"
         ],
@@ -279,7 +279,7 @@
         ],
         [
             'city'      => 'Cortina d Ampezzo',
-            'address'   => 'Acquabona di Sotto',
+            'address'   => 'Acquabona di Sotto 1',
             'name'      => 'The Wooden House Cortina',
             'zipcode'   => "32043"
         ],
@@ -297,7 +297,7 @@
         ],
         [
             'city'      => 'Perugia',
-            'address'   => 'Via del Grillo',
+            'address'   => 'Via del Grillo 1',
             'name'      => 'La Corte del Grillo',
             'zipcode'   => "06121"
         ],
@@ -309,7 +309,7 @@
         ],
         [
             'city'      => 'Perugia',
-            'address'   => 'Via degli Orti',
+            'address'   => 'Via degli Orti 1',
             'name'      => 'BB Uva e Fragola',
             'zipcode'   => "06123"
         ],
