@@ -198,59 +198,67 @@
   });
 
   // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
-  function cityName(){
+  let city = document.getElementById('apartments-city');
+  let uniqueStreetNames = [];
+  let uniqueCitiesName = [];
+  let indirizzoDigitato = '';
+  let cittaScelta = '';
+  
 
-    let city = document.getElementById('apartments-city');
-    let parola = document.getElementById('apartments-address').value;
+  // function cityName(){
 
-    const apiKey = '{{ $tomtomApiKey }}';
-    const countrySet = 'IT';
-    const typeahead = true;
-    const limit = 50;
-    const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&limit=${limit}`;
+  //   let city = document.getElementById('apartments-city');
+  //   let parola = document.getElementById('apartments-address').value;
 
-    fetch(tomTomUrl)
-    .then(response => response.json())
-    .then(data => {
-      // Process the response data
-      const results = data.results;
+  //   const apiKey = '{{ $tomtomApiKey }}';
+  //   const countrySet = 'IT';
+  //   const typeahead = true;
+  //   const limit = 50;
+  //   const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&limit=${limit}`;
 
-      const uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
-      console.log(uniqueCitiesName);
-      uniqueCitiesName.sort((a, b) => a.localeCompare(b));
+  //   fetch(tomTomUrl)
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     // Process the response data
+  //     const results = data.results;
 
-      city.innerHTML = `<option disabled selected>Scegli una città</option>`;
+  //     const uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
+  //     console.log(uniqueCitiesName);
+  //     uniqueCitiesName.sort((a, b) => a.localeCompare(b));
 
-      uniqueCitiesName.forEach(element => {
-        if(element !== undefined){
-          city.innerHTML += `<option>${element}</option>`;  
-        }
-      });
-    })
-    .catch(error => {
-      // Handle any errors
-      console.error('An error occurred:', error);
-    });
+  //     city.innerHTML = `<option disabled selected>Scegli una città</option>`;
 
-  };
+  //     uniqueCitiesName.forEach(element => {
+  //       if(element !== undefined){
+  //         city.innerHTML += `<option>${element}</option>`;  
+  //       }
+  //     });
+  //   })
+  //   .catch(error => {
+  //     // Handle any errors
+  //     console.error('An error occurred:', error);
+  //   });
+
+  // };
 
   // FUNCTION CHIAMATA API PER I SUGGERIMENTI DELLE VIE DURANTE LA DIGITAZIONE
   document.getElementById('apartments-address').addEventListener("input", function(e) {
 
-    // CHIAMATA FUNZIONE CITTA'
-    cityName();
-
-    let lunghezza = e.target.value.length;
-    let parola = e.target.value;
+    // CHIAMATA FUNZIONE CITTA'  
+    indirizzoDigitato = e.target.value;
+    let lunghezza = indirizzoDigitato.length;
     let lista = document.getElementById('apartments-address_list');
+    
 
     if (lunghezza > 5) {
+
+      console.log('ciao');
       
       const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
       const countrySet = 'IT';
       const typeahead = true;
       const limit = 50;
-      const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
+      const tomTomUrl = `https://api.tomtom.com/search/2/search/${indirizzoDigitato}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
 
       fetch(tomTomUrl)
       .then(response => response.json())
@@ -258,15 +266,28 @@
         // Process the response data
         const results = data.results;
 
-        const uniqueStreetNames = [...new Set(results.map(element => element.address.streetName))];
+        uniqueStreetNames = [...new Set(results.map(element => element.address.streetName))];
+        uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
+
+
       
-        uniqueStreetNames.sort((a, b) => a.localeCompare(b));
+        uniqueStreetNames = uniqueStreetNames.sort((a, b) => a.localeCompare(b));
+        uniqueCitiesName = uniqueCitiesName.sort((a, b) => a.localeCompare(b));
 
         lista.innerHTML = "";
 
         uniqueStreetNames.forEach(element => {
           lista.innerHTML += `<option onclick="cityName()" value="${element}">${element}</option>`;
         });
+
+        city.innerHTML = `<option disabled selected>Scegli una città</option>`;
+
+        uniqueCitiesName.forEach(element => {
+         if(element !== undefined){
+           city.innerHTML += `<option>${element}</option>`;  
+        }
+        });
+
       })
       .catch(error => {
         // Handle any errors
@@ -274,6 +295,12 @@
       });
 
     }
+  });
+
+
+  document.getElementById('apartments-city').addEventListener("input", function(e) {
+    cittaScelta = city.value;
+    conso
   });
 </script>
 
