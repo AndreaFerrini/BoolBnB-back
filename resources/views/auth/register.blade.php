@@ -91,6 +91,22 @@
 </div>
 
 <script>
+<<<<<<< HEAD
+document.getElementById("form").addEventListener('submit', function(event) {
+  let password = document.getElementById('password');
+  let verifica_password = document.getElementById('password-confirm');
+  let error = document.getElementById('error');
+  
+  if (password.value !== verifica_password.value) {
+    event.preventDefault();
+    password.classList.add("is-invalid");
+    verifica_password.classList.add("is-invalid");
+    error.innerHTML = "Le password inserite dall'utente non corrispondono";
+  } else {
+    // Passwords match, continue with form submission
+  }
+});
+=======
     document.getElementById("form").addEventListener('submit', function(event){
 
         let password = document.getElementById('password')
@@ -106,6 +122,7 @@
 
         }
     })
+>>>>>>> 3a4565ab99fc4f4672f8bbde2ca72441df8a530e
 </script>
 @endsection
 
