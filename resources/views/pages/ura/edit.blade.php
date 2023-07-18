@@ -72,9 +72,7 @@
                 <label for="apartments-city" class="form-label mt-4">Città</label>
                 <select name="city" id="apartments-city" class="form-control" required>
                   {{-- <option disabled selected>Scegli una città</option> --}}
-                  @foreach ($cities as $city)
-                    <option {{ old('city',$apartment->city) == $city ? 'selected' : '' }}>{{ $city }}</option>
-                  @endforeach
+                    <option value ="{{$apartment->city}}" selected>{{$apartment->city}}</option>
                 </select>
               </div>
             </div>
@@ -83,7 +81,7 @@
             <div class="col-2">
               <div class="form-group">
                 <label for="apartments-address_number" class="form-label mt-4">Numero civico</label>
-                <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') ?? $apartment->getCivico() }}" pattern="[0-9a-zA-Z]+">
+                <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') ?? $apartment->getCivico() }}" pattern="[0-9a-zA-Z]+" onchange="getCap()">
                 @error('address_number')
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
                 @enderror
@@ -94,8 +92,10 @@
             <div class="col-2">
               <div class="form-group mt-4">
                 <label for="apartments-postal_code" class="form-label">Codice postale</label>
-                <input type="text" required max="5" min="5" id="apartments-postal_code" class="form-control" placeholder="35010" name="postal_code" value="{{ old('address') ?? $apartment->getCap() }}" pattern="[0-9]+" maxlength="5">
-                @error('postal_code')
+                <select type="text" required id="apartments-postal_code" class="form-control" placeholder="35010" name="postal_code">
+                  <option value ="{{$apartment->getCap()}}" selected>{{$apartment->getCap()}}</option>
+                </select>
+                  @error('postal_code')
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
                 @enderror
               </div> 
@@ -183,7 +183,7 @@
           </div>
         </div>
 
-        <button type="submit" class="my-3 btn btn-primary">Aggiungi</button>
+        <button type="submit" class="my-3 btn btn-primary">Modifica</button>
       </form>
     </div>
   </div>
@@ -203,59 +203,68 @@
   });
 
   // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
-  function cityName(){
+  let city = document.getElementById('apartments-city');
+  let uniqueStreetNames = [];
+  let uniqueCitiesName = [];
+  let uniqueCapNames = [];
+  let indirizzoDigitato = '';
+  let cittaScelta = '';
+  const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
+  const countrySet = 'IT';
+  const typeahead = false;
+  const limit = 50;
 
-    let city = document.getElementById('apartments-city');
-    let parola = document.getElementById('apartments-address').value;
+  // function cityName(){
 
-    const apiKey = '{{ $tomtomApiKey }}';
-    const countrySet = 'IT';
-    const typeahead = true;
-    const limit = 50;
-    const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&limit=${limit}`;
+  //   let city = document.getElementById('apartments-city');
+  //   let parola = document.getElementById('apartments-address').value;
 
-    fetch(tomTomUrl)
-    .then(response => response.json())
-    .then(data => {
-      // Process the response data
-      const results = data.results;
+  //   const apiKey = '{{ $tomtomApiKey }}';
+  //   const countrySet = 'IT';
+  //   const typeahead = true;
+  //   const limit = 50;
+  //   const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&limit=${limit}`;
 
-      const uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
-      console.log(uniqueCitiesName);
-      uniqueCitiesName.sort((a, b) => a.localeCompare(b));
+  //   fetch(tomTomUrl)
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     // Process the response data
+  //     const results = data.results;
 
-      city.innerHTML = `<option disabled selected>Scegli una città</option>`;
+  //     const uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
+  //     console.log(uniqueCitiesName);
+  //     uniqueCitiesName.sort((a, b) => a.localeCompare(b));
 
-      uniqueCitiesName.forEach(element => {
-        if(element !== undefined){
-          city.innerHTML += `<option>${element}</option>`;  
-        }
-      });
-    })
-    .catch(error => {
-      // Handle any errors
-      console.error('An error occurred:', error);
-    });
+  //     city.innerHTML = `<option disabled selected>Scegli una città</option>`;
 
-    };
+  //     uniqueCitiesName.forEach(element => {
+  //       if(element !== undefined){
+  //         city.innerHTML += `<option>${element}</option>`;  
+  //       }
+  //     });
+  //   })
+  //   .catch(error => {
+  //     // Handle any errors
+  //     console.error('An error occurred:', error);
+  //   });
 
-    // FUNCTION CHIAMATA API PER I SUGGERIMENTI DELLE VIE DURANTE LA DIGITAZIONE
-    document.getElementById('apartments-address').addEventListener("input", function(e) {
+  // };
 
-    // CHIAMATA FUNZIONE CITTA'
-    cityName();
+  // FUNCTION CHIAMATA API PER I SUGGERIMENTI DELLE VIE DURANTE LA DIGITAZIONE
+  document.getElementById('apartments-address').addEventListener("input", function(e) {
 
-    let lunghezza = e.target.value.length;
-    let parola = e.target.value;
+    // CHIAMATA FUNZIONE CITTA'  
+    indirizzoDigitato = e.target.value;
+    let lunghezza = indirizzoDigitato.length;
     let lista = document.getElementById('apartments-address_list');
+    
 
     if (lunghezza > 5) {
+
+      console.log('ciao');
       
-      const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
-      const countrySet = 'IT';
-      const typeahead = true;
-      const limit = 50;
-      const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
+
+      const tomTomUrl = `https://api.tomtom.com/search/2/search/${indirizzoDigitato}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
 
       fetch(tomTomUrl)
       .then(response => response.json())
@@ -263,15 +272,28 @@
         // Process the response data
         const results = data.results;
 
-        const uniqueStreetNames = [...new Set(results.map(element => element.address.streetName))];
+        uniqueStreetNames = [...new Set(results.map(element => element.address.streetName))];
+        uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
+
+
       
-        uniqueStreetNames.sort((a, b) => a.localeCompare(b));
+        uniqueStreetNames = uniqueStreetNames.sort((a, b) => a.localeCompare(b));
+        uniqueCitiesName = uniqueCitiesName.sort((a, b) => a.localeCompare(b));
 
         lista.innerHTML = "";
 
         uniqueStreetNames.forEach(element => {
-          lista.innerHTML += `<option onclick="cityName()" value="${element}">${element}</option>`;
+          lista.innerHTML += `<option value="${element}">${element}</option>`;
         });
+
+        city.innerHTML = `<option disabled selected>Scegli una città</option>`;
+
+        uniqueCitiesName.forEach(element => {
+         if(element !== undefined){
+           city.innerHTML += `<option>${element}</option>`;  
+        }
+        });
+
       })
       .catch(error => {
         // Handle any errors
@@ -280,6 +302,74 @@
 
     }
   });
+
+function getCap() {
+  cittaScelta = city.value;
+  if (indirizzoDigitato !== '') {
+
+    let civico = document.getElementById('apartments-address_number').value;
+
+    if(civico !== ''){
+
+      let capList = document.getElementById('apartments-postal_code');
+      console.log(cittaScelta);
+  
+      const tomTomUrl = `https://api.tomtom.com/search/2/search/${indirizzoDigitato}%20${civico}%20${cittaScelta}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=false&limit=${limit}`;
+  
+      fetch(tomTomUrl)
+      .then(response => response.json())
+      .then(data => {
+          // Process the response data
+          const results = data.results;
+  
+          console.log(results[0].address.postalCode)
+  
+          uniqueCapNames = results[0].address.postalCode;
+  
+  // Sort the array by number
+  //     uniqueCapNames.sort((a, b) => {
+  //       const numA = parseInt(a);
+  //       const numB = parseInt(b);
+      
+  //       // Handle NaN (non-numeric values) by treating them as Infinity
+  //       const valA = isNaN(numA) ? Infinity : numA;
+  //       const valB = isNaN(numB) ? Infinity : numB;
+      
+  //       return valA - valB;
+  //     });
+  
+  // // Flatten the array and remove duplicates
+  //     uniqueCapNames = uniqueCapNames
+  //       .flatMap(element => (element ? element.split(',').map(val => val.trim()) : []))
+  //       .filter((value, index, self) => value !== '' && self.indexOf(value) === index);
+  
+      capList.innerHTML = '';
+  
+      capList.innerHTML = `<option disabled selected>Scegli il CAP</option>`;
+      if(uniqueCapNames !== undefined) {
+
+
+        uniqueCapNames = uniqueCapNames.split(', ');
+
+        uniqueCapNames.forEach(element => {
+          capList.innerHTML += `<option value="${element}">${element}</option>`;
+        });
+      }else {
+        capList.innerHTML = `<option disabled selected>CAP non esiste</option>`;
+      }
+      
+      // uniqueCapNames.forEach(element => {
+      //   capList.innerHTML += `<option  value="${element}">${element}</option>`;
+      // });
+          
+          
+      });
+    }
+
+  }
+
+}
+
 </script>
 
 @endsection
