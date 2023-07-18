@@ -69,11 +69,8 @@
           <div class="col-2">
             <div class="form-group mt-4">
               <label for="apartments-city" class="form-label">Città:</label>
-              <select name="city" id="apartments-city" class="form-control" required>
+              <select name="city" id="apartments-city" class="form-control" required onchange="getCap()">
                 <option disabled selected>Scegli una città</option>
-                @foreach ($cities as $city)
-                <option>{{ $city }}</option>
-                @endforeach
               </select>
             </div>
           </div>
@@ -82,7 +79,7 @@
           <div class="col-2">
             <div class="form-group mt-4">
               <label for="apartments-address_number" class="form-label">Numero civico:</label>
-              <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') }}" pattern="[0-9a-zA-Z]+">
+              <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') }}" pattern="[0-9a-zA-Z]+" onchange="getCap()">
               @error('address_number')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
@@ -93,7 +90,12 @@
           <div class="col-2">
             <div class="form-group mt-4">
               <label for="apartments-postal_code" class="form-label">Codice postale:</label>
-              <input type="text" required max="5" min="5" id="apartments-postal_code" class="form-control" placeholder="35010" name="postal_code" value="{{ old('postal_code') }}" pattern="[0-9]+" maxlength="5">
+              <select required id="apartments-postal_code" class="form-control"  name="postal_code">
+                <option disabled selected>Scegli il CAP</option>
+                @if (old('postal_code'))
+                <option value="{{old('postal_code')}}">{{old('postal_code')}}</option>
+                @endif
+              </select>
               @error('postal_code')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
@@ -201,9 +203,13 @@
   let city = document.getElementById('apartments-city');
   let uniqueStreetNames = [];
   let uniqueCitiesName = [];
+  let uniqueCapNames = [];
   let indirizzoDigitato = '';
   let cittaScelta = '';
-  
+  const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
+  const countrySet = 'IT';
+  const typeahead = false;
+  const limit = 50;
 
   // function cityName(){
 
@@ -254,10 +260,7 @@
 
       console.log('ciao');
       
-      const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
-      const countrySet = 'IT';
-      const typeahead = true;
-      const limit = 50;
+
       const tomTomUrl = `https://api.tomtom.com/search/2/search/${indirizzoDigitato}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
 
       fetch(tomTomUrl)
@@ -277,7 +280,7 @@
         lista.innerHTML = "";
 
         uniqueStreetNames.forEach(element => {
-          lista.innerHTML += `<option onclick="cityName()" value="${element}">${element}</option>`;
+          lista.innerHTML += `<option value="${element}">${element}</option>`;
         });
 
         city.innerHTML = `<option disabled selected>Scegli una città</option>`;
@@ -297,11 +300,73 @@
     }
   });
 
+function getCap() {
+  cittaScelta = city.value;
+  if (indirizzoDigitato !== '') {
 
-  document.getElementById('apartments-city').addEventListener("input", function(e) {
-    cittaScelta = city.value;
-    conso
-  });
+    let civico = document.getElementById('apartments-address_number').value;
+
+    if(civico !== ''){
+
+      let capList = document.getElementById('apartments-postal_code');
+      console.log(cittaScelta);
+  
+      const tomTomUrl = `https://api.tomtom.com/search/2/search/${indirizzoDigitato}%20${civico}%20${cittaScelta}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=false&limit=${limit}`;
+  
+      fetch(tomTomUrl)
+      .then(response => response.json())
+      .then(data => {
+          // Process the response data
+          const results = data.results;
+  
+          console.log(results[0].address.postalCode)
+  
+          uniqueCapNames = results[0].address.postalCode;
+  
+  // Sort the array by number
+  //     uniqueCapNames.sort((a, b) => {
+  //       const numA = parseInt(a);
+  //       const numB = parseInt(b);
+      
+  //       // Handle NaN (non-numeric values) by treating them as Infinity
+  //       const valA = isNaN(numA) ? Infinity : numA;
+  //       const valB = isNaN(numB) ? Infinity : numB;
+      
+  //       return valA - valB;
+  //     });
+  
+  // // Flatten the array and remove duplicates
+  //     uniqueCapNames = uniqueCapNames
+  //       .flatMap(element => (element ? element.split(',').map(val => val.trim()) : []))
+  //       .filter((value, index, self) => value !== '' && self.indexOf(value) === index);
+  
+      capList.innerHTML = '';
+  
+      capList.innerHTML = `<option disabled selected>Scegli il CAP</option>`;
+      if(uniqueCapNames !== undefined) {
+
+
+        uniqueCapNames = uniqueCapNames.split(', ');
+
+        uniqueCapNames.forEach(element => {
+          capList.innerHTML += `<option value="${element}">${element}</option>`;
+        });
+      }else {
+        capList.innerHTML = `<option disabled selected>CAP non esiste</option>`;
+      }
+      
+      // uniqueCapNames.forEach(element => {
+      //   capList.innerHTML += `<option  value="${element}">${element}</option>`;
+      // });
+          
+          
+      });
+    }
+
+  }
+
+}
+
 </script>
 
 @endsection
