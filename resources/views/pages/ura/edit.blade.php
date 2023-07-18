@@ -10,19 +10,26 @@
         @csrf
 
         <div class="form-group">
+
+          {{-- TITOLO --}}
           <label for="apartments-title" class="form-label mb-4">Titolo:</label>
           <input type="text" required max="255" id="apartments-title" class="form-control" placeholder="Inserisci il titolo dell'appartamento" name="title" value="{{ old('title') ?? $apartment->title }}">
           @error('title')
           <span style="color: red; text-transform: uppercase">{{ $message }}</span>
           @enderror
           <div class="row">
+
             <div class="col-8">
+
+              {{-- IMMAGINE --}}
               <label for="apartments-cover_img" class="form-label mt-4">Scegli un'immagine</label>
-              <input type="file" class="form-control" name="cover_img" id="img-preview" placeholder="image" aria-describedby="fileHelpId">
+              <input type="file" class="form-control" name="apartments-cover_img" id="img-preview" placeholder="image" aria-describedby="fileHelpId">
               <div class="preview mt-2 text-center d-inline-block"></div>
               @error('cover_img')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
+
+              {{-- DESCRIZIONE --}}
               <div class="form-group">
                 <label for="apartments-description" class="form-label mt-4">Descrizione</label>
                 <textarea id="apartments-description" class="form-control" placeholder="Inserisci la descrizione dell'appartamento" rows="8" name="description">{{ old('description') ?? $apartment->description }}</textarea>
@@ -31,27 +38,48 @@
                 @enderror
               </div>
             </div>
+
+            {{-- PREVIEW IMG --}}
             <div class="col-4">
               <label for="apartments-city" class="form-label d-block mt-4 mb-2">Preview:</label>
               <div class="preview text-center d-inline-block p-3" style="max-height: 300px; width: 100%; min-height: 300px; overflow: hidden" id="box-preview">
-              <img class="img-fluid" src="{{asset('storage/' . $apartment->cover_img)}}" alt="">
-            </div>
+                <img class="img-fluid" src="{{asset('storage/' . $apartment->cover_img)}}" alt="">
+              </div>
             </div>
           </div>
         </div>
 
         <div>
           <div class="row">
+
+            {{-- INDIRIZZO --}} 
             <div class="col-6">
               <div class="form-group">
                 <label for="apartments-address" class="form-label mt-4">Indirizzo</label>
-                <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') ?? $apartment->getIndirizzo() }}">
+                <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') ?? $apartment->getIndirizzo() }}" list="apartments-address_list">
+                <datalist id="apartments-address_list">
+                  {{-- CONTENUTO RICERCA --}}
+                </datalist>
                 @error('address')
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
                 @enderror
               </div>
-              
             </div>
+
+            {{-- CITTA' --}}
+            <div class="col-2">
+              <div class="form-group">
+                <label for="apartments-city" class="form-label mt-4">Città</label>
+                <select name="city" id="apartments-city" class="form-control" required>
+                  {{-- <option disabled selected>Scegli una città</option> --}}
+                  @foreach ($cities as $city)
+                    <option {{ old('city',$apartment->city) == $city ? 'selected' : '' }}>{{ $city }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+
+            {{-- NUMERO CIVICO --}}
             <div class="col-2">
               <div class="form-group">
                 <label for="apartments-address_number" class="form-label mt-4">Numero civico</label>
@@ -60,39 +88,25 @@
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
                 @enderror
               </div>
-
             </div>
-            <div class="col-2">
-              <div class="form-group">
-                <label for="apartments-city" class="form-label mt-4">Città</label>
-                <select name="city" id="apartments-city" class="form-control" required>
-                  <option disabled selected>Scegli una città</option>
-                  @foreach ($cities as $city)
-                    <option {{ old('city',$apartment->city) == $city ? 'selected' : '' }}>{{ $city }}</option>
-                  @endforeach
-                </select>
-              </div>
 
-            </div>
+            {{-- CODICE POSTALE --}}
             <div class="col-2">
               <div class="form-group mt-4">
                 <label for="apartments-postal_code" class="form-label">Codice postale</label>
-                <input type="text" required max="5" min="5" id="apartments-postal_code" class="form-control" placeholder="35010" name="postal_code" value="{{ old('address') ?? $apartment->getCap() }}" pattern="[0-9]+">
+                <input type="text" required max="5" min="5" id="apartments-postal_code" class="form-control" placeholder="35010" name="postal_code" value="{{ old('address') ?? $apartment->getCap() }}" pattern="[0-9]+" maxlength="5">
                 @error('postal_code')
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
                 @enderror
-              </div>
-              
+              </div> 
             </div>
+
           </div>
         </div>
 
-
-
-
-
         <div class="row">
 
+          {{-- NUMERO DI STANZE --}}
           <div class="col-3">
             <div class="form-group mt-4">
               <label for="apartments-number_of_rooms" class="form-label">Numero stanze</label>
@@ -103,6 +117,7 @@
             </div>
           </div>
 
+          {{-- NUMERO DI BAGNI --}}
           <div class="col-3">
             <div class="form-group mt-4">
               <label for="apartments-number_of_bathrooms" class="form-label">Numero bagni</label>
@@ -113,7 +128,7 @@
             </div>
           </div>
           
-          
+          {{-- MQ --}}
           <div class="col-3">
             <div class="form-group mt-4">
               <label for="apartments-square_meters" class="form-label">Metri quadrati</label>
@@ -124,6 +139,7 @@
             </div>
           </div>
           
+          {{-- PREZZO --}}
           <div class="col-3">
             <div class="form-group mt-4">
               <label for="apartments-price" class="form-label">Prezzo</label>
@@ -135,7 +151,7 @@
           </div>
         </div>
 
-
+        {{-- SERVICE --}}
         <div class="form-group">
           <label class="form-label mt-4">Service:</label>
           <div class="form-check">
@@ -156,6 +172,7 @@
           </div>
         </div>
 
+        {{-- VISIBILITY --}}
         <div class="form-group">
           <label class="form-label mt-4">Visibility:</label>
           <div>
@@ -173,15 +190,95 @@
 </div>
 
 <script>
+
+  // FUNCTION PREVIEW IMG CARICATA
   document.getElementById("img-preview").addEventListener("change", function(e) {
     let reader = new FileReader();
     reader.onload = function(event) {
       let imagePreview = document.querySelector("#box-preview");
-      imagePreview.innerHTML = `
-      
-      <img src="${event.target.result}" alt="Preview" class="img-fluid" style=" max-height: 300px">`;
+      imagePreview.innerHTML = 
+        `<img src="${event.target.result}" alt="Preview" class="img-fluid rounded mx-auto" max-height: 300px">`;
     }
     reader.readAsDataURL(e.target.files[0]);
+  });
+
+  // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
+  function cityName(){
+
+    let city = document.getElementById('apartments-city');
+    let parola = document.getElementById('apartments-address').value;
+
+    const apiKey = '{{ $tomtomApiKey }}';
+    const countrySet = 'IT';
+    const typeahead = true;
+    const limit = 50;
+    const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&limit=${limit}`;
+
+    fetch(tomTomUrl)
+    .then(response => response.json())
+    .then(data => {
+      // Process the response data
+      const results = data.results;
+
+      const uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
+      console.log(uniqueCitiesName);
+      uniqueCitiesName.sort((a, b) => a.localeCompare(b));
+
+      city.innerHTML = `<option disabled selected>Scegli una città</option>`;
+
+      uniqueCitiesName.forEach(element => {
+        if(element !== undefined){
+          city.innerHTML += `<option>${element}</option>`;  
+        }
+      });
+    })
+    .catch(error => {
+      // Handle any errors
+      console.error('An error occurred:', error);
+    });
+
+    };
+
+    // FUNCTION CHIAMATA API PER I SUGGERIMENTI DELLE VIE DURANTE LA DIGITAZIONE
+    document.getElementById('apartments-address').addEventListener("input", function(e) {
+
+    // CHIAMATA FUNZIONE CITTA'
+    cityName();
+
+    let lunghezza = e.target.value.length;
+    let parola = e.target.value;
+    let lista = document.getElementById('apartments-address_list');
+
+    if (lunghezza > 5) {
+      
+      const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
+      const countrySet = 'IT';
+      const typeahead = true;
+      const limit = 50;
+      const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
+
+      fetch(tomTomUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Process the response data
+        const results = data.results;
+
+        const uniqueStreetNames = [...new Set(results.map(element => element.address.streetName))];
+      
+        uniqueStreetNames.sort((a, b) => a.localeCompare(b));
+
+        lista.innerHTML = "";
+
+        uniqueStreetNames.forEach(element => {
+          lista.innerHTML += `<option onclick="cityName()" value="${element}">${element}</option>`;
+        });
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error('An error occurred:', error);
+      });
+
+    }
   });
 </script>
 
