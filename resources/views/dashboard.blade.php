@@ -24,15 +24,30 @@
         @endif
 
         @if(isset($apartments))
-        <div class="card p-3">
+        <div class="p-3">
             <div class="row">
                 @foreach ($apartments as $apartment)
                 <div class="p-2 col-12">
-                    <div class="card">
-                        <h5 class="card-title text-center my-2">{{$apartment->title}}</h5>
+                    <div class="card shadow"
+                    @if ($apartment->visibility == 0)
+                    style="background-color: rgba(128, 128, 128, 0.123)"
+                        
+                    @endif>
+                        <h5 class="card-title text-center my-3">{{$apartment->title}}</h5>
+                        <p class="text-center"><b>Visibiltà:</b>
+                            @if ($apartment->visibility === 1)
+                                pubblico
+                            @else
+                                privato
+                            @endif
+                            </p>
                         <div class="row p-3">
                             <div class="col-4">
+                                @if ( $apartment->cover_img)
                                 <img class="img-fluid" src="{{asset('storage/' . $apartment->cover_img)}}" alt="Card image cap">
+                                @else
+                                <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
+                                @endif
                             </div>
                             <div class="col-8">
                                 <div>
@@ -44,15 +59,11 @@
                                         <span><b>Stanze:</b>{{$apartment->number_of_rooms}}</span>
                                         <span><b>Bagni:</b>{{$apartment->number_of_bathrooms}}</span>
                                         <span><b>Superficie:</b>{{$apartment->square_meters}}Mq</span>
-                                        <span><b>Visibiltà:</b>
-                                        @if ($apartment->visibility === 1)
-                                            pubblico
-                                        @else
-                                            privato
-                                        @endif
-                                        </span>
                                     </div>
-                                    <div>
+                                    <div class="mt-3">
+                                        <span>
+                                            <b>Servizi:</b>
+                                        </span>
                                         @foreach ($apartment->services as $service)
                                         <span>
                                             {{$service->name}}
@@ -60,7 +71,7 @@
                                         </span>
                                         @endforeach
                                     </div>
-                                    <div class="row align-items-center mt-2">
+                                    <div class="row align-items-center mt-4">
                                         <div class="col-2">
                                             <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary">Modifica</a>
                                         </div>
@@ -68,12 +79,13 @@
                                             <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST" class="delete-form">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                                <button style="border-color: red" type="submit"><i class="fa-solid fa-trash-can text-danger"></i></button>
                                             </form>
                                         </div>
-                                        <div class="col-1">
-                                            <a href="{{route('admin.apartments.visibility', $apartment)}}" class="text-black">
+                                        <div class="col-3">
+                                            <a href="{{route('admin.apartments.visibility', $apartment)}}" class="text-black text-decoration-none">
                                                 <i class="fa-solid fa-eye{{$apartment->visibility ? '' : '-slash'}}"></i>
+                                                cambia visibilità
                                             </a>
                                         </div>
                                     </div>

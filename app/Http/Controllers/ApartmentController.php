@@ -58,7 +58,11 @@ class ApartmentController extends Controller
       
         // inizializzazione: indirizzo composto, path img, slug, user id, latitudine, longitudine
         $indirizzo = $form_data['address'] . ' ' . str_replace(' ', '', $form_data['address_number']) . ' ' . $form_data['postal_code'];
-        $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
+        if( $request->hasFile('cover_img') ){        
+            $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
+            $form_data['cover_img'] = $path;
+        } 
+
         $slug = Str::slug($form_data['title']);
         $user_id = Auth::user()->id;
         $tomtomResponseJson = get_coordinates($indirizzo, $form_data['city']);
@@ -67,7 +71,6 @@ class ApartmentController extends Controller
         $long = $tomtomResponseDecoded['results'][0]['position']['lon'];
         
         // riempimento form data
-        $form_data['cover_img'] = $path;
         $form_data['user_id'] = $user_id;
         $form_data['slug'] = $slug;
         $form_data['address'] = $indirizzo;
@@ -147,7 +150,7 @@ class ApartmentController extends Controller
             }
             $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
             $form_data['cover_img'] = $path;
-        }  
+        } 
 
         $indirizzo = $form_data['address'] . ' ' . str_replace(' ', '', $form_data['address_number']) . ' ' . $form_data['postal_code'];
    

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('slug',100);
             $table->string('address',100);
             $table->string('city',50);
-            $table->text('cover_img');
+            $table->text('cover_img')->nullable();
             $table->text('description');
             $table->unsignedTinyInteger('number_of_rooms');
             $table->unsignedTinyInteger('number_of_bathrooms');
