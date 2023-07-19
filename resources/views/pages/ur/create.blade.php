@@ -4,8 +4,9 @@
     
 
 <div class="container-lg p-5">
-  <h1 class="mt-5">CREATE</h1>
-  <div class="row">
+  <h1>CREA UN NUOVO APPARTAMENTO</h1>
+  <span>* campi obbligatori</span>
+  <div class="row mt-3">
     <div class="col-12 bg-white shadow rounded-lg">
       <form class="container-xl" action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data">
         @method('POST')
@@ -13,7 +14,7 @@
 
         {{-- TITOLO --}}
         <div class="form-group mt-4">
-          <label for="apartments-title" class="form-label">Titolo:</label>
+          <label for="apartments-title" class="form-label"><b>Titolo:</b> *</label>
           <input type="text" required max="255" id="apartments-title" class="form-control" placeholder="Inserisci il titolo dell'appartamento" name="title" value="{{ old('title') }}">
           @error('title')
           <span style="color: red; text-transform: uppercase">{{ $message }}</span>
@@ -25,7 +26,7 @@
             <div class="col-8">
 
               {{-- IMMAGINE --}}
-              <label for="apartments-cover_img" class="form-label">Scegli un'immagine:</label>
+              <label for="apartments-cover_img" class="form-label"><b>Scegli un'immagine:</b></label>
               <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="Immagine" aria-describedby="fileHelpId">
               @error('cover_img')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
@@ -33,8 +34,8 @@
 
               {{-- DESCRIZIONE --}}
               <div class="form-group mt-4">
-                <label for="apartments-description" class="form-label">Descrizione:</label>
-                <textarea id="apartments-description" class="form-control" placeholder="Inserisci la descrizione dell'appartamento" rows="8" name="description">{{ old('description') }}</textarea>
+                <label for="apartments-description" class="form-label"><b>Descrizione:</b> *</label>
+                <textarea id="apartments-description" required class="form-control" placeholder="Inserisci la descrizione dell'appartamento" rows="8" name="description">{{ old('description') }}</textarea>
                 @error('description')
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
                 @enderror
@@ -43,7 +44,7 @@
 
             {{-- PREVIEW IMG --}}
             <div class="col-4">
-              <label for="apartments-city" class="form-label d-block mb-2">Preview:</label>
+              <label for="apartments-city" class="form-label d-block mb-2"><b>Preview:</b></label>
               <div class="preview text-center d-inline-block p-3" style="max-height: 300px; width: 100%; min-height: 300px; overflow: hidden">
                 <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
               </div>
@@ -56,7 +57,7 @@
           {{-- INDIRIZZO --}}
           <div class="col-6">
             <div class="form-group mt-4">
-                <label for="apartments-address" class="form-label">Indirizzo:</label>
+                <label for="apartments-address" class="form-label"><b>Via:</b> *</label>
                 <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') }}" list="apartments-address_list">
                 <datalist id="apartments-address_list">
                   {{-- CONTENUTO RICERCA --}}
@@ -70,7 +71,7 @@
           {{-- CITTA' --}}
           <div class="col-2">
             <div class="form-group mt-4">
-              <label for="apartments-city" class="form-label">Città:</label>
+              <label for="apartments-city" class="form-label"><b>Città:</b> *</label>
               <select name="city" id="apartments-city" class="form-control" required onchange="getCap()">
                 <option disabled selected>Scegli una città</option>
               </select>
@@ -80,7 +81,7 @@
           {{-- NUMERO CIVICO --}}
           <div class="col-2">
             <div class="form-group mt-4">
-              <label for="apartments-address_number" class="form-label">Numero civico:</label>
+              <label for="apartments-address_number" class="form-label"><b>Numero civico:</b> *</label>
               <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') }}" pattern="[0-9a-zA-Z]+" onchange="getCap()">
               @error('address_number')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
@@ -91,7 +92,7 @@
           {{-- CODICE POSTALE --}}
           <div class="col-2">
             <div class="form-group mt-4">
-              <label for="apartments-postal_code" class="form-label">Codice postale:</label>
+              <label for="apartments-postal_code" class="form-label"><b>Codice postale:</b> *</label>
               <select required id="apartments-postal_code" class="form-control"  name="postal_code">
                 <option disabled selected>Scegli il CAP</option>
               </select>
@@ -106,7 +107,7 @@
           {{-- NUMERO DI STANZE --}}
           <div class="col-md-3">
             <div class="form-group mt-4">
-              <label for="apartments-number_of_rooms" class="form-label">Numero stanze:</label>
+              <label for="apartments-number_of_rooms" class="form-label"><b>Numero stanze:</b> *</label>
               <input type="number" required max="20" min="1" id="apartments-number_of_rooms" class="form-control" placeholder="3" name="number_of_rooms" value="{{ old('number_of_rooms') }}" pattern="[0-9]+">
               @error('number_of_rooms')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
@@ -117,7 +118,7 @@
           {{-- NUMERO DI BAGNI --}}
           <div class="col-md-3">
             <div class="form-group mt-4">
-              <label for="apartments-number_of_bathrooms" class="form-label">Numero bagni:</label>
+              <label for="apartments-number_of_bathrooms" class="form-label"><b>Numero bagni:</b> *</label>
               <input type="number" required max="20" min="1" id="apartments-number_of_bathrooms" class="form-control" placeholder="2" name="number_of_bathrooms" value="{{ old('number_of_bathrooms') }}" pattern="[0-9]+">
               @error('number_of_bathrooms')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
@@ -128,7 +129,7 @@
           {{-- MQ --}}
           <div class="col-md-3">
             <div class="form-group mt-4">
-              <label for="apartments-square_meters" class="form-label">Metri quadrati:</label>
+              <label for="apartments-square_meters" class="form-label"><b>Metri quadrati:</b> *</label>
               <input type="number" required max="1000" min="1" id="apartments-square_meters" class="form-control" placeholder="50" name="square_meters" value="{{ old('square_meters') }}" pattern="[0-9]+">
               @error('square_meters')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
@@ -139,7 +140,7 @@
           {{-- PREZZO --}}
           <div class="col-md-3">
               <div class="form-group mt-4">
-                <label for="apartments-price" class="form-label">Prezzo:</label>
+                <label for="apartments-price" class="form-label"><b>Prezzo:</b> *</label>
                 <input type="number" required max="99999" min="1" id="apartments-price" class="form-control" placeholder="499,99" name="price" value="{{ old('price') }}" step="0.01" pattern="\d+(\.\d{1,2})?">
                 @error('price')
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
@@ -150,7 +151,7 @@
 
         {{-- SERVICE --}}
         <div class="form-group mt-4">
-          <label class="form-label">Servizi:</label>
+          <label class="form-label"><b>Servizi:</b> *</label>
           <div class="form-check d-flex flex-wrap">
             @foreach ($services as $service)
             <div class="col-2">
@@ -166,7 +167,7 @@
         </div>
 
         {{-- VISIBILITY --}}
-        <label class="mt-4" for="">Visibility:</label>  
+        <label class="mt-4" for=""><b>Visibility:</b> </label>  
         <div class="form-group d-flex mt-3">
           <div class="form-check">
             <input class="form-check-input" type="radio" name="visibility" id="apartments-visibility-private" value="0">
@@ -246,7 +247,7 @@
   // };
 
   // FUNCTION CHIAMATA API PER I SUGGERIMENTI DELLE VIE DURANTE LA DIGITAZIONE
-  document.getElementById('apartments-address').addEventListener("input", function(e) {
+  function handleAddressInput(e) {
 
     // CHIAMATA FUNZIONE CITTA'  
     indirizzoDigitato = e.target.value;
@@ -256,14 +257,13 @@
 
     if (lunghezza > 5) {
 
-      console.log('ciao');
       
 
       const tomTomUrl = `https://api.tomtom.com/search/2/search/${indirizzoDigitato}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
 
       fetch(tomTomUrl)
       .then(response => response.json())
-      .then(data => {
+      .then(data => { 
         // Process the response data
         const results = data.results;
 
@@ -285,7 +285,10 @@
 
         uniqueCitiesName.forEach(element => {
          if(element !== undefined){
-           city.innerHTML += `<option>${element}</option>`;  
+           city.innerHTML += `<option>${element}</option>`; 
+           if ("{{ old('city') }}" === element) {
+          option.setAttribute('selected', 'selected');
+    }
         }
         });
 
@@ -296,7 +299,23 @@
       });
 
     }
-  });
+  };
+
+  function checkAndHandleAddressInput() {
+  const addressInput = document.getElementById('apartments-address');
+  const addressValue = addressInput.value.trim();
+
+  if (addressValue) {
+    handleAddressInput({ target: addressInput });
+  }
+}
+
+// Call the checkAndHandleAddressInput function at the start to check if there's a value
+checkAndHandleAddressInput();
+
+  document.getElementById('apartments-address').addEventListener("input", handleAddressInput);
+
+  
 
 function getCap() {
   cittaScelta = city.value;
