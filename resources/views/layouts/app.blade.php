@@ -82,7 +82,7 @@
                                         {{ ucfirst(Auth::user()->name) }}
                                     @elseif(Auth::user()->surname)
                                         {{ ucfirst(Auth::user()->surname) }}
-                                    @else
+                                    @elseif(Auth::user()->email)
                                         {{ Auth::user()->email }}
                                     @endif
                                 @endauth

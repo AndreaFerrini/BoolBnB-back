@@ -206,8 +206,8 @@
     reader.readAsDataURL(e.target.files[0]);
   });
 
-  // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
-  let city = document.getElementById('apartments-city');
+   // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
+   let city = document.getElementById('apartments-city');
   let uniqueStreetNames = [];
   let uniqueCitiesName = [];
   let uniqueCapNames = [];
@@ -255,7 +255,7 @@
   // };
 
   // FUNCTION CHIAMATA API PER I SUGGERIMENTI DELLE VIE DURANTE LA DIGITAZIONE
-  document.getElementById('apartments-address').addEventListener("input", function(e) {
+  function handleAddressInput(e) {
 
     // CHIAMATA FUNZIONE CITTA'  
     indirizzoDigitato = e.target.value;
@@ -265,14 +265,13 @@
 
     if (lunghezza > 5) {
 
-      console.log('ciao');
       
 
       const tomTomUrl = `https://api.tomtom.com/search/2/search/${indirizzoDigitato}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
 
       fetch(tomTomUrl)
       .then(response => response.json())
-      .then(data => {
+      .then(data => { 
         // Process the response data
         const results = data.results;
 
@@ -294,7 +293,10 @@
 
         uniqueCitiesName.forEach(element => {
          if(element !== undefined){
-           city.innerHTML += `<option>${element}</option>`;  
+           city.innerHTML += `<option>${element}</option>`; 
+           if ("{{ old('city') }}" === element) {
+          option.setAttribute('selected', 'selected');
+    }
         }
         });
 
@@ -305,7 +307,23 @@
       });
 
     }
-  });
+  };
+
+  function checkAndHandleAddressInput() {
+  const addressInput = document.getElementById('apartments-address');
+  const addressValue = addressInput.value.trim();
+
+  if (addressValue) {
+    handleAddressInput({ target: addressInput });
+  }
+}
+
+// Call the checkAndHandleAddressInput function at the start to check if there's a value
+checkAndHandleAddressInput();
+
+  document.getElementById('apartments-address').addEventListener("input", handleAddressInput);
+
+  
 
 function getCap() {
   cittaScelta = city.value;

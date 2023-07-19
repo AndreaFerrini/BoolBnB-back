@@ -22,21 +22,21 @@
             <input class="form-control" type="text" name="name" id="name" autocomplete="name" value="{{old('name', $user->name)}}" required autofocus>
             @error('name')
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->get('name')}}</strong>
+
             </span>
             @enderror
             <label for="surname">{{__('Surname')}}</label>
             <input class="form-control" type="text" name="surname" id="name" autocomplete="surname" value="{{old('surname', $user->surname)}}" autofocus>
             @error('surname')
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->get('surname')}}</strong>
+
             </span>
             @enderror
             <label for="birth">{{__('Birth')}}</label>
             <input class="form-control" type="date" name="birth" id="birth" autocomplete="birth" value="{{old('birth', $user->birth)}}" autofocus>
             @error('birth')
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->get('birth')}}</strong>
+
             </span>
             @enderror
             
