@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    
 
 <div class="container-lg p-5">
   <h1>CREA UN NUOVO APPARTAMENTO</h1>
@@ -44,9 +43,13 @@
 
             {{-- PREVIEW IMG --}}
             <div class="col-4">
-              <label for="apartments-city" class="form-label d-block mb-2"><b>Preview:</b></label>
-              <div class="preview text-center d-inline-block p-3" style="max-height: 300px; width: 100%; min-height: 300px; overflow: hidden">
+              <label for="apartments-city" class="form-label d-block mt-4 mb-2">Preview:</label>
+              <div class="preview text-center d-inline-block p-3" style="max-height: 300px; width: 100%; min-height: 300px; overflow: hidden" id="box-preview">
+                @if($apartment->cover_img)
+                <img class="img-fluid" src="{{asset('storage/' . $apartment->cover_img)}}" alt="">
+                @else
                 <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
+                @endif
               </div>
             </div>
           </div>
@@ -286,8 +289,9 @@
         uniqueCitiesName.forEach(element => {
          if(element !== undefined){
            city.innerHTML += `<option>${element}</option>`; 
-           if ("{{ old('city') }}" === element) {
+           if ("{{$apartment->city}}" === element) {
           option.setAttribute('selected', 'selected');
+          
     }
         }
         });
