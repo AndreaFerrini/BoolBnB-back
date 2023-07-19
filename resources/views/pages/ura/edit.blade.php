@@ -86,7 +86,7 @@
             <div class="col-2">
               <div class="form-group">
                 <label for="apartments-address_number" class="form-label mt-4">Numero civico</label>
-                <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') ?? $apartment->getCivico() }}" pattern="[0-9a-zA-Z]+" onchange="getCap()">
+                <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') ?? $apartment->getCivico() }}" pattern="[0-9a-zA-Z]+">
                 @error('address_number')
                 <span style="color: red; text-transform: uppercase">{{ $message }}</span>
                 @enderror
