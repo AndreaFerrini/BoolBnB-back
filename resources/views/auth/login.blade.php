@@ -64,6 +64,14 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div>
+                            @if (Route::has('register'))
+                            <div class="text-center">
+                                <a class="nav-link" href="{{ route('register') }}"><b>Non sei registrato? Clicca qui</b></a>
+                            </div>
+                            @endif
+                        </div>
                     </form>
                 </div>
             </div>

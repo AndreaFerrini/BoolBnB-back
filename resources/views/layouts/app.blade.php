@@ -36,6 +36,9 @@
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
                 </a>
+                <a href="">
+                    vai al front-end
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -47,11 +50,13 @@
                     @endphp
                     
                     <ul class="navbar-nav me-auto">
+                    @auth
                         @if($currentUrl !== url('/admin/apartments'))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/admin/apartments') }}">{{ __('Home') }}</a>
                             </li>
                         @endif
+                    @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
