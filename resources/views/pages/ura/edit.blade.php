@@ -326,7 +326,14 @@
     .then(response => response.json())
     .then(data => {
       const results = data.results;
-      const filteredResults = results.filter(element => element.type === "Street" && element.address.postalCode);
+      const filteredResults = results.filter(
+      element =>
+        element.type === "Street" &&
+        element.address.postalCode &&
+        element.address.countrySecondarySubdivision === NuovaCitta
+      );
+
+      console.log (filteredResults)
 
       let postalCodes = filteredResults
         .map(element => element.address.postalCode)
