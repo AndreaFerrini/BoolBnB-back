@@ -60,8 +60,9 @@
             <div class="col-6">
               <div class="form-group">
                 <label for="apartments-address" class="form-label mt-4">Indirizzo</label>
-                <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') ?? $apartment->getIndirizzo() }}" list="apartments-address_list">
-                <datalist id="apartments-address_list">
+                <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') ?? $apartment->getIndirizzo() }}" list="apartments-address_list" onkeyup="getIndirizzoCompleto()"
+                onfocus="this.value=''" onchange="this.blur();getCity()">
+                <datalist id="apartments-address_list" >
                   {{-- CONTENUTO RICERCA --}}
                 </datalist>
                 @error('address')
@@ -74,7 +75,7 @@
             <div class="col-2">
               <div class="form-group">
                 <label for="apartments-city" class="form-label mt-4">Città</label>
-                <select name="city" id="apartments-city" class="form-control" required>
+                <select name="city" id="apartments-city" class="form-control" required onchange="getCap()">
                   {{-- <option disabled selected>Scegli una città</option> --}}
                     <option value ="{{$apartment->city}}" selected>{{$apartment->city}}</option>
                 </select>
@@ -207,190 +208,151 @@
   });
 
    // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
-   let city = document.getElementById('apartments-city');
+  let city = document.getElementById('apartments-city');
+  let indirizzo = document.getElementById('apartments-address');
+  let civico = document.getElementById('apartments-address_number');
+  let cap = document.getElementById('apartments-postal_code');
+
+  let lista = document.getElementById('apartments-address_list');
+
+
   let uniqueStreetNames = [];
   let uniqueCitiesName = [];
   let uniqueCapNames = [];
-  let indirizzoDigitato = '';
-  let cittaScelta = '';
+  let indirizzoDigitato = indirizzo.value;
+  let cittaScelta = city.value;
+  let capScelto = cap.value;
+  let civicoScelto = civico.value;
   const apiKey = '0xSqzIGFfYOPGxiHBIkZWuMQuGORRmfV';
   const countrySet = 'IT';
   const typeahead = false;
   const limit = 50;
 
-  // function cityName(){
 
-  //   let city = document.getElementById('apartments-city');
-  //   let parola = document.getElementById('apartments-address').value;
+  function getIndirizzoCompleto() {
 
-  //   const apiKey = '{{ $tomtomApiKey }}';
-  //   const countrySet = 'IT';
-  //   const typeahead = true;
-  //   const limit = 50;
-  //   const tomTomUrl = `https://api.tomtom.com/search/2/search/${parola}.json?key=${apiKey}&countrySet=${countrySet}&limit=${limit}`;
-
-  //   fetch(tomTomUrl)
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     // Process the response data
-  //     const results = data.results;
-
-  //     const uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
-  //     console.log(uniqueCitiesName);
-  //     uniqueCitiesName.sort((a, b) => a.localeCompare(b));
-
-  //     city.innerHTML = `<option disabled selected>Scegli una città</option>`;
-
-  //     uniqueCitiesName.forEach(element => {
-  //       if(element !== undefined){
-  //         city.innerHTML += `<option>${element}</option>`;  
-  //       }
-  //     });
-  //   })
-  //   .catch(error => {
-  //     // Handle any errors
-  //     console.error('An error occurred:', error);
-  //   });
-
-  // };
-
-  // FUNCTION CHIAMATA API PER I SUGGERIMENTI DELLE VIE DURANTE LA DIGITAZIONE
-  function handleAddressInput(e) {
-
-    // CHIAMATA FUNZIONE CITTA'  
-    indirizzoDigitato = e.target.value;
-    let lunghezza = indirizzoDigitato.length;
-    let lista = document.getElementById('apartments-address_list');
     
+    let NuovaCitta = city.value;
+    let NuovoIndirizzo = indirizzo.value;
+    
+    cleanAll();
 
+    let lunghezza = NuovoIndirizzo.length;
+    
     if (lunghezza > 5) {
-
-      
-
-      const tomTomUrl = `https://api.tomtom.com/search/2/search/${indirizzoDigitato}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
-
+      console.log('ciao')
+      const tomTomUrl = `https://api.tomtom.com/search/2/search/${NuovoIndirizzo}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
       fetch(tomTomUrl)
       .then(response => response.json())
-      .then(data => { 
-        // Process the response data
+      .then(data => {
         const results = data.results;
 
-        uniqueStreetNames = [...new Set(results.map(element => element.address.streetName))];
-        uniqueCitiesName = [...new Set(results.map(element => element.address.countrySecondarySubdivision))];
+        const filteredResults = results.filter(element => element.type === "Street" && element.address.postalCode);
 
+        console.log(filteredResults)
 
-      
+        uniqueStreetNames = [...new Set(filteredResults.map(element => element.address.streetName))];
         uniqueStreetNames = uniqueStreetNames.sort((a, b) => a.localeCompare(b));
-        uniqueCitiesName = uniqueCitiesName.sort((a, b) => a.localeCompare(b));
-
+        
         lista.innerHTML = "";
 
         uniqueStreetNames.forEach(element => {
           lista.innerHTML += `<option value="${element}">${element}</option>`;
         });
 
+
+        uniqueCitiesName = [...new Set(filteredResults.map(element => element.address.countrySecondarySubdivision))];
+        uniqueCitiesName = uniqueCitiesName.sort((a, b) => a.localeCompare(b));
+
+
         city.innerHTML = `<option disabled selected>Scegli una città</option>`;
 
         uniqueCitiesName.forEach(element => {
-         if(element !== undefined){
-           city.innerHTML += `<option>${element}</option>`; 
-           if ("{{ old('city') }}" === element) {
-          option.setAttribute('selected', 'selected');
-    }
-        }
+          if(element !== undefined){
+            city.innerHTML += `<option>${element}</option>`;
+
+            if ("{{ old('city') }}" === element) {
+              option.setAttribute('selected', 'selected');
+            }
+          }
         });
 
-      })
-      .catch(error => {
-        // Handle any errors
-        console.error('An error occurred:', error);
+        cap.innerHTML = `<option disabled selected>Scegli un CAP</option>`;
+        civico.value = '';
       });
-
     }
   };
 
-  function checkAndHandleAddressInput() {
-  const addressInput = document.getElementById('apartments-address');
-  const addressValue = addressInput.value.trim();
+  function getCity() {
+    let NuovaCitta = city.value;
+    let NuovoIndirizzo = indirizzo.value;
 
-  if (addressValue) {
-    handleAddressInput({ target: addressInput });
-  }
-}
-
-// Call the checkAndHandleAddressInput function at the start to check if there's a value
-checkAndHandleAddressInput();
-
-  document.getElementById('apartments-address').addEventListener("input", handleAddressInput);
-
-  
-
-function getCap() {
-  cittaScelta = city.value;
-  if (indirizzoDigitato !== '') {
-
-    let civico = document.getElementById('apartments-address_number').value;
-
-    if(civico !== ''){
-
-      let capList = document.getElementById('apartments-postal_code');
-      console.log(cittaScelta);
-  
-      const tomTomUrl = `https://api.tomtom.com/search/2/search/${indirizzoDigitato}%20${civico}%20${cittaScelta}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=false&limit=${limit}`;
-  
-      fetch(tomTomUrl)
-      .then(response => response.json())
-      .then(data => {
-          // Process the response data
-          const results = data.results;
-  
-          console.log(results[0].address.postalCode)
-  
-          uniqueCapNames = results[0].address.postalCode;
-  
-  // Sort the array by number
-  //     uniqueCapNames.sort((a, b) => {
-  //       const numA = parseInt(a);
-  //       const numB = parseInt(b);
-      
-  //       // Handle NaN (non-numeric values) by treating them as Infinity
-  //       const valA = isNaN(numA) ? Infinity : numA;
-  //       const valB = isNaN(numB) ? Infinity : numB;
-      
-  //       return valA - valB;
-  //     });
-  
-  // // Flatten the array and remove duplicates
-  //     uniqueCapNames = uniqueCapNames
-  //       .flatMap(element => (element ? element.split(',').map(val => val.trim()) : []))
-  //       .filter((value, index, self) => value !== '' && self.indexOf(value) === index);
-  
-      capList.innerHTML = '';
-  
-      capList.innerHTML = `<option disabled selected>Scegli il CAP</option>`;
-      if(uniqueCapNames !== undefined) {
-
-
-        uniqueCapNames = uniqueCapNames.split(', ');
-
-        uniqueCapNames.forEach(element => {
-          capList.innerHTML += `<option value="${element}">${element}</option>`;
-        });
-      }else {
-        capList.innerHTML = `<option disabled selected>CAP non esiste</option>`;
-      }
-      
-      // uniqueCapNames.forEach(element => {
-      //   capList.innerHTML += `<option  value="${element}">${element}</option>`;
-      // });
-          
-          
+    const tomTomUrl = `https://api.tomtom.com/search/2/search/${NuovoIndirizzo}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
+    fetch(tomTomUrl)
+    .then(response => response.json())
+    .then(data => {
+      const results = data.results;
+      const filteredResults = results.filter(element => element.type === "Street" && element.address.postalCode);
+      uniqueCitiesName = [...new Set(filteredResults.map(element => element.address.countrySecondarySubdivision))];
+      uniqueCitiesName = uniqueCitiesName.sort((a, b) => a.localeCompare(b));
+      console.log('getCity', uniqueCitiesName)
+      city.innerHTML = `<option disabled selected>Scegli una città</option>`;
+      uniqueCitiesName.forEach(element => {
+        if(element !== undefined){
+          city.innerHTML += `<option>${element}</option>`;
+          if ("{{ old('city') }}" === element) {
+            option.setAttribute('selected', 'selected');
+          }
+        }
       });
-    }
-
+    });
   }
 
-}
+  function getCap() {
+
+    let NuovaCitta = city.value;
+    let NuovoIndirizzo = indirizzo.value;
+    // let NuovoCap = cap.value;
+    let NuovoCivico = civico.value;
+    let tomTomUrl = '';
+    if(NuovoCivico !== ''){
+      console.log('cè il civico')
+       tomTomUrl = `https://api.tomtom.com/search/2/search/${NuovoIndirizzo}%20${NuovoCivico}%20${NuovaCitta}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
+    }else{
+      console.log('noncè il civico')
+       tomTomUrl = `https://api.tomtom.com/search/2/search/${NuovoIndirizzo}%20${NuovaCitta}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}`;
+    }
+    fetch(tomTomUrl)
+    .then(response => response.json())
+    .then(data => {
+      const results = data.results;
+      const filteredResults = results.filter(element => element.type === "Street" && element.address.postalCode);
+
+      let postalCodes = filteredResults
+        .map(element => element.address.postalCode)
+        .filter(code => code !== undefined) // Remove undefined postal codes
+        .map(code => code.split(',')) // Split the postal codes
+        .flat();
+      postalCodes = postalCodes.map(code => code.trim());
+      postalCodes = postalCodes.map(code => code.padStart(5, '0'));
+      uniqueCapNames = [...new Set(postalCodes)].sort((a, b) => a.localeCompare(b));
+      console.log(uniqueCapNames)
+
+      cap.innerHTML = `<option disabled selected>Scegli un CAP</option>`;
+
+      uniqueCapNames.forEach(element => {
+        cap.innerHTML += `<option value="${element}">${element}</option>`;
+      });
+      
+    });
+  }
+
+  function cleanAll(){
+    city.innerHTML= `<option disabled selected>Scegli la Città</option>`
+    cap.innerHTML = `<option disabled selected>Scegli un CAP</option>`;
+    civico.value = '';
+  }
+
 
 </script>
 

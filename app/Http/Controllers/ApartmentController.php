@@ -194,7 +194,10 @@ class ApartmentController extends Controller
         $user_id = Auth::user()->id;
 
         if($apartment->user_id === $user_id){
-            Storage::delete($apartment->cover_img);
+
+            if( $apartment->image ){
+                Storage::delete($apartment->image);
+            }
             $apartment->delete();
         }
 
