@@ -19,14 +19,14 @@
 
         <div class="mb-2">
             <label for="name">{{__('Name')}}</label>
-            <input class="form-control" type="text" name="name" id="name" autocomplete="name" value="{{old('name', $user->name)}}" required autofocus>
+            <input class="form-control" type="text" name="name" id="name" autocomplete="name" value="{{old('name', $user->name)}}" autofocus>
             @error('name')
             <span class="invalid-feedback" role="alert">
 
             </span>
             @enderror
             <label for="surname">{{__('Surname')}}</label>
-            <input class="form-control" type="text" name="surname" id="name" autocomplete="surname" value="{{old('surname', $user->surname)}}" autofocus>
+            <input class="form-control" type="text" name="surname" id="surname" autocomplete="surname" value="{{old('surname', $user->surname)}}" autofocus>
             @error('surname')
             <span class="invalid-feedback" role="alert">
 
@@ -44,7 +44,7 @@
 
         <div class="mb-2">
             <label for="email">
-                {{__('Email') }}
+                {{__('Email') }}*
             </label>
 
             <input id="email" name="email" type="email" class="form-control" value="{{ old('email', $user->email)}}" required autocomplete="username" />
@@ -86,7 +86,18 @@
                     el.style.display = 'block';
                 }
             </script>
-            <p id='profile-status' class="fs-5 text-muted">{{ __('Saved.') }}</p>
+            <p id='profile-status' class="fs-5 text-success">{{ __('Saved.') }}</p>
+            @endif
+            @if (session('status') === 'profile-not-changed')
+            <script>
+                const show = true;
+                setTimeout(() => show = false, 2000)
+                const el = document.getElementById('profile-status')
+                if (show) {
+                    el.style.display = 'block';
+                }
+            </script>
+            <p id='profile-status' class="fs-5 text-danger">Nessuna modifica effettuata.</p>
             @endif
         </div>
     </form>
