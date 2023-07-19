@@ -44,20 +44,12 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
+                            <a class="nav-link" href="{{url('/admin/apartments') }}">{{ __('Home') }}</a>
                         </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    @auth
-                    <span>
-                        @if(Auth::user()->name)
-                            {{ Auth::user()->name }}
-                        @else
-                            {{ Auth::user()->email }}
-                        @endif
-                    </span>
-                    @endauth
+
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
@@ -72,7 +64,17 @@
                         @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+                                @auth
+                                    @if(Auth::user()->name && Auth::user()->surname)
+                                    {{ ucfirst(Auth::user()->name) }} {{ ucfirst(Auth::user()->surname) }}
+                                    @elseif(Auth::user()->name)
+                                        {{ ucfirst(Auth::user()->name) }}
+                                    @elseif(Auth::user()->surname)
+                                        {{ ucfirst(Auth::user()->surname) }}
+                                    @else
+                                        {{ Auth::user()->email }}
+                                    @endif
+                                @endauth
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
