@@ -2,16 +2,25 @@
 
 @section('content')
 <div class="container">
-    <h2 class="fs-4 text-secondary my-4">
-        I tuoi Annunci
-    </h2>
+    <div class="row">
+        <div class="col-6">
+            <h1 class="fs-4 text-secondary my-4 ms-2">
+                I tuoi Annunci
+            </h1>
+        </div>
+        <div class="col-6 text-end">
+            <h2 class="fs-4 text-secondary my-4 me-2">
+                <a href="{{route('admin.apartments.create')}}" class="text-secondary text-decoration-none">Aggiungi un Appartamento</a>
+            </h2>
+        </div>
+    </div>
+
     @if (session('status'))
         <div class="alert alert-success" id="visibilita">
             {{ session('status') }}
         </div>            
     @endif
     <div>
-        <a href="{{route('admin.apartments.create')}}">create</a>
         @if (session('success') )
         <div class="alert alert-success" id="visibilita">
             {{ session('success') }}
@@ -100,7 +109,7 @@
 
         @endif
     </div>
-    <a href="{{route('admin.apartments.index')}}">prova</a>
+    {{-- <a href="{{route('admin.apartments.index')}}">prova</a> --}}
 </div>
 
 <script>
