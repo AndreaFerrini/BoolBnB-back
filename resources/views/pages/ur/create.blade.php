@@ -8,7 +8,7 @@
   <span>* campi obbligatori</span>
   <div class="row mt-3">
     <div class="col-12 bg-white shadow rounded-lg">
-      <form class="container-xl" action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data">
+      <form class="container-xl" action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return preventSubmit()">
         @method('POST')
         @csrf
 
@@ -153,6 +153,7 @@
         {{-- SERVICE --}}
         <div class="form-group mt-4">
           <label class="form-label"><b>Servizi:</b> *</label>
+          <p id="service_error" class="d-none text-danger">Seleziona almeno un servizio</p>
           <div class="form-check d-flex flex-wrap">
             @foreach ($services as $service)
             <div class="col-2">
@@ -180,13 +181,45 @@
           </div>
         </div>
 
-        <button type="submit" class="my-3 btn btn-primary">Aggiungi</button>
+        <button type="submit" class="my-3 btn btn-primary" id="sub-btn">Aggiungi</button>
       </form>
     </div>
   </div>
 </div>
 
 <script>
+
+  //FUNCTION VERIFICA SERVIZZI SELEZIONATI
+  let elementoCheckd = false;
+
+  function serviceCheck() {
+      let arrayCheck = document.querySelectorAll('[id*="servicies-checkbox-"]');
+      
+      elementoCheckd = Array.from(arrayCheck).some(element => element.checked);
+  }
+  
+  document.getElementById("sub-btn").addEventListener("click", function(e) {
+      serviceCheck();
+
+      if (!elementoCheckd) {
+         e.preventDefault();
+         document.getElementById('service_error').classList.remove('d-none');
+      } else {
+        document.getElementById('service_error').classList.add('d-none');
+      }
+    
+  });
+
+  document.querySelectorAll(".form-check-input").forEach(element => {
+    element.addEventListener("click", function(e) {
+        serviceCheck();
+        if (!elementoCheckd) {
+            document.getElementById('service_error').classList.remove('d-none');
+        } else {
+            document.getElementById('service_error').classList.add('d-none');
+        }
+    });
+});
 
   // FUNCTION PREVIEW IMG CARICATA
   document.getElementById("apartments-cover_img").addEventListener("change", function(e) {
