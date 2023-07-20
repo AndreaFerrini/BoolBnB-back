@@ -90,15 +90,15 @@
                                               <div class="modal-dialog">
                                                 <div class="modal-content">
                                                   <div class="modal-header">
-                                                    <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Delete appartment</h1>
+                                                    <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Elimina appartamento</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                   </div>
                                                     <div class="modal-body">
-                                                      <span class="">This action will be permanent</span>
+                                                      <span class="">Sei sicuro di voler procedere ad eliminare l' appartamento?</span>
                                                     </div>
                                                   <div class="modal-footer">
-                                                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="confirmDelete">Confirm</button>
-                                                    <button type="button" class="btn btn-primary" id="cancelDelete" data-bs-dismiss="modal">Cancel</button>
+                                                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="confirmDelete">Conferma</button>
+                                                    <button type="button" class="btn btn-primary" id="cancelDelete" data-bs-dismiss="modal">Cancella</button>
                                                   </div>
                                                 </div>
                                               </div>
