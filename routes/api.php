@@ -20,4 +20,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('/front_url', [FrontendUrlController::class, 'save_data']);
+Route::post('/front_end', [FrontendUrlController::class, 'save_data']);
