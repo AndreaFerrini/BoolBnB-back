@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApartmentFrontController as ApartmentFrontController;
 use App\Http\Controllers\Api\FrontendUrlController as FrontendUrlController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('/front_end', [FrontendUrlController::class, 'save_data']);
+
+Route::get('/apartments', [ApartmentFrontController::class, 'index']);
