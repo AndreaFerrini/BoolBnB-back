@@ -15,27 +15,43 @@ class ApartmentFrontController extends Controller
         $today = Carbon::today();
 
         // manda solo i dati che hanno o hanno avuto una sponsor e la data di scadenza della sponsor deve essere uguale o maggiore a oggi che ricaviamo con $today
-
         $apartments1 = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])
+
+            // ricerca per nome città
+            // ->where('city', 'Cortina d Ampezzo')
+
             ->whereHas('sponsors', function ($query) use ($today) {
                 $query->where('expire_at', '>=', $today->toDateString());
             })
+
+            // ricerca che deve contenere almeno service id...
+            // ->whereHas('services', function ($query) {
+            //     $query->where('id', 2);
+            // })
+
             ->get();
 
         // manda i dati di tutti gli appartamenti che non hanno lo sponsor e con lo sponsor scaduto
-
         $apartments2 = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])
-        ->where(function ($query) use ($today) {
-            // Get apartments that have sponsors but are older than today.
+
+            // ricerca per nome città
+            // ->where('city', 'Cortina d Ampezzo')
+
+            ->where(function ($query) use ($today) {
             $query->whereHas('sponsors', function ($subQuery) use ($today) {
                 $subQuery->where('expire_at', '<', $today->toDateString());
             })
-            // Get apartments that do not have any sponsors.
             ->orWhereDoesntHave('sponsors');
-        })->get();
+        })
+
+        // ricerca che deve contenere almeno service id...
+        // ->whereHas('services', function ($query) {
+        //     $query->where('id', 2);
+        // })
+
+        ->get();
 
         // manda prima i dati delle sponsor e poi tutti gli altri
-
         $apartments = $apartments1->merge($apartments2);
 
 
