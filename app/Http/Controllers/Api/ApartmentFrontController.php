@@ -10,7 +10,12 @@ class ApartmentFrontController extends Controller
 {
     public function index(Request $request)
     {
-        $apartments = Apartment::with(['user', 'pictures', 'services', 'sponsors', 'messages']);
+        $apartments = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])->get();
+        foreach ($apartments as $apartment)
+        {
+            var_dump($apartment->sponsors());
+            echo "<br>";
+        }
         if ($apartments->isNotEmpty())
         {
             return response()->json([
