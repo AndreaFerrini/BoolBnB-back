@@ -15,11 +15,22 @@ class ApartmentFrontController extends Controller
         $today = Carbon::today();
 
         // manda solo i dati che hanno o hanno avuto una sponsor e la data di scadenza della sponsor deve essere uguale o maggiore a oggi che ricaviamo con $today
+        // $apartments = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])
+        //     ->whereHas('sponsors', function ($query) use ($today) {
+        //         $query->where('expire_at', '>=', $today->toDateString());
+        //     })
+        //     ->get();
+
+        // manda i dati di tutti gli appartamenti che non hanno lo sponsor e con lo sponsor scaduto
         $apartments = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])
-            ->whereHas('sponsors', function ($query) use ($today) {
-                $query->where('expire_at', '>=', $today->toDateString());
+        ->where(function ($query) use ($today) {
+            // Get apartments that have sponsors but are older than today.
+            $query->whereHas('sponsors', function ($subQuery) use ($today) {
+                $subQuery->where('expire_at', '<', $today->toDateString());
             })
-            ->get();
+            // Get apartments that do not have any sponsors.
+            ->orWhereDoesntHave('sponsors');
+        })->get();
 
         if ($apartments->isNotEmpty())
         {
