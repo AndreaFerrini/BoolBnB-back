@@ -195,6 +195,37 @@
 </div>
 
 <script>
+  //FUNCTION VERIFICA SERVIZZI SELEZIONATI
+  let elementoCheckd = false;
+
+  function serviceCheck() {
+      let arrayCheck = document.querySelectorAll('[id*="servicies-checkbox-"]');
+      
+      elementoCheckd = Array.from(arrayCheck).some(element => element.checked);
+  }
+  
+  document.getElementById("sub-btn").addEventListener("click", function(e) {
+      serviceCheck();
+
+      if (!elementoCheckd) {
+         e.preventDefault();
+         document.getElementById('service_error').classList.remove('d-none');
+      } else {
+        document.getElementById('service_error').classList.add('d-none');
+      }
+    
+  });
+
+  document.querySelectorAll(".form-check-input").forEach(element => {
+    element.addEventListener("click", function(e) {
+        serviceCheck();
+        if (!elementoCheckd) {
+            document.getElementById('service_error').classList.remove('d-none');
+        } else {
+            document.getElementById('service_error').classList.add('d-none');
+        }
+    });
+  });
 
   // FUNCTION PREVIEW IMG CARICATA
   document.getElementById("img-preview").addEventListener("change", function(e) {
