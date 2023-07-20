@@ -32,7 +32,7 @@
         </div>
         @endif
 
-        @if(isset($apartments))
+        @if(isset($apartments)) 
         <div class="p-3">
             <div class="row">
                 @foreach ($apartments as $apartment)
@@ -85,10 +85,30 @@
                                             <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary">Modifica</a>
                                         </div>
                                         <div class="col-1">
+                                            <!-- Modale di conferma -->
+                                            <div style="display: none;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Delete appartment</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                                    <div class="modal-body">
+                                                      <span class="">This action will be permanent</span>
+                                                    </div>
+                                                  <div class="modal-footer">
+                                                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="confirmDelete">Confirm</button>
+                                                    <button type="button" class="btn btn-primary" id="cancelDelete" data-bs-dismiss="modal">Cancel</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            
+                                            <!-- Form di eliminazione -->
                                             <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST" class="delete-form">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button style="border-color: red" type="submit"><i class="fa-solid fa-trash-can text-danger"></i></button>
+                                                <button id="deleteButton" style="border-color: red" type="button"><i class="fa-solid fa-trash-can text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></button>
                                             </form>
                                         </div>
                                         <div class="col-3">
@@ -120,6 +140,36 @@
     setTimeout(function () {
         document.getElementById('visibilita').classList.add('d-none');
     }, 2000);
+
+
+    // Funzione per mostrare il modale di conferma
+    function showConfirmationModal() {
+        var modal = document.getElementById('exampleModal');
+        modal.style.display = 'block';
+    }
+
+    // Funzione per nascondere il modale di conferma
+    function hideConfirmationModal() {
+        var modal = document.getElementById('exampleModal');
+        modal.style.display = 'none';
+    }
+
+    // Aggiungi un gestore di eventi onclick al pulsante di eliminazione
+    document.getElementById('deleteButton').onclick = function() {
+        showConfirmationModal();
+    };
+
+    // Aggiungi un gestore di eventi onclick al pulsante di conferma nel modale
+    document.getElementById('confirmDelete').onclick = function() {
+        hideConfirmationModal();
+        // Invia il modulo solo se l'utente ha confermato
+        document.querySelector('.delete-form').submit();
+    };
+
+    // Aggiungi un gestore di eventi onclick al pulsante di annullamento nel modale
+    document.getElementById('cancelDelete').onclick = function() {
+        hideConfirmationModal();
+    };
 </script>
 @endsection
 
