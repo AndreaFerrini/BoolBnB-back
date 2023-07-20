@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Apartment as Apartment;
+use App\Models\Sponsor as Sponsor;
 
 class ApartmentFrontController extends Controller
 {
     public function index(Request $request)
     {
         $apartments = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])->get();
+
         if ($apartments->isNotEmpty())
         {
             return response()->json([
