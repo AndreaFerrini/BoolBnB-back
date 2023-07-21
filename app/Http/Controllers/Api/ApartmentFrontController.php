@@ -15,7 +15,7 @@ class ApartmentFrontController extends Controller
         $today = Carbon::today();
 
         // manda solo i dati che hanno o hanno avuto una sponsor e la data di scadenza della sponsor deve essere uguale o maggiore a oggi che ricaviamo con $today
-        $apartments1 = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])
+        $apartments_active = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])
 
             // ricerca per nome città
             // ->where('city', 'Cortina d Ampezzo')
@@ -32,7 +32,7 @@ class ApartmentFrontController extends Controller
             ->get();
 
         // manda i dati di tutti gli appartamenti che non hanno lo sponsor e con lo sponsor scaduto
-        $apartments2 = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])
+        $apartments_others = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])
 
             // ricerca per nome città
             // ->where('city', 'Cortina d Ampezzo')
@@ -53,20 +53,21 @@ class ApartmentFrontController extends Controller
 
         // manda prima i dati delle sponsor e poi tutti gli altri
 
-        if ($request->all)
+        if (strtolower($request->filter) == "all")
         {
-            $apartments = $apartments1->merge($apartments2);
+            $apartments = $apartments_active->merge($apartments_others);
         }
-        else
+        elseif (strtolower($request->filter) == "sponsored")
         {
-            $apartments = $apartments1;
+            $apartments = $apartments_active;
         }
 
         if ($apartments->isNotEmpty())
         {
             return response()->json([
                                         'success' => true,
-                                        'apartments' => $apartments
+                                        'apartments' => $apartments,
+                                        'filter' => $request->filter
                                     ]);
         }
         else
