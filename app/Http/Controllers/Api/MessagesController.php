@@ -8,42 +8,37 @@ use Illuminate\Http\Request;
 
 class MessagesController extends Controller
 {
-    public function index()
+    public function save_message(Request $request)
     {
         
-        $apartments = Apartment::with("messages");
-    
-        return response()->json(
-            [
-            'success' => true,
-            'messages' => $messages
-            ]
-        );
+        $apartment_id = $request->apartment_id;
+        $name = $request->nome;
+        $surname = $request->cognome;
+        $email = $request->email;
+        $email_body = $request->email_body;
 
-        
-    }
-    
-    public function show($message)
-    {
-        
-        if( $message ){
-            return response()->json([
-    
-                'success' => true,
-                'message' => $message
-                
+        if(($request->message) && ($request->apartment_id)){
+
+            return response()->json(  
+            [
+                'success'   => true,
+                'apartment_id' => $apartment_id,
+                'name' => $name,
+                'surname' => $surname,
+                'email' => $email,
+                'email_body' => $email_body,
             ]);
 
         } else {
-    
-            return response()->json([
-    
-                'success' => false,
-                'error' => "Non sono presenti messages"
 
-            ])->setStatusCode(404);
+            return response()->json(  
+            [
+                'success'   => false, 
+                'value' => "Messaggio inviato non corretto",
+            ]); 
+
         }
-
+  
     }
 
 }
