@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ApartmentController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,7 @@ Route::middleware('auth')->prefix("admin")->name('admin.')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::delete('/message/{message}', [MessageController::class, 'destroy'])->name('message.destroy');
 
 require __DIR__.'/auth.php';

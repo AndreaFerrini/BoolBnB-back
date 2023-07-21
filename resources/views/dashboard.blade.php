@@ -25,8 +25,31 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <h4>Messaggio inviato da Ponzio Pilato</h4>
-        </div>
+    @foreach ($apartments as $apartment)
+        @forelse($apartment->messages as $message)
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    <h4>Messaggio inviato da: <span class="text-primary">{{$message->name}} {{$message->surname}}</span></h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{$apartment->title}}</h5>
+                    <p class="card-text">{{$message->email_body}}</p>
+                </div>
+                <div class="card-footer">
+                    <h5 class="card-title">Contact info:</h5>
+                    <p class="card-text">{{$message->email}}</p>
+                    <form action="{{ route('message.destroy', $message->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button>elimina</button>
+                    </form>
+                </div>
+            </div>
+        @empty
+
+        @endforelse
+    @endforeach
+</div>
     </div>
 
     @if (session('status'))
@@ -63,7 +86,7 @@
                             @else
                                 privato
                             @endif
-                            </p>
+                            </p> 
                         <div class="row p-3">
                             <div class="col-4">
                                 @if ( $apartment->cover_img)
