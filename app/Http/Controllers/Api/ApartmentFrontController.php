@@ -118,5 +118,23 @@ class ApartmentFrontController extends Controller
                                             'success'   => false
                                         ]);
     }
+
+    public function show($apartment_id)
+    {
+        // Ottieni l'appartamento tramite id 
+        $apartment = Apartment::where('id', $apartment_id)->with(['pictures', 'services', 'sponsors', 'messages'])->first();
+
+        if ($apartment) {
+            return response()->json([
+                'success' => true,
+                'apartment' => $apartment
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Appartamento non trovato.'
+            ]);
+        }
+    }
     
 }
