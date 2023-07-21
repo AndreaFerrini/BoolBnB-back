@@ -52,8 +52,15 @@ class ApartmentFrontController extends Controller
         ->get();
 
         // manda prima i dati delle sponsor e poi tutti gli altri
-        $apartments = $apartments1->merge($apartments2);
 
+        if ($request->all)
+        {
+            $apartments = $apartments1->merge($apartments2);
+        }
+        else
+        {
+            $apartments = $apartments1;
+        }
 
         if ($apartments->isNotEmpty())
         {
