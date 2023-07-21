@@ -6,10 +6,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Apartment as Apartment;
 use App\Models\Sponsor as Sponsor;
+use App\Models\Service as Service;
 use Carbon\Carbon;
 
 class ApartmentFrontController extends Controller
 {
+    public function get_services()
+    {
+        $all_services = Service::All();
+        if ($all_services->isNotEmpty())
+            return response()->json(    [
+                                            'success'   => true,
+                                            'services'  => $all_services
+                                        ]);
+        else
+            return response()->json(    [
+                                            'success'   => false
+                                        ]);
+    }
+
     public function index(Request $request)
     {
         $now = Carbon::now();

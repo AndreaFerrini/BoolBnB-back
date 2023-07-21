@@ -14,6 +14,9 @@ class FrontendUrlController extends Controller
             session_start();
         }
         $_SESSION['front_url'] = $request->front_url;
-        return response()->json(['success' => true, 'value' => $request-> front_url]);
+            return response()->json(    [
+                                            'success'   => true, 
+                                            'value' => $request-> front_url,
+                                        ]);
     }
 }

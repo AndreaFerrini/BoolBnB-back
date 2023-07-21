@@ -24,3 +24,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('/front_end', [FrontendUrlController::class, 'save_data']);
 
 Route::get('/apartments', [ApartmentFrontController::class, 'index']);
+Route::get('/services', [ApartmentFrontController::class, 'get_services']);
