@@ -12,16 +12,16 @@ class ApartmentFrontController extends Controller
 {
     public function index(Request $request)
     {
-        $today = Carbon::today();
+        $now = Carbon::now();
 
-        // manda solo i dati che hanno o hanno avuto una sponsor e la data di scadenza della sponsor deve essere uguale o maggiore a oggi che ricaviamo con $today
+        // manda solo i dati che hanno o hanno avuto una sponsor e la data di scadenza della sponsor deve essere uguale o maggiore a oggi che ricaviamo con $now
         $apartments_active = Apartment::with(['pictures', 'services', 'sponsors', 'messages'])
 
             // ricerca per nome città
             // ->where('city', 'Cortina d Ampezzo')
 
-            ->whereHas('sponsors', function ($query) use ($today) {
-                $query->where('expire_at', '>=', $today->toDateString());
+            ->whereHas('sponsors', function ($query) use ($now) {
+                $query->where('expire_at', '>=', $now->toDateString());
             })
 
             // ricerca che deve contenere almeno service id...
@@ -37,9 +37,9 @@ class ApartmentFrontController extends Controller
             // ricerca per nome città
             // ->where('city', 'Cortina d Ampezzo')
 
-            ->where(function ($query) use ($today) {
-            $query->whereHas('sponsors', function ($subQuery) use ($today) {
-                $subQuery->where('expire_at', '<', $today->toDateString());
+            ->where(function ($query) use ($now) {
+            $query->whereHas('sponsors', function ($subQuery) use ($now) {
+                $subQuery->where('expire_at', '<', $now->toDateString());
             })
             ->orWhereDoesntHave('sponsors');
         })
