@@ -10,23 +10,29 @@ class MessagesController extends Controller
 {
     public function save_message(Request $request)
     {
-        
-        $apartment_id = $request->apartment_id;
-        $name = $request->nome;
-        $surname = $request->cognome;
-        $email = $request->email;
-        $email_body = $request->email_body;
+        $message = new Message();
 
-        if(($request->message) && ($request->apartment_id)){
+
+        $message->apartment_id = $request->apartment_id;
+        $message->name = $request->nome;
+        $message->surname = $request->cognome;
+        $message->email = $request->email;
+        $message->email_body = $request->email_body;
+
+
+
+        if(($request->email) && ($request->apartment_id)){
+
+            $message->save();
 
             return response()->json(  
             [
                 'success'   => true,
-                'apartment_id' => $apartment_id,
-                'name' => $name,
-                'surname' => $surname,
-                'email' => $email,
-                'email_body' => $email_body,
+                'apartment_id' => $message->apartment_id,
+                'name' => $message->name,
+                'surname' => $message->surname,
+                'email' => $message->email,
+                'email_body' => $message->email_body,
             ]);
 
         } else {
