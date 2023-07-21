@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ApartmentFrontController as ApartmentFrontController;
 use App\Http\Controllers\Api\FrontendUrlController as FrontendUrlController;
+use App\Http\Controllers\Api\MessagesController as MessagesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,4 @@ Route::post('/front_end', [FrontendUrlController::class, 'save_data']);
 Route::get('/apartments', [ApartmentFrontController::class, 'index']);
 Route::get('/apartment/{apartment_id}', [ApartmentFrontController::class, 'show']);
 Route::get('/services', [ApartmentFrontController::class, 'get_services']);
+Route::post('/messages', [MessagesController::class, 'save_message']);
