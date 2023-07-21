@@ -42,10 +42,23 @@ class ApartmentFrontController extends Controller
         // Se si richiedono solo appartamenti con sponsorizzazione attiva, si filtrano in questo senso gli elementi della collezione temporanea....
         if ($with_sponsor)
         {
-            $apartments = $temporary->whereHas('sponsors', function ($query) use ($now) 
+            if($city != "")
             {
-                $query->where('expire_at', '>=', $now->toDateString());
-            })->get();
+
+                $apartments = $temporary->whereHas('sponsors', function ($query) use ($now) 
+                {
+                    $query->where('expire_at', '>=', $now->toDateString());
+                })->get();
+
+            } else 
+            {
+
+                $apartments = $temporary->whereHas('sponsors', function ($query) use ($now) 
+                {
+                    $query->where('expire_at', '>=', $now->toDateString());
+                })->paginate(6);
+
+            }
         }
         // .... altrimenti gli appartamenti della collezione temporanea verranno filtrati solo per assenza di sponsorizzazione o sponsorizzazioni scadute
         else
@@ -105,4 +118,5 @@ class ApartmentFrontController extends Controller
                                             'success'   => false
                                         ]);
     }
+    
 }
