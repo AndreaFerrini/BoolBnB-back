@@ -33,7 +33,7 @@
         ],
         [
             'city'      => 'Roma',
-            'address'   => 'Via Tuscolana, 4, int. 25, scala B',
+            'address'   => 'Via Tuscolana, 4',
             'name'      => 'Re di Roma - Charme Apartment',
             'zipcode'   => "00173"
         ],
