@@ -172,11 +172,11 @@
 <script>
     setTimeout(function () {
         document.getElementById('welcome_banner').classList.add('d-none');
-    }, 6000);
+    }, 8000);
 
     setTimeout(function () {
         document.getElementById('visibilita').classList.add('d-none');
-    }, 6000);
+    }, 8000);
 
 
     // Funzione per mostrare il modale di conferma
