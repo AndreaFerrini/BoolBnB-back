@@ -195,7 +195,7 @@
 </div>
 
 <script>
-  //FUNCTION VERIFICA SERVIZZI SELEZIONATI
+  //FUNCTION VERIFICA SERVIZI SELEZIONATI
   let elementoCheckd = false;
 
   function serviceCheck() {

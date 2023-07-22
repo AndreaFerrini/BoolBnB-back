@@ -135,7 +135,7 @@
                                                     </div>
                                                   <div class="modal-footer">
                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="confirmDelete">Conferma</button>
-                                                    <button type="button" class="btn btn-primary" id="cancelDelete" data-bs-dismiss="modal">Cancella</button>
+                                                    <button type="button" class="btn btn-primary" id="cancelDelete" data-bs-dismiss="modal">Annulla</button>
                                                   </div>
                                                 </div>
                                               </div>
@@ -172,11 +172,11 @@
 <script>
     setTimeout(function () {
         document.getElementById('welcome_banner').classList.add('d-none');
-    }, 2000);
+    }, 6000);
 
     setTimeout(function () {
         document.getElementById('visibilita').classList.add('d-none');
-    }, 2000);
+    }, 6000);
 
 
     // Funzione per mostrare il modale di conferma

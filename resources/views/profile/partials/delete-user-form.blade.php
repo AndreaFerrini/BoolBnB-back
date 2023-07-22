@@ -52,10 +52,10 @@
                     </form>
                     
                     
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
                     
                     <button type="submit" class="btn btn-danger">
-                        {{ __('Delete Account') }}
+                        {{ __('Elimina Account') }}
                     </button>
                     <!--  -->
                 </div>
