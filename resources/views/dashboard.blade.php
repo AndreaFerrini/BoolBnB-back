@@ -37,11 +37,11 @@
                 </div>
                 <div class="card-footer">
                     <h5 class="card-title">Contact info:</h5>
-                    <p class="card-text">{{$message->email}}</p>
+                    <a class="card-text">{{$message->email}}</a>
                     <form action="{{ route('message.destroy', $message->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button>elimina</button>
+                        <button class="btn btn-danger mt-2">Elimina</button>
                     </form>
                 </div>
             </div>
