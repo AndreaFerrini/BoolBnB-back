@@ -59,7 +59,7 @@
             <div class="form-group mt-4">
                 <label for="apartments-address" class="form-label"><b>Via:</b> *</label>
                 <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') }}" list="apartments-address_list" onkeyup="getIndirizzoCompleto()"
-                onfocus="this.value=''" onchange="this.blur();getCity()" autocomplete="off">
+                onfocus="this.value='', cleanAll()" onchange="this.blur();getCity()" autocomplete="off">
                 <datalist id="apartments-address_list">
                   {{-- CONTENUTO RICERCA --}}
                 </datalist>
@@ -76,7 +76,7 @@
               {{-- <select name="city" id="apartments-city" class="form-control" required onchange="getCap()">
                 <option disabled selected>Scegli una città</option>
               </select> --}}
-              <input type="text" name="city" id="apartments-city" class="form-control" onkeyup="getCity()" list="apartments-city_list" required autocomplete="off">
+              <input type="text" name="city" id="apartments-city" class="form-control" onkeyup="getCity()" list="apartments-city_list" required autocomplete="off" placeholder="Scegli una Città" max="200" onfocus="this.value=''" value="{{ old('city') }}">
               <datalist id="apartments-city_list">
                 {{-- CONTENUTO RICERCA --}}
               </datalist>
@@ -87,7 +87,7 @@
           <div class="col-2">
             <div class="form-group mt-4">
               <label for="apartments-address_number" class="form-label"><b>Numero civico:</b> *</label>
-              <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') }}" pattern="[0-9a-zA-Z]+">
+              <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') }}" pattern="[0-9a-zA-Z]+" onfocus="this.value=''">
               @error('address_number')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
@@ -98,7 +98,7 @@
           <div class="col-2">
             <div class="form-group mt-4">
               <label for="apartments-postal_code" class="form-label"><b>Codice postale:</b> *</label>
-              <input type="text" required id="apartments-postal_code" class="form-control"  name="postal_code" list="apartments-cap_list" onkeyup="getCap()" autocomplete="off">
+              <input type="text" required id="apartments-postal_code" class="form-control"  name="postal_code" list="apartments-cap_list" onkeyup="getCap()" autocomplete="off" pattern="[0-9]{1,5}" onfocus="this.value=''" value="{{ old('postal_code') }}">
               <datalist id="apartments-cap_list">
                 {{-- CONTENUTO RICERCA --}}
               </datalist>
@@ -367,7 +367,7 @@
 
 
 
-      console.log (filteredResults)
+      // console.log (filteredResults)
 
       let postalCodes = filteredResults
         .map(element => element.address.postalCode)
@@ -388,10 +388,50 @@
   }
 
   function cleanAll(){
-    city.innerHTML= `<option disabled selected>Scegli la Città</option>`
-    cap.innerHTML = `<option disabled selected>Scegli un CAP</option>`;
+    city.value = "";
+    cap.value = "";
     civico.value = '';
   }
+
+  function checkAddress() {
+    let indirizzo = document.getElementById('apartments-address')
+    let citta = document.getElementById('apartments-city')
+    let civico  = document.getElementById('apartments-address_number') 
+    let cap  = document.getElementById('apartments-postal_code')
+
+  
+
+    if (indirizzo !== '' && citta !== '' && civico !== '' && cap !== '' && cap.value.length > 4){
+      const tomTomUrl = `https://api.tomtom.com/search/2/geocode/${indirizzo.value}%20${civico.value}%20${cap.value}%20${citta.value}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}&minFuzzyLevel=2&typeahed=false`;
+      fetch(tomTomUrl)
+      .then(response => response.json())
+      .then(data => {
+        const results = data.results[0];
+        console.log(results)
+        if (results['address']['streetName'] !== indirizzo.value) {
+          console.log(results['address']['streetName'], indirizzo)
+          indirizzo.value = results['address']['streetName']
+        }
+        if (results['address']['municipality'] !== citta.value) {
+          console.log('errore città', results['address']['municipality'])
+          citta.value = results['address']['municipality']
+        }
+        if (results['address']['streetNumber'] !== civico.value) {
+          console.log('errore civico', results['address']['streetNumber'])
+          civico.value = results['address']['streetNumber']
+        }
+        if (results['address']['postalCode'] !== cap.value) {
+          console.log('errore cap', results['address']['postalCode'])
+          cap.value = results['address']['postalCode']
+        }
+      })
+    }
+  }
+
+  document.getElementById('apartments-address').addEventListener('input', checkAddress);
+  document.getElementById('apartments-city').addEventListener('input', checkAddress);
+  document.getElementById('apartments-address_number').addEventListener('input', checkAddress);
+  document.getElementById('apartments-postal_code').addEventListener('input', checkAddress);
 
 
 </script>
