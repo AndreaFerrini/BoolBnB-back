@@ -17,7 +17,7 @@
 
     {{-- offcanvas dx --}}
     <div class="d-flex flex-row-reverse">
-        <button class="btn btn-warning" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Messaggi</button>
+        <a class="btn btn-warning" href="{{route('message')}}">Messaggi</a>
     </div>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
