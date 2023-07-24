@@ -174,7 +174,7 @@
         </div>
 
         {{-- VISIBILITY --}}
-        <label class="mt-4" for=""><b>Visibility:</b> </label>  
+        <label class="mt-4" for=""><b>Visibilità:</b> </label>  
         <div class="form-group d-flex mt-3">
           <div class="form-check">
             <input class="form-check-input" type="radio" name="visibility" id="apartments-visibility-private" value="0">
@@ -401,7 +401,7 @@
 
   
 
-    if (indirizzo !== '' && citta !== '' && civico !== '' && cap !== '' && cap.value.length > 4){
+    if (indirizzo.value !== '' && citta.value !== '' && citta.value.length > 2 && civico.value !== '' && cap !== '' && cap.value.length > 4){
       const tomTomUrl = `https://api.tomtom.com/search/2/geocode/${indirizzo.value}%20${civico.value}%20${cap.value}%20${citta.value}.json?key=${apiKey}&countrySet=${countrySet}&typeahead=${typeahead}&limit=${limit}&minFuzzyLevel=2&typeahed=false`;
       fetch(tomTomUrl)
       .then(response => response.json())
@@ -409,19 +409,20 @@
         const results = data.results[0];
         console.log(results)
         if (results['address']['streetName'] !== indirizzo.value) {
-          console.log(results['address']['streetName'], indirizzo)
           indirizzo.value = results['address']['streetName']
         }
         if (results['address']['municipality'] !== citta.value) {
-          console.log('errore città', results['address']['municipality'])
           citta.value = results['address']['municipality']
         }
         if (results['address']['streetNumber'] !== civico.value) {
-          console.log('errore civico', results['address']['streetNumber'])
-          civico.value = results['address']['streetNumber']
+          if(results['address']['streetNumber']  !== undefined){
+
+            civico.value = results['address']['streetNumber']
+          }else {
+            civico.value = 1
+          }
         }
         if (results['address']['postalCode'] !== cap.value) {
-          console.log('errore cap', results['address']['postalCode'])
           cap.value = results['address']['postalCode']
         }
       })
