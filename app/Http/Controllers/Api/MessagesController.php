@@ -21,13 +21,13 @@ class MessagesController extends Controller
 
 
 
-        if(($request->email) && ($request->apartment_id)){
+        if(($request->email) && ($request->apartment_id) && ($request->nome) && ($request->cognome) && ($request->email_body)){
 
             $message->save();
 
             return response()->json(  
             [
-                'success'   => true,
+                'success'   => "Messaggio inviato correttamente",
                 'apartment_id' => $message->apartment_id,
                 'name' => $message->name,
                 'surname' => $message->surname,
@@ -39,7 +39,7 @@ class MessagesController extends Controller
 
             return response()->json(  
             [
-                'success'   => false, 
+                'success'   => "Qualcosa è andato storto", 
                 'value' => "Messaggio inviato non corretto",
             ]); 
 
