@@ -33,5 +33,6 @@ Route::middleware('auth')->prefix("admin")->name('admin.')->group(function () {
 });
 
 Route::delete('/message/{message}', [MessageController::class, 'destroy'])->name('message.destroy');
+Route::get('/message', [MessageController::class, 'index'])->name('message');
 
 require __DIR__.'/auth.php';

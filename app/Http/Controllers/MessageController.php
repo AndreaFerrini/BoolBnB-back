@@ -19,7 +19,15 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::user()->id;
+
+        $apartments = Apartment::where('user_id', $user_id)->get();
+
+        $apartmentIds = $apartments->pluck('id')->all();
+
+        $messages = Message::where('apartment_id', $apartmentIds)->orderBy('created_at', 'desc')->get();
+
+        return view('pages.ura.message.index', compact('messages', 'apartments'));
     }
 
     /**
