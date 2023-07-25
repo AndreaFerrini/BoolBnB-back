@@ -13,6 +13,7 @@ use App\Config\Data_for_seeding\Bnb_api_client_functions;
 
 use App\Http\Requests\ApartmentsCreateRequest;
 use App\Http\Requests\ApartmentsEditRequest;
+use App\Models\Sponsor;
 
 // require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_api_client_functions.php';
 
@@ -210,4 +211,33 @@ class ApartmentController extends Controller
         $id_apartment = $apartment->id;
         return redirect()->route('admin.apartments.index', compact('id_apartment'))->with('success', "Hai modificato la visibilità di ".$apartment['title']);
     }
+
+    public function sponsor(Request $request, Apartment $apartment)
+    {
+        // Verifica che l'appartamento esista
+        if (!$apartment) {
+            return redirect()->back()->with('error', 'Appartamento non trovato');
+        }
+
+        // Verifica se l'appartamento è già sponsorizzato
+        if ($apartment->sponsor) {
+            return redirect()->back()->with('error', 'L\'appartamento è già sponsorizzato');
+        }
+
+        // Recupera l'ID dello sponsor dal form utilizzando il nome dell'input nascosto
+        $sponsorId = $request->input('sponsor_id');
+
+        // Verifica che l'ID dello sponsor sia valido
+        $sponsor = Sponsor::find($sponsorId);
+        if (!$sponsor) {
+            return redirect()->back()->with('error', 'Sponsorizzazione non trovata');
+        }
+
+        // Aggiungi la sponsorizzazione all'appartamento
+        $expireDate = add_hours_to_date($sponsor->period * 24); // Converti il periodo in ore
+        $apartment->sponsors()->attach($sponsor->id, ['expire_at' => $expireDate]);
+
+        return redirect()->back()->with('success', 'Sponsorizzazione aggiunta con successo');
+    }
+
 }
