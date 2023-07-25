@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Checkout</div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('processPayment') }}">
+                    <form method="post" action="{{ route('processPayment', $apartment_id) }}">
                         @csrf
                         <div class="form-group">
                             <label for="amount">Amount (EUR)</label>
@@ -26,14 +26,13 @@
 </div>
 
 <script src="https://js.braintreegateway.com/web/dropin/1.39.0/js/dropin.js"></script>
-
 <script>
     var form = document.querySelector('form');
     var button = document.querySelector('button');
     var dropinContainer = document.getElementById('dropin-container');
 
     braintree.dropin.create({
-        authorization: 'YOUR_BRAINTREE_CLIENT_TOKEN', // Replace with your Braintree client token
+        authorization: '{{ $clientToken }}', // Utilizza il token generato per l'ambiente di test
         container: dropinContainer
     }, function (createErr, instance) {
         button.addEventListener('click', function (event) {
@@ -58,5 +57,4 @@
         });
     });
 </script>
-
 @endsection

@@ -38,6 +38,6 @@ Route::get('/message', [MessageController::class, 'index'])->name('message');
 
 Route::get('/checkout/{apartment_id}', [SponsorController::class, 'checkout'])->name('checkout');
 
-Route::post('/sponsor', [SponsorController::class, 'processPayment'])->name('processPayment');
+Route::post('/sponsor/{apartment_id}', [SponsorController::class, 'processPayment'])->name('processPayment');
 
 require __DIR__.'/auth.php';
