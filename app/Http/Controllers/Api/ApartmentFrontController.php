@@ -8,6 +8,7 @@ use App\Models\Apartment as Apartment;
 use App\Models\Sponsor as Sponsor;
 use App\Models\Service as Service;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Collection;
 use Carbon\Carbon;
 
 class ApartmentFrontController extends Controller
@@ -17,6 +18,7 @@ class ApartmentFrontController extends Controller
     private $front_lat  = 0;
     private $front_long = 0;
     private $distance_calculated = 0; 
+    private $distances_array = [];
 
     function is_within_range($lat, $long)
     {
@@ -28,25 +30,23 @@ class ApartmentFrontController extends Controller
 
     function calculateDistanceInKilometers($lat1, $lon1, $lat2, $lon2) 
 	{
-    $R = 6371e3; // meters
+        $R = 6371e3; // meters
 
-    $φ1 = deg2rad($lat1); // φ, λ in radians
-    $φ2 = deg2rad($lat2);
-    $Δφ = deg2rad($lat2 - $lat1);
-    $Δλ = deg2rad($lon2 - $lon1);
+        $φ1 = deg2rad($lat1); // φ, λ in radians
+        $φ2 = deg2rad($lat2);
+        $Δφ = deg2rad($lat2 - $lat1);
+        $Δλ = deg2rad($lon2 - $lon1);
 
-    $a = sin($Δφ / 2) * sin($Δφ / 2) +
-         cos($φ1) * cos($φ2) *
-         sin($Δλ / 2) * sin($Δλ / 2);
+        $a =    sin($Δφ / 2) * sin($Δφ / 2) + cos($φ1) * cos($φ2) * sin($Δλ / 2) * sin($Δλ / 2);
 
-    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
 
-    $d = $R * $c; // in meters
+        $d = $R * $c; // in meters
 
-    $distanceInKilometers = round($d / 1000, 1);
+        $distanceInKilometers = round($d / 1000, 1);
 
-    return $distanceInKilometers;
-}
+        return $distanceInKilometers;
+    }
 
     // Metodo che restituisce al frontend tutti i servizi potenzialmente presenti nel database
     public function get_services()
@@ -74,6 +74,16 @@ class ApartmentFrontController extends Controller
         if ($city != "")
         {
             $temporary = $temporary->where('city', $city);
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            foreach ($temporary->get() as $key => $item)
+            {
+                $this->distance_calculated = $this->calculateDistanceInKilometers($this->front_lat, $this->front_long, floatval($item->latitude), floatval($item->longitude));
+                $this->distances_array[] = $this->distance_calculated;
+            }
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
         // Se si richiedono solo appartamenti con sponsorizzazione attiva, si filtrano in questo senso gli elementi della collezione temporanea....
@@ -87,14 +97,13 @@ class ApartmentFrontController extends Controller
                     $query->where('expire_at', '>=', $now->toDateString());
                 })->get();
 
-            } else 
+            } 
+            else 
             {
-
                 $apartments = $temporary->whereHas('sponsors', function ($query) use ($now) 
-                {
-                    $query->where('expire_at', '>=', $now->toDateString());
-                })->paginate(6);
-
+                    {
+                        $query->where('expire_at', '>=', $now->toDateString());
+                    })->paginate(6);
             }
         }
         // .... altrimenti gli appartamenti della collezione temporanea verranno filtrati solo per assenza di sponsorizzazione o sponsorizzazioni scadute
@@ -117,9 +126,10 @@ class ApartmentFrontController extends Controller
         if ($request->city)
             {
                 $place = $request->city;
-                $this->distance = $request->range;
-                $this->front_lat = $request->lat;
-                $this->front_long = $request->long;
+                $this->distance = floatval($request->range);
+                $this->front_lat = floatval($request->lat);
+                $this->front_long = floatval($request->long);
+                $this->distances_array = [];
             }
         else
             $place = ""; 
@@ -139,6 +149,19 @@ class ApartmentFrontController extends Controller
             {
                 // Caso in cui la ricerca non preveda i soli appartamenti sponsorizzati.....si uniscono gli sponsorizzati (già acquisiti, tenendoli in testa) ai non sponsorizzati (che andranno in coda)
                 $apartments = $apartments_active->merge($this->get_apartments(false, $place));
+                if ($request->city)
+                {
+                    $temporary = $apartments->map(function ($item)
+                    {
+                        $item['distance'] = array_shift($this->distances_array);
+                            return $item;
+                    });
+                    $apartments = null;
+                    $apartments = $temporary->filter(function ($item)
+                    {
+                        return ($item->distance <= $this->distance);
+                    });
+                }
             }
         }
         else
