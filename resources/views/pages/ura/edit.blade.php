@@ -180,7 +180,7 @@
 
         {{-- VISIBILITY --}}
         <div class="form-group">
-          <label class="form-label mt-4">Visibility:</label>
+          <label class="form-label mt-4">Visibilità:</label>
           <div>
             <label for="apartments-visibility" class="form-label mt-2">Privato</label>
             <input type="radio" name="visibility" value="0" checked="{{ old('visibility',$apartment->visibility) == 0 ? 'checked' : '' }}">

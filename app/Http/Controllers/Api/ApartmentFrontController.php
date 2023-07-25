@@ -7,10 +7,46 @@ use Illuminate\Http\Request;
 use App\Models\Apartment as Apartment;
 use App\Models\Sponsor as Sponsor;
 use App\Models\Service as Service;
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 
 class ApartmentFrontController extends Controller
 {
+
+    private $distance   = 10;
+    private $front_lat  = 0;
+    private $front_long = 0;
+    private $distance_calculated = 0; 
+
+    function is_within_range($lat, $long)
+    {
+        $result = false;
+        if ($this->calculateDistanceInKilometers($lat, $long, $this->front_lat, $this->front_long) <= $this->distance)
+            $result = true;
+        return $result;
+    }
+
+    function calculateDistanceInKilometers($lat1, $lon1, $lat2, $lon2) 
+	{
+    $R = 6371e3; // meters
+
+    $φ1 = deg2rad($lat1); // φ, λ in radians
+    $φ2 = deg2rad($lat2);
+    $Δφ = deg2rad($lat2 - $lat1);
+    $Δλ = deg2rad($lon2 - $lon1);
+
+    $a = sin($Δφ / 2) * sin($Δφ / 2) +
+         cos($φ1) * cos($φ2) *
+         sin($Δλ / 2) * sin($Δλ / 2);
+
+    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+    $d = $R * $c; // in meters
+
+    $distanceInKilometers = round($d / 1000, 1);
+
+    return $distanceInKilometers;
+}
 
     // Metodo che restituisce al frontend tutti i servizi potenzialmente presenti nel database
     public function get_services()
@@ -39,6 +75,7 @@ class ApartmentFrontController extends Controller
         {
             $temporary = $temporary->where('city', $city);
         }
+
         // Se si richiedono solo appartamenti con sponsorizzazione attiva, si filtrano in questo senso gli elementi della collezione temporanea....
         if ($with_sponsor)
         {
@@ -78,7 +115,12 @@ class ApartmentFrontController extends Controller
     {
         // Si setta l'opportuno valore di "place" a seconda che nella request ci sia o meno un'indicazione di filtraggio sulla città
         if ($request->city)
-            $place = $request->city;
+            {
+                $place = $request->city;
+                $this->distance = $request->range;
+                $this->front_lat = $request->lat;
+                $this->front_long = $request->long;
+            }
         else
             $place = ""; 
         // Si procede nella ricerca dei dati richiesti solo se la richiesta stessa è opportuna, ovvero se non si verificano le condizioni di invalidità della ricerca, ovvero:
