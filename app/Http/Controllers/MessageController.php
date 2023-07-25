@@ -25,7 +25,7 @@ class MessageController extends Controller
 
         $apartmentIds = $apartments->pluck('id')->all();
 
-        $messages = Message::where('apartment_id', $apartmentIds)->orderBy('created_at', 'desc')->get();
+        $messages = Message::whereIn('apartment_id', $apartmentIds)->orderBy('created_at', 'desc')->get();
 
         return view('pages.ura.message.index', compact('messages', 'apartments'));
     }
