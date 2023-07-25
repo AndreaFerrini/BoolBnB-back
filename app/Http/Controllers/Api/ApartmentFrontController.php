@@ -8,6 +8,7 @@ use App\Models\Apartment as Apartment;
 use App\Models\Sponsor as Sponsor;
 use App\Models\Service as Service;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Collection;
 use Carbon\Carbon;
 
 class ApartmentFrontController extends Controller
@@ -76,7 +77,7 @@ class ApartmentFrontController extends Controller
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            foreach ($temporary->get() as $item)
+            foreach ($temporary->get() as $key => $item)
             {
                 $this->distance_calculated = $this->calculateDistanceInKilometers($this->front_lat, $this->front_long, floatval($item->latitude), floatval($item->longitude));
                 $this->distances_array[] = $this->distance_calculated;
@@ -150,10 +151,15 @@ class ApartmentFrontController extends Controller
                 $apartments = $apartments_active->merge($this->get_apartments(false, $place));
                 if ($request->city)
                 {
-                    $apartments = $apartments->map(function ($item)
+                    $temporary = $apartments->map(function ($item)
                     {
                         $item['distance'] = array_shift($this->distances_array);
-                        return $item;
+                            return $item;
+                    });
+                    $apartments = null;
+                    $apartments = $temporary->filter(function ($item)
+                    {
+                        return ($item->distance <= $this->distance);
                     });
                 }
             }
