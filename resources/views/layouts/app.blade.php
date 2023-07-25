@@ -36,6 +36,13 @@
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
                 </a>
+
+                @if (session()->has('front_url'))
+                    <h1>{{session('front_url')}}</h1> 
+                @else
+                    <h1>MANCA INDIRIZZO FRONT</h1>
+                @endif
+
                 <a href="http://localhost:5173/">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
