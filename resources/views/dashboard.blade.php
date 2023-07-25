@@ -122,25 +122,6 @@
                                             <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary">Modifica</a>
                                         </div>
 
-                                        <div class="col-2">
-                                            {{-- <form action="{{ route('sponsor', ['apartment' => $apartment->id]) }}" method="POST">
-                                                @csrf
-                                                <button class="btn btn-primary" type="submit">Sponsorizza</button>
-                                            </form>  --}}
-                                            @if ($apartment->sponsor)
-                                                <p>Sponsorizzato fino a: {{ $apartment->sponsor->expire_at }}</p>
-                                            @else
-                                                <form action="{{ route('sponsor', ['apartment' => $apartment->id]) }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="sponsor_id" value="{{ $sponsor->id }}">
-                                                    <button type="submit">Sponsorizza</button>
-                                                </form>
-                                            @endif   
-                                        </div>
-
-                                        
-                                        
-
                                         <div class="col-1">
                                             <!-- Modale di conferma -->
                                             <div style="display: none;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -174,6 +155,11 @@
                                                 cambia visibilità
                                             </a>
                                         </div>
+
+                                        <div class="col-3">
+                                            <a class="btn btn-primary" href="{{route('sponsor', $apartment)}}">Sponsorizza</a>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
