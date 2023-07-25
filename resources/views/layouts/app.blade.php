@@ -39,9 +39,9 @@
 
                 @if (File::exists(storage_path("app/public/front_end_url.txt")))
                     @php
-                        $url = File::get(storage_path("app/public/front_end_url.txt"));
+                        $front_url = File::get(storage_path("app/public/front_end_url.txt"));
                     @endphp
-                    <a href="{{ $url }}">Home</a>
+                    <a href="{{ $front_url }}">Home</a>
                 @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
