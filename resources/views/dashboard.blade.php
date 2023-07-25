@@ -157,7 +157,7 @@
                                         </div>
 
                                         <div class="col-3">
-                                            <a class="btn btn-primary" href="{{route('sponsor', $apartment)}}">Sponsorizza</a>
+                                            <a class="btn btn-primary" href="{{route('checkout', $apartment)}}">Sponsorizza</a>
                                         </div>
 
                                     </div>

@@ -36,6 +36,8 @@ Route::middleware('auth')->prefix("admin")->name('admin.')->group(function () {
 Route::delete('/message/{message}', [MessageController::class, 'destroy'])->name('message.destroy');
 Route::get('/message', [MessageController::class, 'index'])->name('message');
 
-Route::get('/sponsor/{apartment_id}', [SponsorController::class, 'sponsor'])->name('sponsor');
+Route::get('/checkout/{apartment_id}', [SponsorController::class, 'checkout'])->name('checkout');
+
+Route::post('/sponsor', [SponsorController::class, 'processPayment'])->name('processPayment');
 
 require __DIR__.'/auth.php';
