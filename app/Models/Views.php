@@ -1,23 +1,13 @@
 <?php
 
-namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Views;
 
-class Views extends Model
+class ViewSeeder extends Seeder
 {
-    use HasFactory;
-
-    protected   $table      =   'Views';
-    
-    protected   $fillable   =   [
-                                    'apartment_id',
-                                    'data'
-                                ]; 
-
-    public  function    apartment()
+    public  function apartments()
     {
-        return $this->belogsTo(Apartment::class);
-    }  
+        return $this->belongsToMany(Apartment::class);
+    }
 }
