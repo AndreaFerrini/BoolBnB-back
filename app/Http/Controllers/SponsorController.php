@@ -58,7 +58,7 @@ class SponsorController extends Controller
             // Puoi gestire l'ordine qui
 
             $result->message = 'la transazione è stata accettata';
-            return view('dashboard', compact('apartments', 'result'))->with('succes', 'La transazione è andata a buon fine ' );
+            return view('dashboard', compact('apartments', 'result'))->with('success', 'La transazione è andata a buon fine ' );
         } else {
             // Pagamento fallito
             return view('dashboard', compact('apartments', 'result'))->with('error', 'Si è verificato un errore durante il pagamento: ' . $result->message);

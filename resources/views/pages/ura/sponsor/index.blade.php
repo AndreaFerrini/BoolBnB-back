@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -10,14 +10,19 @@
                     <form method="post" action="{{ route('processPayment', $apartment_id) }}">
                         @csrf
                         <div class="form-group">
-                            <label for="amount">Amount (EUR)</label>
-                            <input type="text" class="form-control" id="amount" name="amount" value="10.00" readonly>
+                            <label for="amount">Totale (EUR)</label>
+                            <select class="form-select" aria-label="Default select example" id="amount" name="amount" >
+                                <option value="10.00">€10.00 (1 settimana)</option>
+                                <option value="20.00">€20.00 (2 settimane)</option>
+                                <option value="30.00">€30.00 (3 settimane)</option>
+                            </select>
+                            {{-- <input type="text" class="form-control" id="amount" name="amount" value="10.00" maxlength="6"> --}}
                         </div>
                         <div class="form-group">
-                            <label for="payment_method_nonce">Payment Method Nonce</label>
+                            {{-- <label for="payment_method_nonce">Payment Method Nonce</label> --}}
                             <div id="dropin-container"></div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Pay Now</button>
+                        <button type="submit" class="btn btn-primary">Paga ora</button>
                     </form>
                 </div>
             </div>
