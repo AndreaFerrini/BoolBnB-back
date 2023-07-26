@@ -20,11 +20,19 @@
         <a class="btn btn-warning" href="{{route('message')}}">Messaggi</a>
     </div>
     @if (isset($result->message))
-    <div class="alert alert-danger d-flex align-items-center mt-4" role="alert">
-      <div>
-        {{$result->message}}
-      </div>
-    </div>
+        @if($result->status == 'failed')
+            <div class="alert alert-danger d-flex align-items-center mt-4" role="alert">
+                <div>
+                    {{$result->message}}
+                </div>
+            </div>
+        @elseif($result->status == 'success')
+            <div class="alert alert-success d-flex align-items-center mt-4" role="alert">
+                <div>
+                    {{$result->message}}
+                </div>
+            </div>
+        @endif
     @endif
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
