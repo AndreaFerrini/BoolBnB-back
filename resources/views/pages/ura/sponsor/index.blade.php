@@ -12,9 +12,9 @@
                         <div class="form-group">
                             <label for="amount">Totale (EUR)</label>
                             <select class="form-select" aria-label="Default select example" id="amount" name="amount" >
-                                <option value="10.00">€10.00 (1 settimana)</option>
-                                <option value="20.00">€20.00 (2 settimane)</option>
-                                <option value="30.00">€30.00 (3 settimane)</option>
+                                <option value="2.99">€2.99 (24h di sponsorizzazione)</option>
+                                <option value="5.99">€20.00 (72h di sponsorizzazione)</option>
+                                <option value="9.99">€30.00 (144h di sponsorizzazione)</option>
                             </select>
                             {{-- <input type="text" class="form-control" id="amount" name="amount" value="10.00" maxlength="6"> --}}
                         </div>
