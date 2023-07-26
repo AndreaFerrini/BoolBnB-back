@@ -77,11 +77,12 @@ class ApartmentFrontController extends Controller
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            foreach ($temporary->get() as $key => $item)
-            {
-                $this->distance_calculated = $this->calculateDistanceInKilometers($this->front_lat, $this->front_long, floatval($item->latitude), floatval($item->longitude));
-                $this->distances_array[] = $this->distance_calculated;
-            }
+            if ($this->front_lat !== 0)
+                foreach ($temporary->get() as $key => $item)
+                {
+                    $this->distance_calculated = $this->calculateDistanceInKilometers($this->front_lat, $this->front_long, floatval($item->latitude), floatval($item->longitude));
+                    $this->distances_array[] = $this->distance_calculated;
+                }
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
@@ -126,9 +127,12 @@ class ApartmentFrontController extends Controller
         if ($request->city)
             {
                 $place = $request->city;
-                $this->distance = floatval($request->range);
-                $this->front_lat = floatval($request->lat);
-                $this->front_long = floatval($request->long);
+                if ($request->lat)
+                {
+                    $this->distance = floatval($request->range);
+                    $this->front_lat = floatval($request->lat);
+                    $this->front_long = floatval($request->long);
+                }
                 $this->distances_array = [];
             }
         else
@@ -149,7 +153,7 @@ class ApartmentFrontController extends Controller
             {
                 // Caso in cui la ricerca non preveda i soli appartamenti sponsorizzati.....si uniscono gli sponsorizzati (già acquisiti, tenendoli in testa) ai non sponsorizzati (che andranno in coda)
                 $apartments = $apartments_active->merge($this->get_apartments(false, $place));
-                if ($request->city)
+                if (($request->city) && ($this->front_lat !== 0))
                 {
                     $temporary = $apartments->map(function ($item)
                     {
