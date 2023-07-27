@@ -86,12 +86,18 @@ class ApartmentFrontController extends Controller
                     $services_ids_int[] = intval($str_id);
                 }
                 // dd("stringhe: ",$this->services_array, "<br> interi: ", $services_ids_int);
-                $filtered_apartments = $temporary->filter( function($apartment) use ($services_ids_int) 
+                // $collection = collect($temporary);
+                // $filtered_apartments = $collection->filter(function($apartment) use ($services_ids_int) 
+                // {
+                //     $apartment_services = $apartment->services->pluck('id')->toArray();
+                //     return empty(array_diff($services_ids_int, $apartment_services));
+                // });
+                // // dd("servizi richiesti: ",$services_ids_int, "appartamenti prima del filtraggio: ", $temporary->all(), "appartamenti dopo filtraggio :", $filtered_apartments->all());
+                // $temporary = $filtered_apartments;
+                $temporary = $temporary->whereHas('services', function ($query) use ($services_ids_int) 
                 {
-                    $apartment_services = $apartment->services->pluck('id')->toArray();
-                    return empty(array_diff($services_ids_int, $apartment_services));
+                    $query->whereIn('service_id', $services_ids_int);
                 });
-                $temporary = $filtered_apartments;
             }
 
 
