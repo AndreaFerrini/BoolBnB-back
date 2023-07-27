@@ -10,7 +10,7 @@
         <option value="9.99">€9.99 (144h di sponsorizzazione)</option>
     </select>
     <div id="dropin-container"></div>
-    <input type="submit" value="Purchase"></input>
+    <input type="submit" value="Paga Ora" class="btn btn-primary"></input>
     <input type="hidden" id="nonce" name="payment_method_nonce"></input>
 </form>
 
