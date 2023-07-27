@@ -217,7 +217,7 @@
             'address'   => 'Cortile Giorgio II Greco 1',
             'name'      => 'Cortile Del Greco Apartments',
             'zipcode'   => "90134",
-            'description'   => "Il nostro hotel offre un ambiente accogliente e confortevole per il vostro soggiorno. Le nostre camere sono arredate con gusto e pensate per garantire il massimo comfort e relax durante il vostro viaggio. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
+            'description'   => "Il nostro alloggio offre un ambiente accogliente e confortevole per il vostro soggiorno. Le nostre camere sono arredate con gusto e pensate per garantire il massimo comfort e relax durante il vostro viaggio. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
         [
             'city'      => 'Palermo',
@@ -259,111 +259,111 @@
             'address'   => 'Via Maggiore, 189',
             'name'      => 'Le Camere di Olivia',
             'zipcode'   => "48121",
-            'description'   => ""
+            'description'   => "Questa struttura non fumatori dista 1,7 km dalla stazione ferroviaria di Ravenna. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
         [
             'city'      => 'Ravenna',
             'address'   => 'Via Dismano Vecchio, 38',
             'name'      => 'La Casina dell Artista',
             'zipcode'   => "48121",
-            'description'   => ""
+            'description'   => "Il nostro B&B offre un ambiente accogliente e confortevole per il vostro soggiorno. Le nostre camere sono arredate con gusto e pensate per garantire il massimo comfort e relax durante il vostro viaggio. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
         [
             'city'      => 'Ravenna',
             'address'   => 'Via Cerchio, 74',
             'name'      => 'Atmosfera B B',
             'zipcode'   => "48121",
-            'description'   => ""
+            'description'   => "Situato a Ravenna, l’Atmosfera B&B si trova a 11 km dal parco divertimenti Mirabilandia e a 21 km dalle Terme di Cervia."
         ],
         [
             'city'      => 'Ravenna',
             'address'   => 'Via di Roma, 140',
             'name'      => 'Palazzo Galletti Abbiosi',
             'zipcode'   => "48121",
-            'description'   => ""
+            'description'   => "Ex residenza nobiliare caratterizzata da un'architettura del 18° secolo, il Palazzo Galletti Abbiosi sorge nel centro di Ravenna, a 400 metri dalla Stazione Ferroviaria. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
         [
             'city'      => 'San Teodoro',
             'address'   => 'Località Badualga 1',
             'name'      => 'Hotel San Teodoro',
             'zipcode'   => "07052",
-            'description'   => ""
+            'description'   => "Situato a 5 minuti in auto dal centro di San Teodoro e dalle spiagge di La Cinta e Cala d'Ambra, l'Hotel San Teodoro offre ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
         [
             'city'      => 'San Teodoro',
             'address'   => 'Via Li Menduli 1',
             'name'      => 'Residence Li Menduli',
             'zipcode'   => "08020",
-            'description'   => ""
+            'description'   => "Situato a 200 metri dal centro di San Teodoro, il Residence Li Menduli presenta un ambiente accogliente e confortevole per il vostro soggiorno. Le nostre camere sono arredate con gusto e pensate per garantire il massimo comfort e relax durante il vostro viaggio."
         ],
         [
             'city'      => 'San Teodoro',
             'address'   => 'Via dei Gerani 1',
             'name'      => 'Gerani Bilocale',
             'zipcode'   => "07052",
-            'description'   => ""
+            'description'   => "Il nostro Gerani Bilocale offre un ambiente accogliente e confortevole per il vostro soggiorno. Le nostre camere sono arredate con gusto e pensate per garantire il massimo comfort e relax durante il vostro viaggio. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
         [
             'city'      => 'San Teodoro',
             'address'   => 'Via di Li Muntigghieddi, snc 1',
             'name'      => 'Li Muntigeddi',
             'zipcode'   => "07052",
-            'description'   => ""
+            'description'   => "Situata su una collina affacciata sulla costa di San Teodoro, la struttura Li Muntigeddi offre sistemazioni classiche."
         ],
         [
             'city'      => 'Cortina d Ampezzo',
             'address'   => 'Via Val di Sotto, 12',
             'name'      => 'Hotel Corona',
             'zipcode'   => "32043",
-            'description'   => ""
+            'description'   => "L'Hotel Corona si trova ad appena 500 metri dal comprensorio sciistico Tofana-Socrepes e a meno di 10 minuti a piedi dal centro di Cortina d'Ampezzo."
         ],
         [
             'city'      => 'Cortina d Ampezzo',
             'address'   => 'Via Stazione, 2',
             'name'      => 'Royal Hotel Cortina',
             'zipcode'   => "32043",
-            'description'   => ""
+            'description'   => "L'hotel propone camere realizzate nel tipico stile alpino con pavimenti e mobili in legno, e vi invita a gustare ogni mattina una prima colazione a buffet a base di prodotti dolci e salati."
         ],
         [
             'city'      => 'Cortina d Ampezzo',
             'address'   => 'Acquabona di Sotto 1',
             'name'      => 'The Wooden House Cortina',
             'zipcode'   => "32043",
-            'description'   => ""
+            'description'   => "La nostra The Wooden House Cortina offre un ambiente accogliente e confortevole per il vostro soggiorno. Le nostre camere sono arredate con gusto e pensate per garantire il massimo comfort e relax durante il vostro viaggio. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
         [
             'city'      => 'Cortina d Ampezzo',
             'address'   => 'Catarina-Lanz, 99',
             'name'      => 'Les Ciases Chalets Dolomites Apt 3',
             'zipcode'   => "32043",
-            'description'   => ""
+            'description'   => "Situated 42 km from Novacella Abbey, Les Ciases Chalets Dolomites Apt 3 features accommodation in San Vigilio Di Marebbe."
         ],
         [
             'city'      => 'Perugia',
             'address'   => 'Via Matteo Renato Imbriani, 39',
             'name'      => 'Villa Imbriani',
             'zipcode'   => "06122",
-            'description'   => ""
+            'description'   => "Situata a Perugia, a 400 metri dalla Cattedrale di Perugia, dista 21 km dalla stazione ferroviaria di Assisi, 3,6 km dalla stazione ferroviaria di Perugia e 20 km da Santa Maria degli Angeli."
         ],
         [
             'city'      => 'Perugia',
             'address'   => 'Via del Grillo 1',
             'name'      => 'La Corte del Grillo',
             'zipcode'   => "06121",
-            'description'   => ""
+            'description'   => "Situata a Perugia, a breve distanza dalla Cattedrale di San Lorenzo, dalla Chiesa di San Severo e da Corso Vannucci, La Corte del Grillo offre il massimo comfort e relax durante il vostro viaggio. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
         [
             'city'      => 'Perugia',
             'address'   => 'Via del Discobolo, 42',
             'name'      => 'Hotel la Meridiana',
             'zipcode'   => "06132",
-            'description'   => ""
+            'description'   => "La Meridiana Hotel si trova a 1 km dall'uscita Perugia Ferro di Cavallo del Raccordo Autostradale Perugia-A1, a 7,5 km dal centro storico di Perugia e a 10 minuti di auto dal Circolo del Golf di Perugia. Vanta un ampio giardino con piscina affacciata sulle colline umbre."
         ],
         [
             'city'      => 'Perugia',
             'address'   => 'Via degli Orti 1',
             'name'      => 'BB Uva e Fragola',
             'zipcode'   => "06123",
-            'description'   => ""
+            'description'   => "Il B&B Uva e Fragola offre un ambiente accogliente e confortevole per il vostro soggiorno. Le nostre camere sono arredate con gusto e pensate per garantire il massimo comfort e relax durante il vostro viaggio. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
     ];
