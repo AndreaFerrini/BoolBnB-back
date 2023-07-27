@@ -147,112 +147,112 @@
             'address'   => 'Via Saluzzo, 7',
             'name'      => 'Hotel Urbani',
             'zipcode'   => "10125",
-            'description'   => ""
+            'description'   => "L'Hotel Urbani è una struttura ricettiva situata a Torino, una città ricca di storia, cultura e bellezze architettoniche. Questo hotel offre una sistemazione confortevole e accogliente per i suoi ospiti."
         ],
         [
             'city'      => 'Torino',
             'address'   => 'Piazza Vittorio Veneto, 13',
             'name'      => 'Piazza Vittorio Suites',
             'zipcode'   => "10124",
-            'description'   => ""
+            'description'   => "Situato nel centro di Torino, a soli 550 metri dal famoso Museo del Cinema e a 10 minuti a piedi minuti a piedi da Piazza Castello, il Piazza Vittorio Suites offre sistemazioni eleganti con un mix di moderno e classico. "
         ],
         [
             'city'      => 'Torino',
             'address'   => 'Via Santa Teresa, 18',
             'name'      => 'Top Living Apartments - Torino Centro',
             'zipcode'   => "10121",
-            'description'   => ""
+            'description'   => "Il Top Living Apartments - Torino Centro offre sistemazioni nel centro di Torino, a meno di 1 km dalla stazione della metropolitana Porta Nuova, a 11 minuti a piedi dalla stazione ferroviaria di Porta Nuova e a 1,3 km dalla stazione ferroviaria di Porta Susa."
         ],
         [
             'city'      => 'Torino',
             'address'   => 'Via A. Bonafous, 5',
             'name'      => 'Hotel Alpi Resort',
             'zipcode'   => "10123",
-            'description'   => ""
+            'description'   => "L'Hotel Alpi Resort, situato a 10 minuti di cammino dal famoso Museo Egizio di Torino e dalla Mole Antonelliana, sarà lieto di accogliervi alla reception, aperta 24 ore su 24."
         ],
         [
             'city'      => 'Napoli',
             'address'   => 'Via Ferdinando Palasciano, 17',
             'name'      => 'Due Cerase a Chiaia',
             'zipcode'   => "80122",
-            'description'   => ""
+            'description'   => "Situato a Napoli, a meno di 1 km dalla spiaggia di Mappatella, il Due Cerase a Chiaia offre sistemazioni comfortevoli. Situato in un edificio risalente al 1930, questo appartamento si trova a 2,3 km dal Bagno Elena e a 2,4 km dal Bagno Ideal."
         ],
         [
             'city'      => 'Napoli',
             'address'   => 'Discesa Gaiola, 73',
             'name'      => 'Residenza Le Rose Villa d Arte',
             'zipcode'   => "80123",
-            'description'   => ""
+            'description'   => "Situata nel quartiere di Posillipo, a metà strada fra il Golfo di Napoli e Pozzuoli, la Residenza Le Rose Villa D'Arte offre camere, appartamenti e una collezione d'arte permanente."
         ],
         [
             'city'      => 'Napoli',
             'address'   => 'Via Cesare Rosaroll 15',
             'name'      => 'Le Porte di Napoli Rooms',
             'zipcode'   => "80139",
-            'description'   => ""
+            'description'   => " La pensione fornisce una sala comune e si trova a meno di 1 km dalla Stazione Ferroviaria di Napoli Centrale, a 1,2 km dalla Chiesa dei Santi Filippo e Giacomo e a 1,8 km dal Museo Archeologico Nazionale di Napoli. Questa struttura non fumatori sorge a 1,9 km dalle Catacombe di San Gaudioso."
         ],
         [
             'city'      => 'Napoli',
             'address'   => 'Via Genova, 63',
-            'name'      => 'Atlantic Ostello BandB',
+            'name'      => 'Atlantic Ostello B&B',
             'zipcode'   => "80143",
-            'description'   => ""
+            'description'   => "La struttura sorge a 3,6 km dal MUSA, a 3,9 km dal Museo Cappella Sansevero e a circa 3,3 km dalle Catacombe di San Gaudioso. L'ostello dista 4,2 km dal Maschio Angioino e 5,1 km dal Molo Beverello."
         ],
         [
             'city'      => 'Palermo',
             'address'   => 'Via Enrico Toti, 112',
             'name'      => 'Le stanze di Aurora',
             'zipcode'   => "90128",
-            'description'   => ""
+            'description'   => "Situato a Palermo, a 1,3 km dalla Cattedrale di Palermo, Le Stanze Di Aurora offre ai propri alloggiatori un soggiorno fantastico in una delle città storiche più belle di tutta Italia."
         ],
         [
             'city'      => 'Palermo',
             'address'   => 'Via Divisi, 74',
             'name'      => 'Divisi Suites and Spa',
             'zipcode'   => "90133",
-            'description'   => ""
+            'description'   => "Dista circa 400 metri dalla Stazione Ferroviaria Centrale di Palermo, 1,1 km dal Teatro Massimo e 1,6 km dal Teatro Politeama."
         ],
         [
             'city'      => 'Palermo',
             'address'   => 'Cortile Giorgio II Greco 1',
             'name'      => 'Cortile Del Greco Apartments',
             'zipcode'   => "90134",
-            'description'   => ""
+            'description'   => "Il nostro hotel offre un ambiente accogliente e confortevole per il vostro soggiorno. Le nostre camere sono arredate con gusto e pensate per garantire il massimo comfort e relax durante il vostro viaggio. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
         [
             'city'      => 'Palermo',
             'address'   => 'Via San Gregorio, 18',
             'name'      => 'Mosina Apartments',
             'zipcode'   => "90134",
-            'description'   => ""
+            'description'   => "Situato a Palermo, a 600 metri dal duomo cittadino e a meno di 1 km dalla Fontana Pretoria, il Mosina Apartments offre la vista sulla città"
         ],
         [
             'city'      => 'Bari',
             'address'   => 'Via Nicolò Piccinni, 191',
             'name'      => 'Le Stanze di Sofia',
             'zipcode'   => "70122",
-            'description'   => ""
+            'description'   => "La struttura Le Stanze di Sofia è situata a Bari, a 700 metri dalla cattedrale e a 1 km dal Teatro Margherita. La sistemazione si trova vicino a Piazza del Ferrarese, al Teatro Petruzzelli e a Piazza Mercantile. L’affittacamere dista 400 metri dal centro della città e 2,6 km dalla Spiaggia di Pane e Pomodoro."
         ],
         [
             'city'      => 'Bari',
             'address'   => 'Via Abate Giacinto Gimma, 315',
             'name'      => 'VGM - Apartments Gimma',
             'zipcode'   => "70121",
-            'description'   => ""
+            'description'   => "Il VGM - Apartments Gimma sorge a Bari, a 2,9 km dalla spiaggia Pane e Pomodoro e a 1,5 km dalla Basilica di San Nicola."
         ],
         [
             'city'      => 'Bari',
             'address'   => 'Strada Nuccia Serra, 29',
             'name'      => 'Palazzo San Rocco',
             'zipcode'   => "70122",
-            'description'   => ""
+            'description'   => "Il nostro hotel offre un ambiente accogliente e confortevole per il vostro soggiorno. Le nostre camere sono arredate con gusto e pensate per garantire il massimo comfort e relax durante il vostro viaggio. Potrete godere di un'ampia gamma di servizi e comfort durante il vostro soggiorno."
         ],
         [
             'city'      => 'Bari',
             'address'   => 'Via Sagarriga Visconti, 196',
             'name'      => 'La Pietra di San Tommaso - Central Station',
             'zipcode'   => "70122",
-            'description'   => ""
+            'description'   => "Situato in un edificio storico ricco di eleganza e stile antico, a soli 2 km da Polignano a Mare, il San Tommaso Hotel vanta lussuose camere."
         ],
         [
             'city'      => 'Ravenna',
