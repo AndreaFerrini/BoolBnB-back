@@ -62,84 +62,85 @@
             'address'   => 'Corso Italia, 11 A',
             'name'      => 'Sonder Missori',
             'zipcode'   => "20122",
-            'description'   => ""
+            'description'   => "Situato nel centro di Milano, il Sonder Missori offre camere a 4 stelle. Costruito nel 2022, questo hotel a 4 stelle dista 800 metri dal Museo Del Novecento e a 1,4 km dalla Darsena. Soggiornerete a 700 metri dal Palazzo Reale e dal centro."
         ],
         [
             'city'      => 'Milano',
             'address'   => 'Via Feltre, 71',
             'name'      => 'Green Guest House',
             'zipcode'   => "20132",
-            'description'   => ""
+            'description'   => "Situata a Milano, a 1,5 km dalla Stazione Metro Lambrate, la Green Guest House offre un giardino, camere non fumatori, la connessione WiFi gratuita in tutta la struttura e una terrazza. La struttura si trova a circa 4 km dalla Stazione Metro Centrale, a 4,6 km dalla GAM e a 4,9 km da Villa Necchi Campiglio. Siete invitati ad ammirare la vista sul giardino."
         ],
         [
             'city'      => 'Milano',
             'address'   => 'Via Pergolesi, 31',
             'name'      => 'Milan Apartment Rental',
             'zipcode'   => "20124",
-            'description'   => ""
+            'description'   => "Ubicato nei pressi della Stazione Centrale di Milano, il Milan Apartment Rental propone moderni appartamenti. Il Milan Apartment Rental si trova a 15 minuti in treno dal centro espositivo Rho Fiera Milano e a 4 fermate con la linea gialla della metropolitana dal Duomo di Milano. "
         ],
         [
             'city'      => 'Milano',
             'address'   => 'Via Bernardino Zenale, 9',
             'name'      => 'Magenta - Zenale Charme Loft',
             'zipcode'   => "20123",
-            'description'   => ""
+            'description'   => "Located in the centre of Milan, 200 metres from Santa Maria delle Grazie and 200 metres from The Last Supper. This apartment is 1.8 km from La Scala and 1.7 km from Galleria Vittorio Emanuele."
         ],
         [
             'city'      => 'Venezia',
             'address'   => 'Calle Dei Boteri San Polo, 1699',
             'name'      => 'Ai Boteri',
             'zipcode'   => "30125",
-            'description'   => ""
+            'description'   => "Dotato di camere comfort, Ai Boteri si trova a Venezia, a 300 metri dal Ponte di Rialto e in una zona ricca di bar e ristoranti."
         ],
         [
             'city'      => 'Venezia',
             'address'   => 'Calle Larga Giacinto Gallina, 5400',
             'name'      => 'Ca Cappellis',
             'zipcode'   => "30121",
-            'description'   => ""
+            'description'   => "Il Ca' Cappellis dista 200 metri dalla Basilica dei Santi Giovanni e Paolo, 10 minuti a piedi da Piazza San Marco e 5 minuti dalla fermata del vaporetto Fondamente Nove, che vanta collegamenti con Murano e l'Aeroporto Marco Polo di Venezia."
         ],
         [
             'city'      => 'Venezia',
             'address'   => 'Cannaregio, 2893',
             'name'      => 'Locanda del Ghetto',
             'zipcode'   => "30121",
-            'description'   => ""
+            'description'   => "Situata in un edificio del 15° secolo, la Locanda del Ghetto offre camere con pavimenti in parquet nel cuore del Ghetto Veneziano. La struttura sorge proprio sotto la Sinagoga Schola Italiana e serve una ricca colazione, a base principalmente di cibo kosher, La colazione include croissant, cereali, pane, bevande calde e succo d'arancia."
         ],
         [
             'city'      => 'Venezia',
             'address'   => 'Campo S. Maria Formosa, 5240',
             'name'      => 'Hotel Scandinavia - Relais',
             'zipcode'   => "30122",
-            'description'   => ""
+            'description'   => "L'Hotel Scandinavia offre camere confortevoli e ben arredate, con un mix di arredi classici e moderni per creare un'atmosfera accogliente e rilassante. Le camere possono vantare viste panoramiche sulla città, offrendo un'esperienza unica."
         ],
         [
             'city'      => 'Bologna',
             'address'   => 'Via Claudio Treves, 13',
             'name'      => 'A Casa di Giancarla',
             'zipcode'   => "40135",
-            'description'   => ""
+            'description'   => "LA CASA DI GIANCARLA dista 4,3 km dal Mambo e 4,4 km dal Quadrilatero di Bologna. L'Aeroporto più vicino è quello di Bologna-Guglielmo Marconi, a 4 km."
         ],
         [
             'city'      => 'Bologna',
             'address'   => 'Via Marsala, 39',
             'name'      => 'Lovely Flat, ground floor center of Bologna',
             'zipcode'   => "40126",
-            'description'   => ""
+            'description'   => "
+            Situato nel centro di Bologna, a 300 m da La Macchina del Tempo e a 700 m dalla Chiesa di Santo Stefano, il Lovely Flat, ground Floor Center of Bologna!:) offre la connessione WiFi gratuita. Questo appartamento si trova a 600 metri da Via dell'Indipendenza ea 700 metri da Piazza Maggiore."
         ],
         [
             'city'      => 'Bologna',
             'address'   => 'Via Guglielmo Marconi, 2',
             'name'      => 'La Dotta Apartments',
             'zipcode'   => "40122",
-            'description'   => ""
+            'description'   => "La Dotta Apartments offre sistemazioni comfort, a 700 metri dal Quadrilatero, a 800 metri da Piazza Maggiore e a meno di 1 km dal Mambo.I luoghi di interesse nelle vicinanze comprendono il Santuario di Santa Maria della Vita, Via dell’Indipendenza e La Macchina del Tempo. L'aeroporto più vicino è quello di Bologna Guglielmo Marconi, a 9 km da La Dotta Apartments."
         ],
         [
             'city'      => 'Bologna',
             'address'   => 'Viale Angelo Masini, 4',
             'name'      => 'Smy Bologna Centrale',
             'zipcode'   => "40126",
-            'description'   => ""
+            'description'   => "Situato a Bologna, nelle vicinanze dei giardini del Parco della Montagnola, questo hotel di design si trova a soli 150 metri dalla Stazione ferroviaria ed è dotato di camere confortevoli ed eleganti"
         ],
         [
             'city'      => 'Torino',
