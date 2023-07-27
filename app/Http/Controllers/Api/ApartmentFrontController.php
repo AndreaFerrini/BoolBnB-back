@@ -86,21 +86,6 @@ class ApartmentFrontController extends Controller
                     $services_ids_int[] = intval($str_id);
                 }
 
-                // $temporary_copy = $temporary;
-                // foreach ($temporary as $apt)
-                // {
-                //     $valid = true;
-                //     $apt_services = $apt->services()->pluck('id')->toArray();
-                //     foreach ($services_ids_int as $service_id)
-                //     {
-                //         $valid = in_array($service_id, $apt_services);
-                //         if (!$valid)
-                //             continue;
-                //     }
-
-                // }
-
-
                 $temporary = $temporary->where(function ($query) use ($services_ids_int) 
                 {
                     foreach ($services_ids_int as $service_id) 
@@ -111,46 +96,7 @@ class ApartmentFrontController extends Controller
                         });
                     }
                 });                
-
-
-                // dd("stringhe: ",$this->services_array, "<br> interi: ", $services_ids_int);
-                // $collection = collect($temporary);
-                // $filtered_apartments = $collection->filter(function($apartment) use ($services_ids_int) 
-                // {
-                //     $apartment_services = $apartment->services->pluck('id')->toArray();
-                //     return empty(array_diff($services_ids_int, $apartment_services));
-                // });
-                // // dd("servizi richiesti: ",$services_ids_int, "appartamenti prima del filtraggio: ", $temporary->all(), "appartamenti dopo filtraggio :", $filtered_apartments->all());
-                // $temporary = $filtered_apartments;
-                //-----------------------------------------------------------------------
-                // $temporary = $temporary->whereHas('services', function ($query) use ($services_ids_int) 
-                // {
-                //     // Include apartments that have all the requested services
-                //     $query->whereIn('service_id', $services_ids_int);
-                // });
-            
-                // // Exclude apartments that have fewer services than the requested ones
-                // $temporary = $temporary->whereDoesntHave('services', function ($query) use ($services_ids_int) 
-                // {
-                //     $query->whereNotIn('service_id', $services_ids_int);
-                // });
-                //---------------------------------------------------------------------
-                // $temporary = $temporary->where(function ($query) use ($services_ids_int) 
-                // {
-                //     // per ogni elemento in services
-                //     foreach ($services_ids_int as $service_id) 
-                //     {
-                //     //  dalla query usiamo il wereHas  [per calcolare le relazioni con services] usando i service_id che abbiamo estrapolato
-                //         $query->whereHas('services', function ($query) use ($service_id) 
-                //         {
-                //     //  usando la clausola where ->  prendiamo ogni elemnto che corrisponde all'id di servecies tramite modello
-                //             $query->where('services.id', $service_id);
-                //         });
-                //     }
-                // });
-
             }
-
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
