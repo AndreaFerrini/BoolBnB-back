@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-6">
             <h1 class="fs-4 text-secondary my-4 ms-2">
-                I tuoi Annunci
+                I tuoi Annunci 
             </h1>
         </div>
         <div class="col-6 text-end">
@@ -19,6 +19,21 @@
     <div class="d-flex flex-row-reverse">
         <a class="btn btn-warning" href="{{route('message')}}">Messaggi</a>
     </div>
+    @if (isset($result->message))
+        @if($result->status == 'failed')
+            <div class="alert alert-danger d-flex align-items-center mt-4" role="alert">
+                <div>
+                    {{$result->message}}
+                </div>
+            </div>
+        @elseif($result->status == 'success')
+            <div class="alert alert-success d-flex align-items-center mt-4" role="alert">
+                <div>
+                    {{$result->message}}
+                </div>
+            </div>
+        @endif
+    @endif
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
             <h3 class="offcanvas-title" id="offcanvasRightLabel">I tuoi messaggi</h3>
@@ -121,6 +136,7 @@
                                         <div class="col-2">
                                             <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary">Modifica</a>
                                         </div>
+
                                         <div class="col-1">
                                             <!-- Modale di conferma -->
                                             <div style="display: none;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -154,6 +170,11 @@
                                                 cambia visibilità
                                             </a>
                                         </div>
+
+                                        <div class="col-3">
+                                            <a class="btn btn-primary" href="{{route('checkout', $apartment)}}">Sponsorizza</a>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
