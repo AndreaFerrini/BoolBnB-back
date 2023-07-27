@@ -19,6 +19,7 @@ class ApartmentFrontController extends Controller
     private $front_long = 0;
     private $distance_calculated = 0; 
     private $distances_array = [];
+    private $services_array = [];
 
     function is_within_range($lat, $long)
     {
@@ -77,14 +78,35 @@ class ApartmentFrontController extends Controller
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ($this->front_lat !== 0)
-                foreach ($temporary->get() as $key => $item)
+            if (count($this->services_array) != 0)
+            {
+                $services_ids_int = [];
+                foreach ($this->services_array as $str_id)
                 {
-                    $this->distance_calculated = $this->calculateDistanceInKilometers($this->front_lat, $this->front_long, floatval($item->latitude), floatval($item->longitude));
-                    $this->distances_array[] = $this->distance_calculated;
+                    $services_ids_int[] = intval($str_id);
                 }
+                // dd("stringhe: ",$this->services_array, "<br> interi: ", $services_ids_int);
+                $filtered_apartments = $temporary->filter( function($apartment) use ($services_ids_int) 
+                {
+                    $apartment_services = $apartment->services->pluck('id')->toArray();
+                    return empty(array_diff($services_ids_int, $apartment_services));
+                });
+                $temporary = $filtered_apartments;
+            }
+
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            if ($this->front_lat !== 0)
+            foreach ($temporary->get() as $key => $item)
+            {
+                $this->distance_calculated = $this->calculateDistanceInKilometers($this->front_lat, $this->front_long, floatval($item->latitude), floatval($item->longitude));
+                $this->distances_array[] = $this->distance_calculated;
+            }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
         }
 
         // Se si richiedono solo appartamenti con sponsorizzazione attiva, si filtrano in questo senso gli elementi della collezione temporanea....
@@ -132,8 +154,12 @@ class ApartmentFrontController extends Controller
                     $this->distance = floatval($request->range);
                     $this->front_lat = floatval($request->lat);
                     $this->front_long = floatval($request->long);
+                    $this->distances_array = [];
                 }
-                $this->distances_array = [];
+                if ($request->service)
+                {
+                    $this->services_array = explode("-", $request->service);
+                }
             }
         else
             $place = ""; 
