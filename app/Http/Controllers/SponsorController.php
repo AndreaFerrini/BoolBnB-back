@@ -13,6 +13,12 @@ use Carbon\Carbon;
 
 class SponsorController extends Controller
 {
+    public function selectSponsor(Request $request, $apartment_id)
+    {
+
+        return view('pages.ura.sponsor.select', compact('apartment_id'));
+    }
+
     public function checkout($apartment_id)
     {
         $gateway = new Gateway([
