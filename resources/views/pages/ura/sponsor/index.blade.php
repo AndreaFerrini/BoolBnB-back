@@ -5,9 +5,7 @@
 @csrf
     <label for="amount">Totale (EUR)</label>
     <select class="form-select" aria-label="Default select example" id="amount" name="amount" >
-        <option value="2.99">€2.99 (24h di sponsorizzazione)</option>
-        <option value="5.99">€5.99 (72h di sponsorizzazione)</option>
-        <option value="9.99">€9.99 (144h di sponsorizzazione)</option>
+        <option :value={{$amount}}>{{$amount}}</option>
     </select>
     <div id="dropin-container"></div>
     <input type="submit" value="Purchase"></input>

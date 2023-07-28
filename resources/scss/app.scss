@@ -38,8 +38,37 @@
   .p-sponsor-card{
     margin: 0 auto;
     width: 100%;
-    height: 500px;
+    min-height: 500px;
     // border: 1px solid black;
     box-shadow: -4px 10px 25px 0px rgba(0,0,0,0.3);
     border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .p-sponsor-card:hover {
+    /* Effetto di sollevamento al passaggio del mouse (hover) */
+    transform: translateY(-50px); /* Modifica l'effetto cambiando il valore del traslazione verticale */
+    box-shadow: -4px 10px 25px 0px rgba(0, 0, 0, 0.356); /* Aggiungi un'ombra per dare l'effetto di sollevamento */
+  }
+
+  #sponsor-row{
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .p-s-badge{
+    position: relative;
+    bottom: -16px;
+    left: -17px;
+    padding: 10px;
+  }
+
+  nav{
+    background-color:  rgb(29,116,101)!important;
+    border:none!important;
+  }
+
+
+  .title{
+
   }

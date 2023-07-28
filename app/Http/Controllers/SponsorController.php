@@ -16,11 +16,16 @@ class SponsorController extends Controller
     public function selectSponsor(Request $request, $apartment_id)
     {
 
-        return view('pages.ura.sponsor.select', compact('apartment_id'));
+        $apartment = Apartment::where('id', $apartment_id)->first();
+        
+        return view('pages.ura.sponsor.select', compact('apartment_id', 'apartment'));
     }
 
-    public function checkout($apartment_id)
+    public function checkout(Request $request, $apartment_id)
     {
+
+        $amount = $request->input;
+        
         $gateway = new Gateway([
             'environment' => env('BT_ENVIRONMENT'),
             'merchantId' => env('BT_MERCHANT_ID'),
@@ -30,7 +35,7 @@ class SponsorController extends Controller
     
         $clientToken = $gateway->clientToken()->generate();
     
-        return view('pages.ura.sponsor.index', compact('clientToken', 'apartment_id'));
+        return view('pages.ura.sponsor.index', compact('clientToken', 'apartment_id', 'amount'));
     }
 
     public function processPayment(Request $request, $apartment_id)
@@ -88,7 +93,7 @@ class SponsorController extends Controller
                 $expire_date_formatted = $expire_date->format('Y-m-d H:i:s');
 
                 //associa all'appartamento la sponsor da 72h
-                $apartment->sponsors()->attach(['apartment_id' => $apartment->id], ['sponsor_id' => 1], ['expire_at' => $expire_date_formatted]);
+                $apartment->sponsors()->attach(['apartment_id' => $apartment->id], ['sponsor_id' => 2], ['expire_at' => $expire_date_formatted]);
 
             //se lammontare del pagamento e 9.99
             } else if($amount == 9.99) {
@@ -98,12 +103,12 @@ class SponsorController extends Controller
                 $expire_date_formatted = $expire_date->format('Y-m-d H:i:s');
 
                 //associa all'appartamento la sponsor da 144h
-                $apartment->sponsors()->attach(['apartment_id' => $apartment->id], ['sponsor_id' => 1], ['expire_at' => $expire_date_formatted]);
+                $apartment->sponsors()->attach(['apartment_id' => $apartment->id], ['sponsor_id' => 3], ['expire_at' => $expire_date_formatted]);
             }
 
             //rimando alla dashboard 
             $result->status = 'success';
-            $result->message = "la transazione è stata accettata l'appartamento: " . $apartment->title . "ha ora una sponsorizzazione attiva";
+            $result->message = "la transazione è stata accettata l'appartamento: " . $apartment->title . " ha ora una sponsorizzazione attiva";
             return view('dashboard', compact('apartments', 'result'))->with('success', 'La transazione è andata a buon fine ' );
         } else {
             // Pagamento fallito

@@ -38,7 +38,7 @@ Route::get('/message', [MessageController::class, 'index'])->name('message');
 
 Route::get('/sponsor/{apartment_id}', [SponsorController::class, 'selectSponsor'])->name('sponsor');
 
-Route::get('/checkout/{apartment_id}', [SponsorController::class, 'checkout'])->name('checkout');
+Route::post('/checkout/{apartment_id}', [SponsorController::class, 'checkout'])->name('checkout');
 
 Route::post('/procespayment/{apartment_id}', [SponsorController::class, 'processPayment'])->name('processPayment');
 
