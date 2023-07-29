@@ -25,7 +25,7 @@
     <div id="app">
 
 
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/admin/apartments') }}">
                     <div class="logo_laravel">
@@ -35,7 +35,7 @@
                             </g>
                         </svg>
                     </div>
-                    {{-- config('app.name', 'Laravel') --}}
+                    config('app.name', 'Laravel')
                 </a>
 
                 @if (File::exists(storage_path("app/public/front_end_url.txt")))
@@ -46,15 +46,15 @@
                 @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> --}}
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     @php
                     $currentUrl = Request::url();
-                    @endphp
+                    @endphp --}}
                     
-                    <ul class="navbar-nav me-auto">
+                    {{-- <ul class="navbar-nav me-auto">
                     @auth
                         @if($currentUrl !== url('/admin/apartments'))
                             <li class="nav-item">
@@ -62,11 +62,11 @@
                             </li>
                         @endif
                     @endauth
-                    </ul>
+                    </ul> --}}
 
                     <!-- Right Side Of Navbar -->
 
-                    <ul class="navbar-nav ml-auto">
+                     {{-- <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
                         <li class="nav-item">
@@ -91,9 +91,9 @@
                                         {{ Auth::user()->email }}
                                     @endif
                                 @endauth
-                            </a>
+                            </a> --}}
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            {{-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('admin.apartments.index') }}">{{__('Dashboard')}}</a>
                                 <a class="dropdown-item" href="{{ url('admin/profile') }}">{{__('Profilo')}}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -109,6 +109,73 @@
                         @endguest
                     </ul>
                 </div>
+            </div>
+        </nav>  --}}
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgb(29,116,101)!important;" id="navBarTop">
+            <div class="container-fluid" style="background-color: rgb(29,116,101);">
+                <a class="navbar-brand text-white" href="{{ url('/') }}">BoolB&amp;B</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @php
+                    $currentPageName = 'Home'; // Assume the default page name is 'Home'
+                @endphp
+                @if(isset($store['page_name']) && !empty($store['page_name']))
+                    @php
+                        $currentPageName = $store['page_name'];
+                    @endphp
+                @endif
+                <a href="{{ url('http://localhost:5174/') }}" class="nav-link active text-white me-5{{ $currentPageName !== 'Home' ? ' d-none' : '' }}">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </a>
+                <a href="{{ url('http://127.0.0.1:8000/admin/apartments') }}" class="nav-link active text-white me-5{{ $currentPageName !== 'Home' ? ' d-none' : '' }}">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Appartamenti</span>
+                </a>
+                <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Area personale</a>
+                            <ul class="dropdown-menu" style="background-color: rgb(29,116,101);">
+                                <li>
+                                    <a class="dropdown-item text-white" href="{{ url('/login') }}">Login</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-white" href="{{ url('/register') }}" >Registrazione</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-white" href="{{ url('admin/profile') }}">{{__('Profilo')}}</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-white" href="{{ url('http://127.0.0.1:8000/message') }}">{{__('Messaggi')}}</a>
+                                </li
+                                <li>
+                                    <a class="dropdown-item text-white" href="{{ url('/logout') }}" onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                                {{-- <li>
+                                    <a class="dropdown-item text-white" href="{{ url('http://localhost:5174/ChiSiamo') }}">Chi Siamo</a>
+                                </li> --}}
+                                <!-- <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Profilo</a>
+                                </li> -->
+                            </ul>
+                        </li>
+    
+                    </ul>
+                </div>
+    
             </div>
         </nav>
 
