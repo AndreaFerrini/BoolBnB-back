@@ -129,7 +129,7 @@
                         $currentPageName = $store['page_name'];
                     @endphp
                 @endif
-                <a href="{{ url('http://localhost:5174/') }}" class="nav-link active text-white me-5{{ $currentPageName !== 'Home' ? ' d-none' : '' }}">
+                <a href="{{ url('http://localhost:5173/') }}" class="nav-link active text-white me-5{{ $currentPageName !== 'Home' ? ' d-none' : '' }}">
                     <i class="fa-solid fa-house"></i>
                     <span>Home</span>
                 </a>
@@ -143,12 +143,14 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Area personale</a>
                             <ul class="dropdown-menu" style="background-color: rgb(29,116,101);">
+                                @guest
                                 <li>
                                     <a class="dropdown-item text-white" href="{{ url('/login') }}">Login</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item text-white" href="{{ url('/register') }}" >Registrazione</a>
                                 </li>
+                                @endguest
                                 <li>
                                     <a class="dropdown-item text-white" href="{{ url('admin/profile') }}">{{__('Profilo')}}</a>
                                 </li>
