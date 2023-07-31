@@ -155,8 +155,11 @@
                                     <a class="dropdown-item text-white" href="{{ url('admin/profile') }}">{{__('Profilo')}}</a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item text-white" href="{{ url('http://127.0.0.1:8000/admin/apartments/create') }}">{{__('Aggiungi il tuo Appartamento')}}</a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item text-white" href="{{ url('http://127.0.0.1:8000/message') }}">{{__('Messaggi')}}</a>
-                                </li
+                                </li>
                                 <li>
                                     <a class="dropdown-item text-white" href="{{ url('/logout') }}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
