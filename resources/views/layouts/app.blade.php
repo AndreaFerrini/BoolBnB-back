@@ -10,6 +10,9 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('storage/BoolBnB favicon.png') }}" type="">
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -250,10 +253,10 @@
                         <ul>
                             <li class="mt-1 text-center" id="paragrafi">Partner</li>
                             <li class="text-center">
-                                <img src="storage\app\public\TomTom-Logo.png" alt="" id="logo-partner1">
+                                <img src="{{ asset('storage/TomTom-Logo.png') }}" alt="TomTom Logo" id="logo-partner1">
                             </li>
                             <li class="text-center">
-                                <img src="storage\app\public\braintree-logo-black.png" alt="" id="logo-partner2">
+                                <img src="{{ asset('storage/braintree-logo-black.png') }}" alt="Braintree Logo" id="logo-partner2">
                             </li>
                         </ul>
                       </div>
@@ -265,7 +268,7 @@
             </div>
             <div class="container d-flex justify-content-between align-items-center">
                 <div>
-                    <img src="storage\app\public\BoolBnB.png" alt="">
+                    <img src={{ asset('storage/BoolBnB.png') }} alt="">
                     <span>&#169; BoolBnB 2023</span>
                 </div>
                 <div class="registrazione">
