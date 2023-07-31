@@ -134,24 +134,20 @@
                         <i class="fa-solid fa-house"></i>
                         <span>Home</span>
                     </a>
+                    @auth
                     <a href="{{ url('http://127.0.0.1:8000/admin/apartments') }}" class="nav-link active text-white me-5{{ $currentPageName !== 'Home' ? ' d-none' : '' }}">
                         <i class="fa-solid fa-table-columns"></i>
                         <span>Appartamenti</span>
                     </a>
+                    
+                    @endauth
                     <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
+                            @auth
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-white" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Area personale</a>
                                 <ul class="dropdown-menu" style="background-color: rgb(29,116,101);">
-                                    @guest
-                                    <li>
-                                        <a class="dropdown-item text-white" href="{{ url('/login') }}">Login</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item text-white" href="{{ url('/register') }}" >Registrazione</a>
-                                    </li>
-                                    @endguest
                                     <li>
                                         <a class="dropdown-item text-white" href="{{ url('admin/profile') }}">{{__('Profilo')}}</a>
                                     </li>
@@ -161,15 +157,7 @@
                                     <li>
                                         <a class="dropdown-item text-white" href="{{ url('http://127.0.0.1:8000/message') }}">{{__('Messaggi')}}</a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item text-white" href="{{ url('/logout') }}" onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </li>
+                                    @endauth
                                     {{-- <li>
                                         <a class="dropdown-item text-white" href="{{ url('http://localhost:5174/ChiSiamo') }}">Chi Siamo</a>
                                     </li> --}}
@@ -181,11 +169,27 @@
                                     </li> -->
                                 </ul>
                             </li>
-        
                         </ul>
                     </div>
-        
+                    
                 </div>
+                @guest
+
+                <a class=" text-white text-decoration-none " href="{{ url('/login') }}">Login</a>
+
+         
+                <a class=" text-white mx-5 text-decoration-none" href="{{ url('/register') }}" >Registrazione</a>
+         
+                @endguest
+                @auth
+                    <a class="text-decoration-none text-white me-4" href="{{ url('/logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                @endauth
             </nav>
 
             <main class="">
