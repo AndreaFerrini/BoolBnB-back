@@ -135,11 +135,13 @@
                         <span>Home</span>
                     </a>
                     @auth
+                    @if (!Route::is('admin.apartments.index'))
                     <a href="{{ url('http://127.0.0.1:8000/admin/apartments') }}" class="nav-link active text-white me-5{{ $currentPageName !== 'Home' ? ' d-none' : '' }}">
                         <i class="fa-solid fa-table-columns"></i>
                         <span>Appartamenti</span>
                     </a>
-                    
+                        
+                    @endif
                     @endauth
                     <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
