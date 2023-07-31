@@ -8,6 +8,16 @@ $pagination-focus-box-shadow: 0 0 0 0.25rem  rgba(29, 116, 102, 0.226);
 
 @import '~bootstrap/scss/bootstrap';
 
+  #app{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wrapper{
+    flex: 1;
+  }
+
   .show{
     background-color:  rgb(29,116,101)!important;
     border:none!important;
