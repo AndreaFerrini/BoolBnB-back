@@ -27,10 +27,22 @@
 
               {{-- IMMAGINE --}}
               <label for="apartments-cover_img" class="form-label"><b>Scegli un'immagine:</b></label>
+              {{-- input cover img --}}
               <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="Immagine" aria-describedby="fileHelpId">
+              {{-- input altre img --}}
+              <label for="images" class="form-label">Carica altre immagini</label>
+              <input type="file" name="images[]" id="images_extra" class="form-control-file" multiple>
               @error('cover_img')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
+
+              {{-- PREVIEW IMG EXTRA --}}
+              <div>
+                <label for="apartments-city" class="form-label d-block mb-2"><b>Preview immagini extra:</b></label>
+                <div class="preview-extra row" style="overflow-y: scroll; max-height: 120px;">
+  
+                </div>
+              </div>
 
               {{-- DESCRIZIONE --}}
               <div class="form-group mt-4">
@@ -49,6 +61,8 @@
                 <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
               </div>
             </div>
+          
+
           </div>
         </div> 
         
@@ -224,7 +238,7 @@
             document.getElementById('service_error').classList.add('d-none');
         }
     });
-});
+  });
 
   // FUNCTION PREVIEW IMG CARICATA
   document.getElementById("apartments-cover_img").addEventListener("change", function(e) {
@@ -233,9 +247,86 @@
       let imagePreview = document.querySelector(".preview");
       imagePreview.innerHTML = 
         `<img src="${event.target.result}" alt="Preview" class="img-fluid rounded mx-auto" max-height: 300px">`;
+        console.log("Files selezionati:", event.target.files);
     }
     reader.readAsDataURL(e.target.files[0]);
   });
+
+
+  const imageExtra = document.getElementById("images_extra");
+  
+  imageExtra.addEventListener("change", function(e) {
+    
+    let files = e.target.files;
+    let imageExtra = document.querySelector(".preview-extra");
+    
+    for (let i = 0; i < files.length; i++) {
+      let reader = new FileReader();
+      
+      reader.onload = function(event) {
+        let imageContent = event.target.result;
+        imageExtra.innerHTML += 
+        `<div class="col-3">
+          <img src="${imageContent}" alt="Preview" class="img-fluid rounded mx-auto" max-height: 300px">
+        </div>`;
+        console.log("Contenuto del file " + (i + 1) + ":", imageContent);
+      };
+      
+      reader.readAsDataURL(files[i]);
+    }
+
+
+  });
+
+
+
+
+
+  // // FUNCTION PREVIEW IMG CARICATA
+  // function updateImagePreview(imageURL) 
+  // {
+  //   const imagePreview = document.querySelector(".preview img");
+  //   imagePreview.src = imageURL;
+  // }
+
+  // document.getElementById("apartments-images").addEventListener("change", function(e) {
+  //   const fileList = e.target.files;
+  //   if (fileList && fileList.length > 0) 
+  //   {
+  //     updateImagePreview(URL.createObjectURL(fileList[0]));
+  //   }
+  // });
+
+  // // FUNCTION TO SET THE COVER IMAGE
+  // function setCoverImage(imageURL) {
+  //   const coverInput = document.getElementById("apartments-cover_img");
+  //   coverInput.value = imageURL;
+  // }
+
+  // document.querySelectorAll(".form-check-input").forEach(element => {
+  //   element.addEventListener("click", function(e) {
+  //     serviceCheck();
+  //     if (!elementoCheckd) 
+  //     {
+  //       document.getElementById('service_error').classList.remove('d-none');
+  //     } else 
+  //     {
+  //       document.getElementById('service_error').classList.add('d-none');
+  //     }
+  //   });
+  // });
+
+  // // FUNCTION TO HANDLE IMAGE CLICK (CHOOSE AS COVER IMAGE)
+  // document.querySelectorAll(".img-thumbnail").forEach(image => {
+  //   image.addEventListener("click", function() {
+  //     setCoverImage(this.src);
+  //     updateImagePreview(this.src);
+  //   });
+  // });
+
+
+
+
 
    // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
   let city = document.getElementById('apartments-city');

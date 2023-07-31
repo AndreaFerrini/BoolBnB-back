@@ -54,6 +54,7 @@ class ApartmentController extends Controller
      */
     public function store(ApartmentsCreateRequest $request)
     {
+        dd($request);
         // validazione
         $form_data = $request->validated();
       
