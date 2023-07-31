@@ -1,5 +1,37 @@
+//variabili per pagination
+$pagination-active-bg:   rgb(29,116,101);
+$pagination-active-border-color:rgb(23, 94, 82);
+$pagination-color:   rgb(23, 94, 82);
+$pagination-hover-color: rgb(29,116,101);
+$pagination-disabled-bg:  rgba(29, 116, 102, 0.226);
+$pagination-focus-box-shadow: 0 0 0 0.25rem  rgba(29, 116, 102, 0.226);
+
 @import '~bootstrap/scss/bootstrap';
 
+  .show{
+    background-color:  rgb(29,116,101)!important;
+    border:none!important;
+  }
+
+  .navbar-toggler {
+    color: white!important;
+    border: 0.5px solid rgb(255, 255, 255)!important;
+    z-index: 999999;
+}
+
+  .navbar-toggler-icon {
+      color: white!important;
+  }
+
+
+
+.dropdown-item:hover {
+    background-color: rgb(23, 94, 82)!important;
+} 
+
+.fa-magnifying-glass:hover{
+    color: rgb(16, 71, 62)!important;
+}
 
   .button {
     cursor: pointer;
