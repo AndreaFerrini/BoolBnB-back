@@ -101,6 +101,19 @@
                                 @else
                                 <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
                                 @endif
+                                @if ($apartment->pictures)
+                                <div class="d-flex">
+
+                                    @foreach ($apartment->pictures as $picture)
+                                    <div class="col-3 mt-2 pe-2" style="height: 100px; overflow: hidden">
+                                        <img class="h-100 w-100 object-fit-cover ob" src="{{asset('storage/' . $picture->picture_url)}}" alt="Card image cap">
+                                    </div>
+                                    
+                                    @endforeach
+
+                                </div>
+                                    
+                                @endif
                             </div>
                             <div class="col-8">
                                 <div>
