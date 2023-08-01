@@ -21,16 +21,35 @@
           @enderror
         </div>
 
-        <div class="form-group mt-4">
+        <div class="form-group mt-2">
           <div class="row">
             <div class="col-8">
-
-              {{-- IMMAGINE --}}
-              <label for="apartments-cover_img" class="form-label"><b>Scegli un'immagine:</b></label>
-              <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="Immagine" aria-describedby="fileHelpId">
+              
+              {{-- IMMAGINI --}}
+              <div class="my-4">
+                <label for="apartments-cover_img" class="form-label"><b>Scegli un'immagine di copertina:</b></label>
+                {{-- input cover img --}}
+                <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="Immagine" aria-describedby="fileHelpId">
+              </div>
+              
+              <div class="my-4">
+                <label for="images" class="form-label"><b>Carica altre immagini:</b></label>
+                {{-- input altre img --}}
+                <input type="file" name="images[]" id="images_extra" class="form-control mb-2" placeholder="Immagine" aria-describedby="fileHelpId" multiple>  
+              </div>
+              
               @error('cover_img')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
+
+              
+              {{-- PREVIEW IMG EXTRA --}}
+              <div class="my-2">
+                <label for="apartments-city" class="form-label d-block"><b>Preview immagini extra:</b></label>
+                <div class="preview-extra row" style="overflow-y: scroll; max-height: 140px;">
+  
+                </div>
+              </div>
 
               {{-- DESCRIZIONE --}}
               <div class="form-group mt-4">
@@ -49,6 +68,8 @@
                 <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
               </div>
             </div>
+          
+
           </div>
         </div> 
         
@@ -224,7 +245,7 @@
             document.getElementById('service_error').classList.add('d-none');
         }
     });
-});
+  });
 
   // FUNCTION PREVIEW IMG CARICATA
   document.getElementById("apartments-cover_img").addEventListener("change", function(e) {
@@ -233,11 +254,37 @@
       let imagePreview = document.querySelector(".preview");
       imagePreview.innerHTML = 
         `<img src="${event.target.result}" alt="Preview" class="img-fluid rounded mx-auto" max-height: 300px">`;
+        console.log("Files selezionati:", event.target.files);
     }
     reader.readAsDataURL(e.target.files[0]);
   });
 
-   // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
+
+  const imageExtra = document.getElementById("images_extra");
+  
+  imageExtra.addEventListener("change", function(e) {
+    
+    let files = e.target.files;
+    let imageExtra = document.querySelector(".preview-extra");
+    
+    for (let i = 0; i < files.length; i++) {
+      let reader = new FileReader();
+      
+      reader.onload = function(event) {
+        let imageContent = event.target.result;
+        imageExtra.innerHTML += 
+        `<div class="col-3">
+          <img src="${imageContent}" alt="Preview" class="img-fluid rounded mx-auto" max-height: 300px">
+        </div>`;
+        console.log("Contenuto del file " + (i + 1) + ":", imageContent);
+      };
+      
+      reader.readAsDataURL(files[i]);
+    }
+
+  });
+
+  // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
   let city = document.getElementById('apartments-city');
   let indirizzo = document.getElementById('apartments-address');
   let civico = document.getElementById('apartments-address_number');

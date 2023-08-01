@@ -133,10 +133,15 @@
                             $currentPageName = $store['page_name'];
                         @endphp
                     @endif
-                    <a href="{{ url('http://localhost:5174/') }}" class="nav-link active text-white me-5{{ $currentPageName !== 'Home' ? ' d-none' : '' }}">
+                    @if (File::exists(storage_path("app/public/front_end_url.txt")))
+                        @php
+                            $front_url = File::get(storage_path("app/public/front_end_url.txt"));
+                        @endphp
+                    <a href="{{ $front_url }}" class="nav-link active text-white me-5{{ $currentPageName !== 'Home' ? ' d-none' : '' }}">
                         <i class="fa-solid fa-house"></i>
                         <span>Home</span>
                     </a>
+                    @endif
                     @auth
                     @if (!Route::is('admin.apartments.index'))
                     <a href="{{ url('http://127.0.0.1:8000/admin/apartments') }}" class="nav-link active text-white me-5{{ $currentPageName !== 'Home' ? ' d-none' : '' }}">
