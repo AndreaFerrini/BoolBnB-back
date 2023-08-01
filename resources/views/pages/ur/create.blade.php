@@ -21,6 +21,14 @@
             <span style="color: red; text-transform: uppercase">{{ $message }}</span>
             @enderror
           </div>
+
+          <div class="form-group mt-4">
+            <label for="apartments-description" class="form-label"><b>Descrizione:</b> *</label>
+            <textarea id="apartments-description" required class="form-control" placeholder="Inserisci la descrizione dell'appartamento" rows="8" name="description">{{ old('description') }}</textarea>
+            @error('description')
+            <span style="color: red; text-transform: uppercase">{{ $message }}</span>
+            @enderror
+          </div>
         </div>
 
         <div class="form-group mt-2">
@@ -37,7 +45,7 @@
                 @enderror 
               </div>
               {{-- PREVIEW IMG --}}
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-6 my-4">
               <label for="apartments-city" class="form-label d-block mb-2"><b>Preview:</b></label>
               <div class="preview text-center d-inline-block p-3" style="max-height: 300px; width: 100%; overflow: hidden">
                 <img class="img-fluid mx-auto" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap"  style="max-height: 300px">
