@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Session;
+
 use App\Models\Message;
 use App\Models\User;
 use App\Models\Apartment;
@@ -99,6 +101,8 @@ class MessageController extends Controller
         $user_id = Auth::user()->id;
 
         $apartments = Apartment::where('user_id', $user_id)->get();
-        return view('dashboard', compact('apartments'));
+
+        Session::flash('success', 'Messagio eliminato correttamente.');
+        return redirect()->route('message');
     }
 }

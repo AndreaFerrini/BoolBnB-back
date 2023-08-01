@@ -4,33 +4,53 @@
 
 
 <div class="container-xl">
+    @if (session('success'))
+        <div class="alert alert-success mt-3"  id="successMessage">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="row mt-5">
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Messages</th>
-                    <th scope="col">Apartment</th>
-                    <th scope="col">Contact</th>
-                    <th scope="col">Message</th>
+                    <th scope="col">Appartamento</th>
+                    <th scope="col">Mittente</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Messagio</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
                 @foreach($messages as $message)
                 <tr>
-                    <th scope="row">
-                        {{ $message->created_at }}
-                        <button class="btn btn-danger mt-2 deleteButton" data-message-id="{{ $message->id }}">Elimina</button>
-                    </th>
                     <td>
                         @foreach($apartments as $apartment)
                             @if($message->apartment_id == $apartment->id)
-                                {{ $apartment->title }}
+                               <b>{{ $apartment->title }}</b> 
                             @endif
                         @endforeach
                     </td>
-                    <td>{{ $message->email }}</td>
-                    <td>{{ $message->email_body }}</td>
+                    <td>
+                        <span>
+                            {{$message->name}} {{$message->surname}}
+                        </span>
+                    </td>
+                    <td>
+                        <b>{{ $message->email }}</b>
+                    </td>
+
+                    <td class="px-3">
+                        {{ date('d/m/y', strtotime($message->created_at)) }}
+                    </td>                    
+                    <td style="overflow: auto">
+                        {{ $message->email_body }}
+                    </td>
+                    <td>
+                        <button class="btn btn-danger mt-2 deleteButton" data-message-id="{{ $message->id }}">Elimina</button>
+                    </td>
                 </tr>
+
                 @endforeach
             </tbody>
         </table>
@@ -106,7 +126,11 @@
 
         location.reload();
         
-    }
+    };
+
+    setTimeout(function() {
+        $("#successMessage").fadeOut("slow");
+    }, 5000); // 5000 milliseconds = 5 seconds
 </script>
 
 @endsection
