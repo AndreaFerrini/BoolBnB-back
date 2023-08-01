@@ -25,10 +25,10 @@
 
         <div class="form-group mt-2">
           <div class="row">
-            <div class="col-12 row">
+            <div class="col-12  row">
               
               {{-- IMMAGINI --}}
-              <div class="col-12 my-4">
+              <div class="col-12 col-lg-6 my-4">
                 <label for="apartments-cover_img" class="form-label"><b>Scegli un'immagine di copertina:</b></label>
                 {{-- input cover img --}}
                 <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="Immagine" aria-describedby="fileHelpId">
@@ -37,21 +37,21 @@
                 @enderror 
               </div>
               {{-- PREVIEW IMG --}}
-            <div class="col-12">
+            <div class="col-12 col-lg-6">
               <label for="apartments-city" class="form-label d-block mb-2"><b>Preview:</b></label>
               <div class="preview text-center d-inline-block p-3" style="max-height: 300px; width: 100%; overflow: hidden">
-                <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
+                <img class="img-fluid mx-auto" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap"  style="max-height: 300px">
               </div>
             </div>
          
-            <div class="col-12 my-4">
+            <div class="col-12 col-lg-6 my-4">
               <label for="images" class="form-label"><b>Carica altre immagini:</b></label>
               {{-- input altre img --}}
               <input type="file" name="images[]" id="images_extra" class="form-control mb-2" placeholder="Immagine" aria-describedby="fileHelpId" multiple>  
             </div>
               
             {{-- PREVIEW IMG EXTRA --}}
-            <div class="my-2 col-12">
+            <div class="my-2 col-lg-6 col-12">
                 <label for="apartments-city" class="form-label d-block"><b>Preview immagini extra:</b></label>
                 <div class="preview-extra row">
                 </div>
@@ -63,7 +63,7 @@
         <div class="row">
 
           {{-- INDIRIZZO --}}
-          <div class="col-12">
+          <div class="col-12 col-lg-6">
             <div class="form-group mt-4">
                 <label for="apartments-address" class="form-label"><b>Via:</b> *</label>
                 <input type="text" required max="255" id="apartments-address" class="form-control" placeholder="Inserisci l'indirizzo dell'appartamento" name="address" value="{{ old('address') }}" list="apartments-address_list" onkeyup="getIndirizzoCompleto()"
@@ -78,7 +78,7 @@
           </div>
 
           {{-- CITTA' --}}
-          <div class="col-12">
+          <div class="col-12 col-md-6 col-lg-2">
             <div class="form-group mt-4">
               <label for="apartments-city" class="form-label"><b>Città:</b> *</label>
               {{-- <select name="city" id="apartments-city" class="form-control" required onchange="getCap()">
@@ -92,7 +92,7 @@
           </div>
 
           {{-- NUMERO CIVICO --}}
-          <div class="col-6">
+          <div class="col-6 col-md-3 col-lg-2">
             <div class="form-group mt-4">
               <label for="apartments-address_number" class="form-label"><b>Numero civico:</b> *</label>
               <input type="text" required max="9999" min="0001" id="apartments-address_number" class="form-control" placeholder="5B" name="address_number" value="{{ old('address_number') }}" pattern="[0-9a-zA-Z]+" onfocus="this.value=''">
@@ -103,7 +103,7 @@
           </div>
 
           {{-- CODICE POSTALE --}}
-          <div class="col-6">
+          <div class="col-6 col-md-3 col-lg-2">
             <div class="form-group mt-4">
               <label for="apartments-postal_code" class="form-label"><b>Codice postale:</b> *</label>
               <input type="text" required id="apartments-postal_code" class="form-control"  name="postal_code" list="apartments-cap_list" onkeyup="getCap()" autocomplete="off" pattern="[0-9]{1,5}" onfocus="this.value=''" value="{{ old('postal_code') }}">
@@ -119,7 +119,7 @@
         <div class="row">
 
           {{-- NUMERO DI STANZE --}}
-          <div class="col-6">
+          <div class="col-6 col-md-3">
             <div class="form-group mt-4">
               <label for="apartments-number_of_rooms" class="form-label"><b>Numero stanze:</b> *</label>
               <input type="number" required max="20" min="1" id="apartments-number_of_rooms" class="form-control" placeholder="3" name="number_of_rooms" value="{{ old('number_of_rooms') }}" pattern="[0-9]+">
@@ -130,7 +130,7 @@
           </div>
 
           {{-- NUMERO DI BAGNI --}}
-          <div class="col-6">
+          <div class="col-6 col-md-3">
             <div class="form-group mt-4">
               <label for="apartments-number_of_bathrooms" class="form-label"><b>Numero bagni:</b> *</label>
               <input type="number" required max="20" min="1" id="apartments-number_of_bathrooms" class="form-control" placeholder="2" name="number_of_bathrooms" value="{{ old('number_of_bathrooms') }}" pattern="[0-9]+">
@@ -141,7 +141,7 @@
           </div>
 
           {{-- MQ --}}
-          <div class="col-6">
+          <div class="col-6 col-md-3">
             <div class="form-group mt-4">
               <label for="apartments-square_meters" class="form-label"><b>Metri quadrati:</b> *</label>
               <input type="number" required max="1000" min="1" id="apartments-square_meters" class="form-control" placeholder="50" name="square_meters" value="{{ old('square_meters') }}" pattern="[0-9]+">
@@ -152,7 +152,7 @@
           </div>
 
           {{-- PREZZO --}}
-          <div class="col-6">
+          <div class="col-6 col-md-3">
               <div class="form-group mt-4">
                 <label for="apartments-price" class="form-label"><b>Prezzo a notte:</b> *</label>
                 <input type="number" required max="99999" min="1" id="apartments-price" class="form-control" placeholder="499,99" name="price" value="{{ old('price') }}" step="0.01" pattern="\d+(\.\d{1,2})?">
@@ -169,7 +169,7 @@
           <p id="service_error" class="d-none text-danger">Seleziona almeno un servizio</p>
           <div class="form-check d-flex flex-wrap">
             @foreach ($services as $service)
-            <div class="col-12">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-2">
                 <input class="form-check-input" type="checkbox" name="services[]" value="{{ $service->id }}" id="servicies-checkbox-{{ $service->id }}" @if(old('services') && in_array($service->id, old('services'))) checked @endif>
                 <label class="form-check-label" for="servicies-checkbox-{{ $service->id }}">{{ $service->name }}</label>
                 <br>
@@ -240,7 +240,7 @@
     reader.onload = function(event) {
       let imagePreview = document.querySelector(".preview");
       imagePreview.innerHTML = 
-        `<img src="${event.target.result}" alt="Preview" class="img-fluid rounded mx-auto" max-height: 300px">`;
+        `<img src="${event.target.result}" alt="Preview" class="img-fluid mx-auto" max-height: 300px">`;
         console.log("Files selezionati:", event.target.files);
     }
     reader.readAsDataURL(e.target.files[0]);
@@ -260,7 +260,7 @@
       reader.onload = function(event) {
         let imageContent = event.target.result;
         imageExtra.innerHTML += 
-        `<div class="col-12 mt-2">
+        `<div class="col-12 col-lg-3 mt-2">
           <img src="${imageContent}" alt="Preview" class=" rounded mx-auto w-100" >
         </div>`;
         console.log("Contenuto del file " + (i + 1) + ":", imageContent);
