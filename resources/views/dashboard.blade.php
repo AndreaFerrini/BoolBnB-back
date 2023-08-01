@@ -192,13 +192,13 @@
                                         <button id="deleteButton" style="border-color: red" type="button"><i class="fa-solid fa-trash-can text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></button>
                                     </form>
                                 </div>
-                                <div class="col-12 col-xl-3 text-center ">
+                                <div class="col-12 col-xl-3 text-center mt-2 mt-xl-0">
                                     <a href="{{route('admin.apartments.visibility', $apartment)}}" class="text-black text-decoration-none">
                                         <i class="fa-solid fa-eye{{$apartment->visibility ? '' : '-slash'}}"></i>
                                         cambia visibilità
                                     </a>
                                 </div>
-                                <div class="col-12 col-xl-3 text-center ">
+                                <div class="col-12 col-xl-3 text-center mt-2 mt-xl-0 ">
                                     <a class="btn btn-primary" href="{{route('sponsor', $apartment)}}">Sponsorizza</a>
                                 </div>
                                 
