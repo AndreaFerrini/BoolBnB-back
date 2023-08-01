@@ -14,6 +14,7 @@ use App\Config\Data_for_seeding\Bnb_api_client_functions;
 use App\Http\Requests\ApartmentsCreateRequest;
 use App\Http\Requests\ApartmentsEditRequest;
 use App\Models\Sponsor;
+use App\Models\Picture;
 
 // require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_api_client_functions.php';
 
@@ -132,8 +133,9 @@ class ApartmentController extends Controller
             $services = Service::all();
             $cities = config('data_storage.cities.cities');
             $tomtomApiKey = env('TOMTOM_API_KEY');
+            $apartmentImages = $apartment->pictures;
 
-            return view('pages.ura.edit', compact('services', 'cities', 'apartment', 'tomtomApiKey'));
+            return view('pages.ura.edit', compact('services', 'cities', 'apartment', 'tomtomApiKey', 'apartmentImages'));
         } else{
             return redirect()->route('admin.apartments.index')->with('negate', 'Non sei autorizzato ad entrare in questa pagina');
         };
@@ -187,6 +189,15 @@ class ApartmentController extends Controller
         
         // return view('dashboard', compact('apartments'));
         return redirect()->route('admin.apartments.index', compact('apartments'))->with('success', 'Hai modificato ' . $apartment['title']);
+    }
+
+    public function deleteSingle(Apartment $apartment, $id_image)
+    {
+        $singlePicture = Picture::find($id_image);
+        Storage::delete($singlePicture);
+        $singlePicture->delete();
+        
+        return redirect()->route('admin.apartments.index');
     }
 
     /**
