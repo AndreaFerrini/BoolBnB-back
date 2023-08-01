@@ -36,7 +36,9 @@ class ApartmentsCreateRequest extends FormRequest
             'square_meters' => ['required', 'int', 'min:1', 'max:1000'],
             'price' => ['required', 'numeric', 'min:1', 'max:99999'],
             'services' => ['required', 'exists:services,id'],
-            'visibility'=>['boolean']
+            'visibility'=>['boolean'],
+            'images' => ['array'],
+            'images.*' => ['image', 'mimes:jpeg,png'],
         ];
     }
 

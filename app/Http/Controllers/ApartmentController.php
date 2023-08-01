@@ -53,56 +53,61 @@ class ApartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ApartmentsCreateRequest $request)
-    {
-        // validazione
-        $form_data = $request->validated();
-      
-        // inizializzazione: indirizzo composto, path img, slug, user id, latitudine, longitudine
-        $indirizzo = $form_data['address'] . ' ' . str_replace(' ', '', $form_data['address_number']) . ' ' . $form_data['postal_code'];
-        if( $request->hasFile('cover_img') ){        
-            $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
-            $form_data['cover_img'] = $path;
-        } 
+{
+    // validazione
+    $form_data = $request->validated();
 
-        $slug = Str::slug($form_data['title']);
-        $user_id = Auth::user()->id;
-        $tomtomResponseJson = get_coordinates($indirizzo, $form_data['city']);
-        $tomtomResponseDecoded = json_decode($tomtomResponseJson, true);
-        $lat = $tomtomResponseDecoded['results'][0]['position']['lat'];
-        $long = $tomtomResponseDecoded['results'][0]['position']['lon'];
-        
-        // riempimento form data
-        $form_data['user_id'] = $user_id;
-        $form_data['slug'] = $slug;
-        $form_data['address'] = $indirizzo;
-        $form_data['longitude'] = $long;
-        $form_data['latitude'] = $lat;
+    // inizializzazione: indirizzo composto, path img, slug, user id, latitudine, longitudine
+    $indirizzo = $form_data['address'] . ' ' . str_replace(' ', '', $form_data['address_number']) . ' ' . $form_data['postal_code'];
+    if ($request->hasFile('cover_img')) {        
+        $path = Storage::disk('public')->put('cover_img', $form_data['cover_img']);
+        $form_data['cover_img'] = $path;
+    } 
 
-        
+    $uploadedImages = []; // Inizializza l'array vuoto per le immagini caricate
 
+    if ($request->hasFile('images')) {
+        $images = $request->file('images');
 
-        // inizializzazione nuovo appartamento
-        $new_apartment = new Apartment();
-
-        // compilazione entry e salvataggio
-        $new_apartment->fill($form_data);
-        $new_apartment->save();
-
-        // dd($new_apartment);
-        
-        $new_apartment->services()->attach( $form_data['services'] );
-
-        // $request->services()->attach($request->services);
-
-        // $cap = (explode(' ',$form_data['address']));
-        // dd(end($cap), $cap[count($cap) - 2]);
-
-        $user_id = Auth::user()->id;
-        $apartments = Apartment::where('user_id', $user_id)->get();
-        
-        return redirect()->route('admin.apartments.index', compact('apartments'))->with('success', 'Card creata con successo!');
-        // return view('dashboard', compact('apartments'));
+        foreach ($images as $image) {
+            $path = Storage::disk('public')->put('apartment_images', $image);
+            $uploadedImages[] = ['picture_url' => $path];
+        }
     }
+
+    $slug = Str::slug($form_data['title']);
+    $user_id = Auth::user()->id;
+    $tomtomResponseJson = get_coordinates($indirizzo, $form_data['city']);
+    $tomtomResponseDecoded = json_decode($tomtomResponseJson, true);
+    $lat = $tomtomResponseDecoded['results'][0]['position']['lat'];
+    $long = $tomtomResponseDecoded['results'][0]['position']['lon'];
+    
+    // riempimento form data
+    $form_data['user_id'] = $user_id;
+    $form_data['slug'] = $slug;
+    $form_data['address'] = $indirizzo;
+    $form_data['longitude'] = $long;
+    $form_data['latitude'] = $lat;
+
+    // inizializzazione nuovo appartamento
+    $new_apartment = new Apartment();
+
+    // compilazione entry e salvataggio
+    $new_apartment->fill($form_data);
+    $new_apartment->save();
+
+    // Collega le immagini caricate all'appartamento
+    if (!empty($uploadedImages)) {
+        $new_apartment->pictures()->createMany($uploadedImages);
+    }
+
+    $new_apartment->services()->attach($form_data['services']);
+
+    $user_id = Auth::user()->id;
+    $apartments = Apartment::where('user_id', $user_id)->get();
+    
+    return redirect()->route('admin.apartments.index', compact('apartments'))->with('success', 'Card creata con successo!');
+}
 
     /**
      * Display the specified resource.
