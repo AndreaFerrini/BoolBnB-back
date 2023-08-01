@@ -29,7 +29,7 @@ class ApartmentController extends Controller
         $user_id = Auth::user()->id;
         // dd(User::findOrFail($user_id));
         // dd($user->apartments();
-        $apartments = Apartment::where('user_id', $user_id)->get();
+        $apartments = Apartment::where('user_id', $user_id)->with('sponsors')->get();
         return view('dashboard', compact('apartments'));
     }
 

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-6 text-center">
             <h1 class="fs-4 text-secondary my-4 ms-2">
-                I tuoi Annunci 
+                I tuoi Annunci  
             </h1>
         </div>
     </div>
