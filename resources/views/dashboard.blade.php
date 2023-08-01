@@ -180,31 +180,12 @@
                                     <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary">Modifica</a>
                                 </div>
     
-                                <div class="col-6 col-xl-3 text-center ">
-                                    <!-- Modale di conferma -->
-                                    <div style="display: none;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                      <div class="modal-dialog">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Elimina appartamento</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                          </div>
-                                            <div class="modal-body">
-                                              <span class="">Sei sicuro di voler procedere ad eliminare l' appartamento?</span>
-                                            </div>
-                                          <div class="modal-footer">
-                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="confirmDelete">Conferma</button>
-                                            <button type="button" class="btn btn-primary" id="cancelDelete" data-bs-dismiss="modal">Annulla</button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    
+                                <div class="col-6 col-xl-3 text-center">
                                     <!-- Form di eliminazione -->
                                     <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST" class="delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button id="deleteButton" style="border-color: red" type="button"><i class="fa-solid fa-trash-can text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></button>
+                                        <button class="btn btn-danger mt-2">Elimina</button>
                                     </form>
                                 </div>
                                 <div class="col-12 col-xl-3 text-center mt-2 mt-xl-0">
@@ -214,9 +195,8 @@
                                     </a>
                                 </div>
                                 <div class="col-12 col-xl-3 text-center mt-2 mt-xl-0 ">
-                                    <a class="btn btn-warning text-white" href="{{route('sponsor', $apartment)}}">Sponsorizza</a>
+                                    <a class="btn btn-primary" href="{{route('sponsor', $apartment)}}">Sponsorizza</a>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -228,48 +208,7 @@
 
         @endif
     </div>
-    {{-- <a href="{{route('admin.apartments.index')}}">prova</a> --}}
-    </div>
-
-<script>
-    setTimeout(function () {
-        document.getElementById('welcome_banner').classList.add('d-none');
-    }, 8000);
-
-    setTimeout(function () {
-        document.getElementById('visibilita').classList.add('d-none');
-    }, 8000);
-
-
-    // Funzione per mostrare il modale di conferma
-    function showConfirmationModal() {
-        var modal = document.getElementById('exampleModal');
-        modal.style.display = 'block';
-    }
-
-    // Funzione per nascondere il modale di conferma
-    function hideConfirmationModal() {
-        var modal = document.getElementById('exampleModal');
-        modal.style.display = 'none';
-    }
-
-    // Aggiungi un gestore di eventi onclick al pulsante di eliminazione
-    document.getElementById('deleteButton').onclick = function() {
-        showConfirmationModal();
-    };
-
-    // Aggiungi un gestore di eventi onclick al pulsante di conferma nel modale
-    document.getElementById('confirmDelete').onclick = function() {
-        hideConfirmationModal();
-        // Invia il modulo solo se l'utente ha confermato
-        document.querySelector('.delete-form').submit();
-    };
-
-    // Aggiungi un gestore di eventi onclick al pulsante di annullamento nel modale
-    document.getElementById('cancelDelete').onclick = function() {
-        hideConfirmationModal();
-    };
-</script>
+</div>
 @endsection
 
 
