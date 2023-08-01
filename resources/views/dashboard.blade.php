@@ -77,7 +77,7 @@
         @endif
 
         @if(isset($apartments)) 
-        <div class="p-3 containe">
+        <div class="p-3">
             <div class="row">
                 @foreach ($apartments as $apartment)
                 <div class="p-3 col-12" >
@@ -86,10 +86,10 @@
                     style="background-color: rgba(128, 128, 128, 0.123)"
                         
                     @endif>
-                    <div class="row align-content-center px-2" style="min-height: 500px">
-                        <div class="col-4">
+                    <div class="row align-content-center px-2 py-4">
+                        <div class="col-12 col-lg-6 col-xl-4">
                             <div class="row p-3">
-                                <div style="height: 300px; width:400px;  overflow: hidden" >
+                                <div class="col-12"  style="  overflow: hidden; max-height: 300px" >
                                     @if ( $apartment->cover_img)
                                     <img class="h-100 w-100 object-fit-cover" src="{{asset('storage/' . $apartment->cover_img)}}" alt="Card image cap">
                                     @else
@@ -97,17 +97,17 @@
                                     @endif
                                 </div>
                                 @if ($apartment->pictures)
-                                <div class="d-flex flex-wrap">
+                                <div class="d-flex flex-wrap col-12">
                                     @foreach ($apartment->pictures as $picture)
                                     <div class="col-3 mt-2 pe-2" style="height: 100px; overflow: hidden">
                                         <img class="h-100 w-100 object-fit-cover" src="{{asset('storage/' . $picture->picture_url)}}" alt="Card image cap">
-                                    </div>
-                                    
+                                    </div>                                   
                                     @endforeach
                                 </div> 
                             </div>   
                         </div>
-                        <div class="col-8 pe-3">
+
+                        <div class="col-12 col-lg-6 pe-3 col-xl-8">
                             <h5 class="card-title text-center my-3">{{$apartment->title}}</h5>
                             <p class="text-center"><b>Visibiltà:</b>
                                 @if ($apartment->visibility === 1)
@@ -115,74 +115,96 @@
                                 @else
                                     privato
                                 @endif
-                                </p> 
+                            </p> 
                                 @endif
-                                <p class="card-text">{{$apartment->description}}</p>
-                                <p><i>{{$apartment->address}}, {{$apartment->city}}</i></p>
-                                <span><b>Longitudine:</b> {{$apartment->longitude}}</span>
-                                <span><b>Latitudine:</b> {{$apartment->latitude}}</span>
-                                <div class="mt-2">
-                                    <span><b>Stanze:</b>{{$apartment->number_of_rooms}}</span>
-                                    <span><b>Bagni:</b>{{$apartment->number_of_bathrooms}}</span>
-                                    <span><b>Superficie:</b>{{$apartment->square_meters}}Mq</span>
-                                </div>
-                                <div class="mt-3">
-                                    <span>
-                                        <b>Servizi:</b>
-                                    </span>
-                                    @foreach ($apartment->services as $service)
-                                    <span>
-                                        {{$service->name}}
-                                        <i class="{{$service->icon}}"></i>
-                                    </span>
-                                    @endforeach
-                                </div>
-                                <div class="row align-items-center mt-4">
-                                    <div class="col-2">
-                                        <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary">Modifica</a>
+                            <p class="text-center">
+                                <b>
+                                    prezzo:
+                                </b>
+                                {{$apartment->price}}&#8364;	
+                            </p>
+                            <div class="row">
+                                    <div class="col-12">
+                                        <p class="card-text">{{$apartment->description}}</p>
                                     </div>
-        
-                                    <div class="col-1">
-                                        <!-- Modale di conferma -->
-                                        <div style="display: none;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                          <div class="modal-dialog">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Elimina appartamento</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                              </div>
-                                                <div class="modal-body">
-                                                  <span class="">Sei sicuro di voler procedere ad eliminare l' appartamento?</span>
-                                                </div>
-                                              <div class="modal-footer">
-                                               <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="confirmDelete">Conferma</button>
-                                                <button type="button" class="btn btn-primary" id="cancelDelete" data-bs-dismiss="modal">Annulla</button>
-                                              </div>
+                                    <div class="col-12 mt-3">
+                                        <p><i>{{$apartment->address}}, {{$apartment->city}}</i></p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span><b>Longitudine:</b> {{$apartment->longitude}}</span>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span><b>Latitudine:</b> {{$apartment->latitude}}</span>
+                                    </div>
+                                    <div class="col-12 col-md-4 mt-md-2">
+                                        <span><b>Stanze:</b>{{$apartment->number_of_rooms}}</span>
+                                    </div>
+                                    <div class="col-12 col-md-4 mt-md-2">
+                                        <span><b>Bagni:</b>{{$apartment->number_of_bathrooms}}</span>
+                                    </div>
+                                    <div class="col-12 col-md-4 mt-md-2">
+                                        <span><b>Superficie:</b>{{$apartment->square_meters}}Mq</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mt-3 row">
+                                            <span>
+                                                <b>Servizi:</b>
+                                            </span>
+                                            @foreach ($apartment->services as $service)
+                                            <div class="col-12 col-md-6 col-lg-4">
+                                                <i class="{{$service->icon}} me-2"></i>
+                                                {{$service->name}}
                                             </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center justify-content-center mt-4">
+                                <div class="col-6 col-xl-3 text-center ">
+                                    <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary">Modifica</a>
+                                </div>
+    
+                                <div class="col-6 col-xl-3 text-center ">
+                                    <!-- Modale di conferma -->
+                                    <div style="display: none;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Elimina appartamento</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                            <div class="modal-body">
+                                              <span class="">Sei sicuro di voler procedere ad eliminare l' appartamento?</span>
+                                            </div>
+                                          <div class="modal-footer">
+                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="confirmDelete">Conferma</button>
+                                            <button type="button" class="btn btn-primary" id="cancelDelete" data-bs-dismiss="modal">Annulla</button>
                                           </div>
                                         </div>
-                                        
-                                        <!-- Form di eliminazione -->
-                                        <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST" class="delete-form">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button id="deleteButton" style="border-color: red" type="button"><i class="fa-solid fa-trash-can text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></button>
-                                        </form>
+                                      </div>
                                     </div>
-                                    <div class="col-3">
-                                        <a href="{{route('admin.apartments.visibility', $apartment)}}" class="text-black text-decoration-none">
-                                            <i class="fa-solid fa-eye{{$apartment->visibility ? '' : '-slash'}}"></i>
-                                            cambia visibilità
-                                        </a>
-                                    </div>
-        
-                                    <div class="col-3">
-                                        <a class="btn btn-primary" href="{{route('sponsor', $apartment)}}">Sponsorizza</a>
-                                    </div>
-        
+                                    
+                                    <!-- Form di eliminazione -->
+                                    <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST" class="delete-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button id="deleteButton" style="border-color: red" type="button"><i class="fa-solid fa-trash-can text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></button>
+                                    </form>
                                 </div>
+                                <div class="col-12 col-xl-3 text-center ">
+                                    <a href="{{route('admin.apartments.visibility', $apartment)}}" class="text-black text-decoration-none">
+                                        <i class="fa-solid fa-eye{{$apartment->visibility ? '' : '-slash'}}"></i>
+                                        cambia visibilità
+                                    </a>
+                                </div>
+                                <div class="col-12 col-xl-3 text-center ">
+                                    <a class="btn btn-primary" href="{{route('sponsor', $apartment)}}">Sponsorizza</a>
+                                </div>
+                                
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
                 @endforeach
