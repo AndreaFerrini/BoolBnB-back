@@ -24,7 +24,7 @@
               {{-- COVER IMG --}}
               <label for="apartments-cover_img" class="form-label mt-4">Scegli un'immagine</label>
               <input type="file" class="form-control" name="cover_img" id="img-preview" placeholder="image" aria-describedby="fileHelpId">
-              <div class="preview mt-2 text-center d-inline-block"></div>
+              {{-- <div class="preview mt-2 text-center d-inline-block"></div> --}}
               @error('cover_img')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
@@ -39,8 +39,19 @@
               {{-- PREVIEW IMG EXTRA --}}
               <div class="my-2">
                 <label for="apartments-city" class="form-label d-block"><b>Preview immagini extra:</b></label>
-                <div class="preview-extra row" style="overflow-y: scroll; max-height: 140px;">
-  
+                <div class="preview-extra row" style="overflow-y: scroll; height: 180px;">
+                  {{-- INSERIRE IMMAGINI EXTRA SE GIA' PRESENTI --}}
+                  <div class="overflow-scroll">
+                    @if ($apartmentImages)
+                      @foreach ($apartmentImages as $image)
+                        <div class="col-3 m-3 position-relative d-inline-block">
+                          <img src="{{ asset('storage/' . $image->picture_url) }}" alt="Preview" class="img-fluid rounded mx-auto" style="height: 160px;">
+
+                          <a href="{{route('admin.apartment.deleteSingle', ['apartment' => $apartment, 'id_image' => $image->id])}}" id="delete_image" class="delete-image position-absolute top-0 start-0" data-image="{{ $image->picture_url }}" data-toggle="modal" data-target="#deleteModal" onclick="deleteImage(event)">&times;</a>
+                        </div>
+                      @endforeach
+                    @endif 
+                  </div>
                 </div>
               </div>
 
@@ -63,20 +74,9 @@
                 @else
                 <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
                 @endif
-              </div>
-
-              {{-- INSERIRE IMMAGINI EXTRA SE GIA' PRESENTI --}}
-              @if ($apartmentImages)
-                @foreach ($apartmentImages as $image)
-                  <div class="col-3">
-                    <img src="{{ asset('storage/' . $image->picture_url) }}" alt="Preview" class="img-fluid rounded mx-auto" max-height="300px">
-                    <a href="#" class="delete-image" data-image="{{ $image->picture_url }}" data-toggle="modal" data-target="#deleteModal">&times;</a>
-                  </div>
-                @endforeach
-              @endif
-              
+              </div> 
             </div>
-
+              
           </div>
         </div>
 
@@ -283,12 +283,13 @@
       reader.onload = function(event) {
         let imagePreview = document.querySelector("#box-preview");
         imagePreview.innerHTML = 
-          `<img src="${event.target.result}" alt="Preview" class="img-fluid rounded mx-auto" max-height: 300px">`;
+          `<img src="${event.target.result}" alt="Preview" class="img-fluid rounded mx-auto" max-height: 160px">`;
       }
       reader.readAsDataURL(e.target.files[0]);
     })
 
-    const imageExtra = document.getElementById("images_extra");
+  // FUNCTION IMG EXTRA
+  const imageExtra = document.getElementById("images_extra");
   
   imageExtra.addEventListener("change", function(e) {
     
@@ -311,6 +312,14 @@
     }
 
   });
+
+  const deleteImage = document.getElementById('delete_image');
+
+  // FUNCTION PER ELIMINARE L'IMMAGINE
+  deleteImage.addEventListener()
+
+
+
 
     function cleanAll(){
       let city = document.getElementById('apartments-city');

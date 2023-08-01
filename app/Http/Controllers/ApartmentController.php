@@ -14,6 +14,7 @@ use App\Config\Data_for_seeding\Bnb_api_client_functions;
 use App\Http\Requests\ApartmentsCreateRequest;
 use App\Http\Requests\ApartmentsEditRequest;
 use App\Models\Sponsor;
+use App\Models\Picture;
 
 // require_once __DIR__ . '../../../config/Data_For_Seeding/bnb_api_client_functions.php';
 
@@ -188,6 +189,15 @@ class ApartmentController extends Controller
         
         // return view('dashboard', compact('apartments'));
         return redirect()->route('admin.apartments.index', compact('apartments'))->with('success', 'Hai modificato ' . $apartment['title']);
+    }
+
+    public function deleteSingle(Apartment $apartment, $id_image)
+    {
+        $singlePicture = Picture::find($id_image);
+        Storage::delete($singlePicture);
+        $singlePicture->delete();
+        
+        return redirect()->route('admin.apartments.index');
     }
 
     /**
