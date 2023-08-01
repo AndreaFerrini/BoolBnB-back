@@ -21,13 +21,28 @@
 
             <div class="col-8">
 
-              {{-- IMMAGINE --}}
+              {{-- COVER IMG --}}
               <label for="apartments-cover_img" class="form-label mt-4">Scegli un'immagine</label>
               <input type="file" class="form-control" name="cover_img" id="img-preview" placeholder="image" aria-describedby="fileHelpId">
               <div class="preview mt-2 text-center d-inline-block"></div>
               @error('cover_img')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
+
+              {{-- IMG EXTRA --}}
+              <div class="my-4">
+                <label for="images" class="form-label"><b>Carica altre immagini:</b></label>
+                {{-- input altre img --}}
+                <input type="file" name="images[]" id="images_extra" class="form-control mb-2" placeholder="Immagine" aria-describedby="fileHelpId" multiple>  
+              </div>
+
+              {{-- PREVIEW IMG EXTRA --}}
+              <div class="my-2">
+                <label for="apartments-city" class="form-label d-block"><b>Preview immagini extra:</b></label>
+                <div class="preview-extra row" style="overflow-y: scroll; max-height: 140px;">
+  
+                </div>
+              </div>
 
               {{-- DESCRIZIONE --}}
               <div class="form-group">
@@ -49,7 +64,19 @@
                 <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
                 @endif
               </div>
+
+              {{-- INSERIRE IMMAGINI EXTRA SE GIA' PRESENTI --}}
+              @if ($apartmentImages)
+                @foreach ($apartmentImages as $image)
+                  <div class="col-3">
+                    <img src="{{ asset('storage/' . $image->picture_url) }}" alt="Preview" class="img-fluid rounded mx-auto" max-height="300px">
+                    <a href="#" class="delete-image" data-image="{{ $image->picture_url }}" data-toggle="modal" data-target="#deleteModal">&times;</a>
+                  </div>
+                @endforeach
+              @endif
+              
             </div>
+
           </div>
         </div>
 
@@ -260,6 +287,30 @@
       }
       reader.readAsDataURL(e.target.files[0]);
     })
+
+    const imageExtra = document.getElementById("images_extra");
+  
+  imageExtra.addEventListener("change", function(e) {
+    
+    let files = e.target.files;
+    let imageExtra = document.querySelector(".preview-extra");
+    
+    for (let i = 0; i < files.length; i++) {
+      let reader = new FileReader();
+      
+      reader.onload = function(event) {
+        let imageContent = event.target.result;
+        imageExtra.innerHTML += 
+        `<div class="col-3">
+          <img src="${imageContent}" alt="Preview" class="img-fluid rounded mx-auto" max-height: 300px">
+        </div>`;
+        console.log("Contenuto del file " + (i + 1) + ":", imageContent);
+      };
+      
+      reader.readAsDataURL(files[i]);
+    }
+
+  });
 
     function cleanAll(){
       let city = document.getElementById('apartments-city');

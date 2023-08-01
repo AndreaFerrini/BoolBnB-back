@@ -132,8 +132,9 @@ class ApartmentController extends Controller
             $services = Service::all();
             $cities = config('data_storage.cities.cities');
             $tomtomApiKey = env('TOMTOM_API_KEY');
+            $apartmentImages = $apartment->pictures;
 
-            return view('pages.ura.edit', compact('services', 'cities', 'apartment', 'tomtomApiKey'));
+            return view('pages.ura.edit', compact('services', 'cities', 'apartment', 'tomtomApiKey', 'apartmentImages'));
         } else{
             return redirect()->route('admin.apartments.index')->with('negate', 'Non sei autorizzato ad entrare in questa pagina');
         };
