@@ -109,42 +109,56 @@
 
                         <div class="col-12 col-lg-6 pe-3 col-xl-8">
                             <h5 class="card-title text-center my-3">{{$apartment->title}}</h5>
-                            <p class="text-center"><b>Visibiltà:</b>
-                                @if ($apartment->visibility === 1)
-                                    pubblico
-                                @else
-                                    privato
-                                @endif
-                            </p> 
-                                @endif
-                            <p class="text-center">
-                                <b>
-                                    prezzo:
-                                </b>
-                                {{$apartment->price}}&#8364;	
-                            </p>
+                            <hr>
                             <div class="row">
-                                    <div class="col-12">
+                                <div class="col-12 col-lg-6 text-center">
+                                    <span><b>Visibiltà:</b>
+                                        @if ($apartment->visibility === 1)
+                                            pubblico
+                                        @else
+                                            privato
+                                        @endif
+                                    </span> 
+                                        @endif
+                                </div>
+                                <div class="col-12 col-lg-6 text-center">
+                                    <span>
+                                        <b>
+                                            prezzo:
+                                        </b>
+                                        {{$apartment->price}}&#8364;	
+                                    </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                    <div class="col-12 mb-3">
                                         <p class="card-text">{{$apartment->description}}</p>
                                     </div>
-                                    <div class="col-12 mt-3">
+                                    <hr>
+                                    <div class="col-12 mt-1">
                                         <p><i>{{$apartment->address}}, {{$apartment->city}}</i></p>
+                                        <iframe
+                                        src="https://www.google.com/maps?q={{ $apartment->latitude }},{{ $apartment->longitude }}&z=17&output=embed&iwloc=near"
+                                        width="100%"
+                                        height="200"
+                                        frameborder="0"
+                                        style="border:0;"
+                                        allowfullscreen=""
+                                        loading="lazy"
+                                      ></iframe>
                                     </div>
-                                    <div class="col-12 col-md-6">
-                                        <span><b>Longitudine:</b> {{$apartment->longitude}}</span>
+                                    <hr>
+                                    <div class="col-12 col-md-4 my-md-2">
+                                        <span><b>Stanze:</b> {{$apartment->number_of_rooms}}</span>
                                     </div>
-                                    <div class="col-12 col-md-6">
-                                        <span><b>Latitudine:</b> {{$apartment->latitude}}</span>
+                                    <div class="col-12 col-md-4 my-md-2">
+                                        <span><b>Bagni:</b> {{$apartment->number_of_bathrooms}}</span>
                                     </div>
-                                    <div class="col-12 col-md-4 mt-md-2">
-                                        <span><b>Stanze:</b>{{$apartment->number_of_rooms}}</span>
+                                    <div class="col-12 col-md-4 mb-3 my-md-2">
+                                        <span><b>Superficie:</b> {{$apartment->square_meters}}Mq</span>
                                     </div>
-                                    <div class="col-12 col-md-4 mt-md-2">
-                                        <span><b>Bagni:</b>{{$apartment->number_of_bathrooms}}</span>
-                                    </div>
-                                    <div class="col-12 col-md-4 mt-md-2">
-                                        <span><b>Superficie:</b>{{$apartment->square_meters}}Mq</span>
-                                    </div>
+                                    <hr>
                                     <div class="col-12">
                                         <div class="mt-3 row">
                                             <span>
