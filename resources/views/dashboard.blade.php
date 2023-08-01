@@ -93,7 +93,7 @@
                                     @if ( $apartment->cover_img)
                                     <img class="h-100 w-100 object-fit-cover" src="{{asset('storage/' . $apartment->cover_img)}}" alt="Card image cap">
                                     @else
-                                    <img class="img-fluid" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
+                                    <img class="h-100 w-100 object-fit-cover" src="https://www.bellearti.com/sites/default/files/custom/img_non_disponibile/img_non_disponibile.jpg" alt="Card image cap">
                                     @endif
                                 </div>
                                 @if ($apartment->pictures)
