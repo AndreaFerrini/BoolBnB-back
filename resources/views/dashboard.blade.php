@@ -213,7 +213,7 @@
                                     </a>
                                 </div>
                                 <div class="col-12 col-xl-3 text-center mt-2 mt-xl-0 ">
-                                    <a class="btn btn-primary" href="{{route('sponsor', $apartment)}}">Sponsorizza</a>
+                                    <a class="btn btn-warning text-white" href="{{route('sponsor', $apartment)}}">Sponsorizza</a>
                                 </div>
                                 
                             </div>
