@@ -21,25 +21,32 @@
           @enderror
         </div>
 
-        <div class="form-group mt-4">
+        <div class="form-group mt-2">
           <div class="row">
             <div class="col-8">
-
-              {{-- IMMAGINE --}}
-              <label for="apartments-cover_img" class="form-label"><b>Scegli un'immagine:</b></label>
-              {{-- input cover img --}}
-              <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="Immagine" aria-describedby="fileHelpId">
-              {{-- input altre img --}}
-              <label for="images" class="form-label">Carica altre immagini</label>
-              <input type="file" name="images[]" id="images_extra" class="form-control-file" multiple>
+              
+              {{-- IMMAGINI --}}
+              <div class="my-4">
+                <label for="apartments-cover_img" class="form-label"><b>Scegli un'immagine di copertina:</b></label>
+                {{-- input cover img --}}
+                <input type="file" class="form-control" name="cover_img" id="apartments-cover_img" placeholder="Immagine" aria-describedby="fileHelpId">
+              </div>
+              
+              <div class="my-4">
+                <label for="images" class="form-label"><b>Carica altre immagini:</b></label>
+                {{-- input altre img --}}
+                <input type="file" name="images[]" id="images_extra" class="form-control mb-2" placeholder="Immagine" aria-describedby="fileHelpId" multiple>  
+              </div>
+              
               @error('cover_img')
               <span style="color: red; text-transform: uppercase">{{ $message }}</span>
               @enderror
 
+              
               {{-- PREVIEW IMG EXTRA --}}
-              <div>
-                <label for="apartments-city" class="form-label d-block mb-2"><b>Preview immagini extra:</b></label>
-                <div class="preview-extra row" style="overflow-y: scroll; max-height: 120px;">
+              <div class="my-2">
+                <label for="apartments-city" class="form-label d-block"><b>Preview immagini extra:</b></label>
+                <div class="preview-extra row" style="overflow-y: scroll; max-height: 140px;">
   
                 </div>
               </div>
@@ -275,60 +282,9 @@
       reader.readAsDataURL(files[i]);
     }
 
-
   });
 
-
-
-
-
-  // // FUNCTION PREVIEW IMG CARICATA
-  // function updateImagePreview(imageURL) 
-  // {
-  //   const imagePreview = document.querySelector(".preview img");
-  //   imagePreview.src = imageURL;
-  // }
-
-  // document.getElementById("apartments-images").addEventListener("change", function(e) {
-  //   const fileList = e.target.files;
-  //   if (fileList && fileList.length > 0) 
-  //   {
-  //     updateImagePreview(URL.createObjectURL(fileList[0]));
-  //   }
-  // });
-
-  // // FUNCTION TO SET THE COVER IMAGE
-  // function setCoverImage(imageURL) {
-  //   const coverInput = document.getElementById("apartments-cover_img");
-  //   coverInput.value = imageURL;
-  // }
-
-  // document.querySelectorAll(".form-check-input").forEach(element => {
-  //   element.addEventListener("click", function(e) {
-  //     serviceCheck();
-  //     if (!elementoCheckd) 
-  //     {
-  //       document.getElementById('service_error').classList.remove('d-none');
-  //     } else 
-  //     {
-  //       document.getElementById('service_error').classList.add('d-none');
-  //     }
-  //   });
-  // });
-
-  // // FUNCTION TO HANDLE IMAGE CLICK (CHOOSE AS COVER IMAGE)
-  // document.querySelectorAll(".img-thumbnail").forEach(image => {
-  //   image.addEventListener("click", function() {
-  //     setCoverImage(this.src);
-  //     updateImagePreview(this.src);
-  //   });
-  // });
-
-
-
-
-
-   // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
+  // FUNCTION PER FILTRARE LE CITTA' SELEZIONABILI IN BASE ALLA VIA SCRITTA DALL'UTENTE
   let city = document.getElementById('apartments-city');
   let indirizzo = document.getElementById('apartments-address');
   let civico = document.getElementById('apartments-address_number');
