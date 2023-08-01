@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\File;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -43,6 +44,17 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('http://localhost:5173/');
+        if (File::exists(storage_path("app/public/front_end_url.txt")))
+        {
+
+            $front_url = File::get(storage_path("app/public/front_end_url.txt"));
+            return redirect($front_url);
+
+        } else {
+
+            return redirect('http://localhost:5173/');
+
+        }
+
     }
 }
