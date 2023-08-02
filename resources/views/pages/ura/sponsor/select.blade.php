@@ -43,7 +43,7 @@
         </div>
         <div class="col-10 col-sm-3 col-xl-3 m-2">
             <div class="p-sponsor-card text-center p-4">
-               <h2 class="">GOLD SONSOR</h2>
+               <h2 class="">GOLD SPONSOR</h2>
                <hr>
                <p class="pt-3">Eccellenza e prestigio ti aspettano con il nostro pacchetto Gold Sponsor della durata di 144 ore! Con una presenza di lunga durata, il pacchetto Gold Sponsor ti permette di mettere in mostra il tuo immobile a un vasto pubblico. Prendi il posto che meriti come protagonista.</p>
                <span>price: <strong>9.99</strong></span>
